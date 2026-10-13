@@ -1,5 +1,5 @@
-# 科研经历和工作经历都放这里；放进哪个板块由 target 决定。
-# 示例内容（虚构），迁移时替换。
+# Research and work experience. Which section an entry appears in is decided by each target.
+# Example content (fictional). Replace with your own.
 
 photonics-lab:
   company: { en: "Applied Photonics Lab, Lakeside University", zh: 湖畔大学应用光子学实验室 }
@@ -27,8 +27,8 @@ brightwave-intern:
     - en: Added hardware-in-the-loop tests to the CI pipeline
       zh: 在持续集成流程中加入硬件在环测试
 
-# 变体：继承 brightwave-intern 的公司、日期等，只改写 bullet。
-# id 里有 @ 时自动以 @ 前面的部分为 base，也可以显式写 base: xxx
+# A variant: inherits every field from brightwave-intern (the part before @)
+# and replaces only the fields written here. Use base: <id> to name another parent.
 brightwave-intern@data:
   highlights:
     - en: Built a pipeline to collect and visualise sensor logs from test runs

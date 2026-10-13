@@ -1,4 +1,4 @@
-# 生成的 PDF
+# Generated PDFs
 out/
 
 # Python
@@ -6,7 +6,7 @@ __pycache__/
 *.pyc
 .venv/
 
-# 系统与编辑器
+# OS and editors
 .DS_Store
 .vscode/
 .idea/

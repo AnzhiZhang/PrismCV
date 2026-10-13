@@ -1,100 +1,187 @@
-# CV
+<!-- markdownlint-disable MD033 MD041 -->
 
-一份内容，生成所有版本的简历。内容放在 `content/`，每个版本是 `targets/` 里的一个小文件，`build.py` 把两者拼成 RenderCV 的输入文件，再由 RenderCV 排版成 PDF。
+<div align="center">
 
-## 使用
+<h1>Prism CV</h1>
 
-用 conda 的 `rendercv` 环境（Python 3.12 以上）。第一次需要装依赖：
+<p><strong>One source, every CV.</strong></p>
+
+<p>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+  <img alt="Python 3.12+" src="https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white">
+  <a href="https://github.com/rendercv/rendercv"><img alt="RenderCV 2.8" src="https://img.shields.io/badge/RenderCV-2.8-blue"></a>
+  <a href="README.zh-CN.md"><img alt="中文" src="https://img.shields.io/badge/README-%E4%B8%AD%E6%96%87-blue"></a>
+</p>
+
+</div>
+
+Keep your whole career in one place and build every version of your CV from it: each language, academic and industry, and one tailored to each job.
+
+## Why
+
+Once you have a CV in two languages, an academic and an industry version, and a few copies tailored to specific jobs, the same experience lives in many files. Change one bullet and you have to find every copy. Sooner or later they drift apart.
+
+Prism CV keeps each piece of content in exactly one place. A version of your CV is just a short list of what to include, so changing an entry updates every version the next time you build.
+
+## How it works
+
+```mermaid
+flowchart LR
+    C["content/<br/>all entries, written once,<br/>languages side by side"]
+    T["targets/x.yaml<br/>which entries, in what order,<br/>what is reworded"]
+    B["build.py<br/>pick entries, apply overrides,<br/>resolve each language"]
+    Y["RenderCV input<br/>one YAML per language"]
+    R["RenderCV + Typst<br/>layout and typography"]
+    P["out/x/*.pdf"]
+
+    C --> B
+    T --> B
+    B --> Y --> R --> P
+```
+
+[RenderCV](https://github.com/rendercv/rendercv) turns a single YAML file into a well-typeset PDF, but it reads only one file per CV, and the content of that file cannot be split up or shared. Prism CV is a thin layer in front of it: `build.py` assembles that file from your content and a target, then hands it to RenderCV. All layout and typography is RenderCV's.
+
+## Quick start
+
+Requires Python 3.12 or later.
 
 ```sh
-conda activate rendercv
 pip install -r requirements.txt
+python build.py --all
 ```
 
-中文版用 Noto Sans SC（思源黑体），需要先安装到系统：从 [Google Fonts](https://fonts.google.com/noto/specimen/Noto+Sans+SC) 下载，安装解压后 `static/` 里的字体文件，不要装可变字体（`VariableFont`），Typst 对它支持不完整。
+PDFs appear in `out/<target>/`. The repository ships with a fictional example CV so you can see the result straight away; replace the files in `content/` with your own.
 
-之后：
+The Chinese example uses [Noto Sans SC](https://fonts.google.com/noto/specimen/Noto+Sans+SC). Install the files in its `static/` folder; skip the variable font, which Typst does not fully support.
 
 ```sh
-conda activate rendercv
-python build.py industry                              # 生成一个版本
-python build.py jobs/2026-10-15_example-data-engineer    # 生成一个岗位版本
-python build.py --all                                 # 生成全部版本
-python build.py industry --lang en                    # 只生成英文
-python build.py industry --debug                      # 保留中间文件，排查用
+python build.py industry                               # one target
+python build.py jobs/2026-10-15_example-data-engineer  # a target in a subfolder
+python build.py industry --lang en                     # one language only
+python build.py industry --debug                       # keep the RenderCV input for inspection
 ```
 
-PDF 生成在 `out/<版本>/` 下。排查问题时加 `--debug`，会在 PDF 旁边留下拼好的 RenderCV 输入文件（`.yaml`）和 Typst 源文件（`.typ`）。
+## Themes
 
-## 目录
+The example CV in each of RenderCV's built-in themes. Switch with `theme` in `design.yaml`.
 
+![The example CV rendered in nine themes: classic, engineeringresumes, sb2nov, moderncv, engineeringclassic, harvard, ink, opal and ember](docs/themes.en.jpg)
+
+The Chinese settings in `design.yaml` are tuned for `classic`; other themes may need their own entry templates.
+
+## Layout
+
+```text
+content/
+  header.yaml     name and contact details
+  sections.yaml   section titles
+  *.yaml          entries, split into files however you like
+targets/          one file per version of the CV
+  jobs/           versions tailored to a job, named date_company_role.yaml
+design.yaml       languages, theme, fonts and date formats
 ```
-content/          所有内容（按板块分文件，文件名随意，id 全局唯一）
-  header.yaml     姓名、联系方式
-  sections.yaml   板块标题的中英对照
-targets/          每个版本一个文件
-  jobs/           岗位定制版本，命名：日期_公司_岗位.yaml
-design.yaml       排版设置（字体、A4、中文日期格式等）
-```
 
-## 写内容
+## Writing content
 
-**中英文规则**：写纯文本表示中英相同，写成 `{ en: ..., zh: ... }` 表示分语言。
+Every entry has an id that is unique across `content/`. Fields use RenderCV's names (see the [RenderCV docs](https://docs.rendercv.com)).
+
+Text that is the same in every language is written once. Text that differs is a mapping from language code to text:
 
 ```yaml
 brightwave-intern:
   company: { en: Brightwave Robotics, zh: 明波机器人 }
   position: { en: Embedded Software Intern, zh: 嵌入式软件实习生 }
-  location: { en: "Montreal, Canada", zh: 蒙特利尔 }# 含逗号的文字要加引号
+  location: { en: "Montreal, Canada", zh: 蒙特利尔 }
   start_date: 2025-05
-  end_date: present                                # 中文版自动显示“至今”
+  end_date: present
   highlights:
     - en: Wrote C++ drivers for an IMU
       zh: 编写惯性测量单元的 C++ 驱动
 ```
 
-- 某种语言不需要某条 bullet：写 `zh: null`。
-- 两种语言条数差别大：`highlights: { en: [...], zh: [...] }`。
-- 一个 id 也可以对应一组条目（列表），比如 `skills.yaml` 里的技能分组。
-- 只有 `text` 字段的条目是一段文字，用于个人简介。
-- 条目的字段名就是 RenderCV 的字段名，见 [RenderCV 文档](https://docs.rendercv.com)。
+- Put text that contains a comma in quotes, as in `"Montreal, Canada"`.
+- Leave a bullet out of one language with `zh: null`.
+- If the languages need different numbers of bullets, write `highlights: { en: [...], zh: [...] }`.
+- An id can hold a list of entries, such as a group of skills.
+- An entry with only a `text` field is a plain paragraph, used for profiles.
 
-## 写版本
+## Writing targets
 
 ```yaml
-langs: [en, zh]     # 生成哪些语言，默认两种都生成
-max_pages: 1        # 超过页数会警告，不写则不限
-sections:           # 板块顺序就是输出顺序
+langs: [en, zh]
+max_pages: 1
+sections:
   profile: [profile-industry]
   education: [meng, bsc]
   work: [brightwave-intern, greenleaf-analyst]
 ```
 
-板块的 key 要在 `content/sections.yaml` 里有标题。
+Sections appear in the order written. Each key needs a title in `content/sections.yaml`. `langs` defaults to every configured language; leave out `max_pages` for no limit.
 
-## 定制
+## Tailoring
 
 ```yaml
 sections:
   profile:
-    - text: 直接写一段只给这个岗位用的简介
+    - text: A paragraph written for this job only.
   work:
-    title: Experience               # 只对这个版本改标题
+    title: Experience
     entries:
-      - brightwave-intern@data      # 引用变体
-      - greenleaf-analyst:          # 覆盖字段，没写的沿用原文
+      - brightwave-intern@data
+      - greenleaf-analyst:
           highlights:
-            - Rewritten bullet for this role
+            - A bullet reworded for this job
 ```
 
-**变体**：在 content 里写 `原id@名字`，自动继承原条目，只写要改的字段（也可以显式写 `base: 原id`）。只用一次的改写放在 target 里覆盖；会用到两次以上就做成变体。约定：日期或机构变了就新建条目，不要用变体。
+- **Inline entry**: write the entry directly in the target.
+- **Override**: `id: {fields}` replaces those fields and keeps the rest.
+- **Variant**: an id such as `brightwave-intern@data` in `content/` inherits every field from `brightwave-intern` and replaces only the ones it lists (`base: <id>` names a different parent).
+- **Title**: `title:` renames a section for one target.
 
-## 检查
+Rewording used once belongs in the target; rewording you will reuse belongs in a variant. If the dates or organisation change, it is a different entry, not a variant.
 
-build.py 会报告：id 重复、id 不存在、某种语言缺少文本、同一板块混入不同类型的条目、板块缺少标题，以及页数超过 `max_pages`。日期格式等由 RenderCV 自己校验。
+## Languages
 
-## 注意
+English and Chinese are configured as an example; any language works. To add one:
 
-- 投递版本的 PDF 自己另存。job 文件引用的是 content，以后 content 改了，重新生成的内容也会变。
-- RenderCV 版本固定在 `requirements.txt`，升级前先确认 YAML 格式是否有变化。
-- bullet 里不要写 ` - `，RenderCV 会把它当成子列表。
+1. Add its code to `languages` in `design.yaml`.
+2. In `design.yaml`, give that code a value wherever the existing languages have one: font, date format, entry templates and `locale.language` (one of the languages RenderCV supports).
+3. Add text in the new language to the content its targets use. The build tells you exactly which fields are missing.
+
+The first language in the list names the PDF files.
+
+## Checks
+
+`build.py` stops with the file and position when an id is duplicated or unknown, text is missing for a language, a section mixes entry types or has no title, or `max_pages` is not a positive number. It warns when a PDF is longer than `max_pages`. Dates and field formats are validated by RenderCV.
+
+## Notes
+
+- RenderCV is pinned in `requirements.txt`; its YAML format has changed between major versions.
+- A bullet containing ` - ` is read by RenderCV as a nested list.
+- A target refers to content, so rebuilding it after editing `content/` gives the new wording. Keep a copy of every PDF you send.
+
+## License
+
+```text
+MIT License
+
+Copyright (c) 2026 Andy Zhang
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```

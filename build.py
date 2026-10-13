@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
-"""Assemble RenderCV input files from content/ + targets/, then render PDFs.
+"""Build CV PDFs from content/ and targets/ with RenderCV.
 
-Usage:
-    python build.py industry                 # one target (both langs it lists)
-    python build.py jobs/2026-10-15_acme     # a job target
-    python build.py --all                    # every target
-    python build.py industry --lang en       # only one language
-    python build.py industry --debug         # also keep the assembled YAML and Typst files
+    python build.py industry          build one target
+    python build.py --all             build every target
+    python build.py industry --lang en
+    python build.py industry --debug  keep the generated RenderCV input next to the PDF
 """
 
 from __future__ import annotations
 
 import argparse
 import copy
+import functools
 import re
 import shutil
 import subprocess
@@ -29,12 +28,11 @@ TARGETS = ROOT / "targets"
 OUT = ROOT / "out"
 DESIGN = ROOT / "design.yaml"
 
-LANGS = ("en", "zh")
 SPECIAL_FILES = {"header.yaml", "sections.yaml"}
 SCHEMA = "https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json"
 
-# Field names RenderCV entries can have. A one-key mapping in a target whose key
-# is not an id and not one of these is almost certainly a mistyped id.
+# Fields a RenderCV entry can have. A one-key item in a target whose key is
+# neither an id nor one of these is reported as an unknown id.
 ENTRY_FIELDS = {
     "text", "bullet", "label", "details", "number", "reversed_number",
     "company", "position", "institution", "area", "degree", "name",
@@ -42,48 +40,61 @@ ENTRY_FIELDS = {
     "date", "start_date", "end_date", "location",
 }
 
-OMIT = object()  # a value explicitly set to null for one language
+# Marks text explicitly set to null for one language, so it is left out.
+OMIT = object()
 
 
 class BuildError(Exception):
     pass
 
 
-# ---------------------------------------------------------------- loading
-
 def load_yaml(path: Path):
     with open(path, encoding="utf-8") as f:
         return yaml.safe_load(f)
-
-
-def load_pool() -> tuple[dict, dict]:
-    """Merge every content/*.yaml (except header/sections) into one id -> entry pool."""
-    pool, where = {}, {}
-    for path in sorted(CONTENT.rglob("*.yaml")):
-        if path.name in SPECIAL_FILES:
-            continue
-        data = load_yaml(path) or {}
-        if not isinstance(data, dict):
-            raise BuildError(f"{rel(path)}: top level must be a mapping of id -> entry")
-        for eid, entry in data.items():
-            if eid in pool:
-                raise BuildError(f"duplicate id '{eid}' in {rel(where[eid])} and {rel(path)}")
-            pool[eid], where[eid] = entry, path
-    return pool, where
 
 
 def rel(path: Path) -> str:
     return str(path.relative_to(ROOT))
 
 
-# ---------------------------------------------------------------- languages
+@functools.cache
+def load_design() -> tuple[tuple[str, ...], dict]:
+    """Return the configured languages and the RenderCV design settings."""
+    data = load_yaml(DESIGN) or {}
+    langs = data.pop("languages", None) or ["en"]
+    if not isinstance(langs, list) or not all(isinstance(l, str) for l in langs):
+        raise BuildError("design.yaml: languages must be a list of language codes")
+    return tuple(langs), data
+
+
+def languages() -> tuple[str, ...]:
+    return load_design()[0]
+
+
+def load_pool() -> dict:
+    """Merge every content file (except header and sections) into one id -> entry pool."""
+    pool, where = {}, {}
+    for path in sorted(CONTENT.rglob("*.yaml")):
+        if path.name in SPECIAL_FILES:
+            continue
+        data = load_yaml(path) or {}
+        if not isinstance(data, dict):
+            raise BuildError(f"{rel(path)}: top level must map ids to entries")
+        for eid, entry in data.items():
+            if eid in pool:
+                raise BuildError(f"duplicate id '{eid}' in {rel(where[eid])} and {rel(path)}")
+            pool[eid], where[eid] = entry, path
+    return pool
+
+
+# Languages
 
 def is_localized(value) -> bool:
-    return isinstance(value, dict) and bool(value) and set(value) <= set(LANGS)
+    return isinstance(value, dict) and bool(value) and set(value) <= set(languages())
 
 
 def localize(value, lang: str, where: str):
-    """Resolve every {en: ..., zh: ...} in value to the given language."""
+    """Replace every {en: ..., zh: ...} mapping inside value with the text for lang."""
     if is_localized(value):
         if lang not in value:
             raise BuildError(f"{where}: missing '{lang}' text")
@@ -91,9 +102,9 @@ def localize(value, lang: str, where: str):
             return OMIT
         return localize(value[lang], lang, where)
     if isinstance(value, dict):
-        if set(value) & set(LANGS):
-            extra = sorted(set(value) - set(LANGS))
-            raise BuildError(f"{where}: unexpected keys {extra} next to en/zh "
+        if set(value) & set(languages()):
+            extra = sorted(set(value) - set(languages()))
+            raise BuildError(f"{where}: unexpected keys {extra} next to language keys "
                              "- put text containing commas in quotes, e.g. en: \"London, UK\"")
         out = {}
         for k, v in value.items():
@@ -111,10 +122,10 @@ def localize(value, lang: str, where: str):
     return value
 
 
-# ---------------------------------------------------------------- entries
+# Entries
 
 def resolve_id(eid: str, pool: dict, stack: tuple = ()):
-    """Return a fresh copy of an entry, with its base (variant parent) applied."""
+    """Return a copy of an entry with its base entry (for variants) applied."""
     if eid not in pool:
         raise BuildError(f"unknown id '{eid}'")
     if eid in stack:
@@ -134,8 +145,12 @@ def resolve_id(eid: str, pool: dict, stack: tuple = ()):
     return parent
 
 
-def resolve_item(item, pool: dict, where: str) -> list:
-    """A target list item -> list of entries (an id may hold a list, e.g. a skills group)."""
+def resolve_item(item, pool: dict) -> list:
+    """Turn one item of a target section into a list of entries.
+
+    An item is an id, an id with fields to override, or an entry written inline.
+    An id may stand for a list of entries, such as a group of skills.
+    """
     if isinstance(item, str):
         entry = resolve_id(item, pool)
     elif isinstance(item, dict) and len(item) == 1 and next(iter(item)) in pool:
@@ -143,20 +158,20 @@ def resolve_item(item, pool: dict, where: str) -> list:
         entry = resolve_id(eid, pool)
         if override:
             if not isinstance(entry, dict):
-                raise BuildError(f"{where}: '{eid}' cannot be overridden field by field")
+                raise BuildError(f"'{eid}' is a list and cannot be overridden field by field")
             entry.update(copy.deepcopy(override))
     elif isinstance(item, dict):
         if len(item) == 1 and next(iter(item)) not in ENTRY_FIELDS:
-            raise BuildError(f"{where}: unknown id '{next(iter(item))}'")
-        entry = copy.deepcopy(item)  # an inline entry written directly in the target
+            raise BuildError(f"unknown id '{next(iter(item))}'")
+        entry = copy.deepcopy(item)
     else:
-        raise BuildError(f"{where}: cannot understand item {item!r}")
+        raise BuildError(f"cannot understand item {item!r}")
     entries = entry if isinstance(entry, list) else [entry]
     return [simplify(e) for e in entries]
 
 
 def simplify(entry):
-    """{text: ...} on its own is a plain text entry (e.g. a profile paragraph)."""
+    """An entry with only a text field becomes a plain paragraph."""
     if isinstance(entry, dict) and set(entry) == {"text"}:
         return entry["text"]
     return entry
@@ -177,9 +192,10 @@ def entry_kind(entry) -> str:
     return "unknown"
 
 
-# ---------------------------------------------------------------- assembling
+# Assembling
 
 def assemble(target_name: str, target: dict, lang: str, pool: dict) -> dict:
+    """Build the complete RenderCV input for one target in one language."""
     header = load_yaml(CONTENT / "header.yaml") or {}
     header.update(target.get("header") or {})
     titles = load_yaml(CONTENT / "sections.yaml") or {}
@@ -200,10 +216,9 @@ def assemble(target_name: str, target: dict, lang: str, pool: dict) -> dict:
         entries = []
         for i, item in enumerate(items):
             try:
-                resolved = resolve_item(item, pool, f"{where}[{i}]")
+                resolved = resolve_item(item, pool)
             except BuildError as e:
-                msg = str(e)
-                raise BuildError(msg if msg.startswith("targets/") else f"{where}[{i}]: {msg}") from None
+                raise BuildError(f"{where}[{i}]: {e}") from None
             for e in resolved:
                 e = localize(e, lang, f"{where}[{i}]")
                 if e is not OMIT:
@@ -216,24 +231,16 @@ def assemble(target_name: str, target: dict, lang: str, pool: dict) -> dict:
         cv["sections"][title] = entries
 
     doc = {"cv": cv}
-    doc.update(localize(load_yaml(DESIGN) or {}, lang, "design.yaml"))
+    doc.update(localize(load_design()[1], lang, "design.yaml"))
     return doc
 
 
-def output_names(target_name: str, lang: str, english_name: str) -> tuple[Path, str]:
-    folder = OUT / target_name
-    stem = re.sub(r"\W+", "_", english_name).strip("_") or "CV"
-    return folder, f"{stem}_CV_{lang}"
-
-
 def write_input(doc: dict, folder: Path, stem: str) -> Path:
-    folder.mkdir(parents=True, exist_ok=True)
     settings = doc.setdefault("settings", {})
-    rc = settings.setdefault("render_command", {})
-    rc.update({
+    settings.setdefault("render_command", {}).update({
         "output_folder": ".",
         "pdf_path": f"{stem}.pdf",
-        "typst_path": f"{stem}.typ",  # needed: the PDF is compiled from it
+        "typst_path": f"{stem}.typ",
         "dont_generate_markdown": True,
         "dont_generate_html": True,
         "dont_generate_png": True,
@@ -241,7 +248,7 @@ def write_input(doc: dict, folder: Path, stem: str) -> Path:
     path = folder / f"{stem}.yaml"
     with open(path, "w", encoding="utf-8") as f:
         f.write(f"# yaml-language-server: $schema={SCHEMA}\n")
-        f.write("# Generated by build.py - edit content/ and targets/, not this file.\n")
+        f.write("# Generated by build.py. Edit content/ and targets/ instead.\n")
         yaml.safe_dump(doc, f, allow_unicode=True, sort_keys=False, width=1000)
     return path
 
@@ -249,14 +256,14 @@ def write_input(doc: dict, folder: Path, stem: str) -> Path:
 def render(yaml_path: Path) -> None:
     exe = shutil.which("rendercv", path=str(Path(sys.executable).parent)) or shutil.which("rendercv")
     if not exe:
-        raise BuildError("rendercv not found - activate the conda env first: conda activate rendercv")
+        raise BuildError("rendercv not found - install the requirements: pip install -r requirements.txt")
     proc = subprocess.run([exe, "render", yaml_path.name], cwd=yaml_path.parent,
                           capture_output=True, text=True)
     if proc.returncode != 0:
-        raise BuildError(f"RenderCV failed (run again with --debug to keep the input YAML):\n{proc.stdout}{proc.stderr}")
+        raise BuildError(f"RenderCV failed (run with --debug to keep its input):\n{proc.stdout}{proc.stderr}")
 
 
-# ---------------------------------------------------------------- CLI
+# Command line
 
 def all_targets() -> list[str]:
     return sorted(str(p.relative_to(TARGETS).with_suffix("")) for p in TARGETS.rglob("*.yaml"))
@@ -269,22 +276,34 @@ def normalise(name: str) -> str:
     return name
 
 
+def file_stem(lang: str) -> str:
+    """File name for a PDF, from the name in the first configured language."""
+    name = (load_yaml(CONTENT / "header.yaml") or {}).get("name", "CV")
+    name = localize(name, languages()[0], "header.name")
+    stem = re.sub(r"\W+", "_", str(name)).strip("_") or "CV"
+    return f"{stem}_CV_{lang}"
+
+
 def build(name: str, pool: dict, only_lang: str | None, debug: bool) -> list[str]:
+    """Build one target and return any warnings."""
     target = load_yaml(TARGETS / f"{name}.yaml") or {}
-    langs = target.get("langs") or list(LANGS)
+    langs = target.get("langs") or list(languages())
     limit = target.get("max_pages")
     if limit is not None and (not isinstance(limit, int) or isinstance(limit, bool) or limit < 1):
         raise BuildError(f"targets/{name}.yaml: max_pages must be a positive whole number (or left out for no limit)")
     if only_lang:
         langs = [l for l in langs if l == only_lang]
-    english_name = localize((load_yaml(CONTENT / "header.yaml") or {}).get("name", "CV"), "en", "header.name")
+        if not langs:
+            print(f"  - skipped: this target is not built in '{only_lang}'")
+
     warnings = []
     for lang in langs:
-        if lang not in LANGS:
-            raise BuildError(f"targets/{name}.yaml: unknown language '{lang}'")
+        if lang not in languages():
+            raise BuildError(f"targets/{name}.yaml: language '{lang}' is not listed in design.yaml")
         doc = assemble(name, target, lang, pool)
-        out_folder, stem = output_names(name, lang, english_name)
+        out_folder = OUT / name
         out_folder.mkdir(parents=True, exist_ok=True)
+        stem = file_stem(lang)
         pdf = out_folder / f"{stem}.pdf"
         with tempfile.TemporaryDirectory(prefix="cv-") as tmp:
             work = Path(tmp)
@@ -292,11 +311,12 @@ def build(name: str, pool: dict, only_lang: str | None, debug: bool) -> list[str
             try:
                 render(path)
             finally:
-                if debug:  # keep the intermediate files next to the PDF
+                if debug:
                     for suffix in (".yaml", ".typ"):
                         if (work / f"{stem}{suffix}").exists():
                             shutil.copy2(work / f"{stem}{suffix}", out_folder / f"{stem}{suffix}")
             shutil.copy2(work / f"{stem}.pdf", pdf)
+
         pages = len(PdfReader(pdf).pages)
         print(f"  ✓ {rel(pdf)}  ({pages} page{'s' if pages != 1 else ''})")
         if limit and pages > limit:
@@ -305,11 +325,11 @@ def build(name: str, pool: dict, only_lang: str | None, debug: bool) -> list[str
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Build CV PDFs from content/ and targets/.")
+    ap = argparse.ArgumentParser(description="Build CV PDFs from content/ and targets/ with RenderCV.")
     ap.add_argument("targets", nargs="*", help="target names, e.g. industry or jobs/2026-10-15_acme")
     ap.add_argument("--all", action="store_true", help="build every target")
-    ap.add_argument("--lang", choices=LANGS, help="only build this language")
-    ap.add_argument("--debug", action="store_true", help="also keep the assembled YAML and Typst files in out/")
+    ap.add_argument("--lang", help="only build this language")
+    ap.add_argument("--debug", action="store_true", help="keep the generated RenderCV input next to the PDF")
     args = ap.parse_args()
 
     if not args.targets and not args.all:
@@ -318,7 +338,9 @@ def main() -> int:
         return 1
 
     try:
-        pool, _ = load_pool()
+        if args.lang and args.lang not in languages():
+            raise BuildError(f"unknown language '{args.lang}' (configured: {', '.join(languages())})")
+        pool = load_pool()
         names = all_targets() if args.all else [normalise(t) for t in args.targets]
     except BuildError as e:
         print(f"✗ {e}", file=sys.stderr)

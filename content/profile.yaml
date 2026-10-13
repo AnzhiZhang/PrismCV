@@ -1,5 +1,5 @@
-# 个人简介的几个固定版本。target 也可以直接写一段专门的简介。
-# 示例内容（虚构），迁移时替换。
+# Reusable profile paragraphs. A target can also write its own paragraph inline.
+# Example content (fictional). Replace with your own.
 profile-industry:
   text:
     en: Electrical engineer with hands-on experience in embedded software and sensor data pipelines.

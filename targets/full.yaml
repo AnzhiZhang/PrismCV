@@ -1,11 +1,11 @@
-# 完整版：所有内容，中英两版，不限页数。
+# Full: everything, no page limit.
 langs: [en, zh]
 sections:
   profile: [profile-industry]
   education: [meng, bsc]
-  publications: [paper-fusion]
-  research: [photonics-lab]
   work: [brightwave-intern, greenleaf-analyst]
+  research: [photonics-lab]
   projects: [weather-station, line-follower]
+  publications: [paper-fusion]
   activities: [robotics-club, hackathon]
   skills: [skills-general]

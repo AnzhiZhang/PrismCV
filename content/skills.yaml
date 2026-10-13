@@ -1,5 +1,5 @@
-# 技能分组：一个 id 可以对应一组条目（列表），target 里引用 id 就放入整组。
-# 示例内容（虚构），迁移时替换。
+# An id can hold a list of entries; a target that uses the id gets the whole group.
+# Example content (fictional). Replace with your own.
 skills-general:
   - label: { en: Languages, zh: 编程语言 }
     details: C++, Python, MATLAB

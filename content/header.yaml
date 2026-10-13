@@ -1,5 +1,6 @@
-# 姓名与联系方式。纯文本 = 中英相同；{en, zh} = 分语言。
-# 示例内容（虚构），迁移时替换。
+# Name and contact details.
+# Plain text is shared by all languages; {en: ..., zh: ...} gives one text per language.
+# Example content (fictional). Replace with your own.
 name: { en: Nathan Lee, zh: 李南森 }
 location: { en: "Toronto, Canada", zh: 加拿大多伦多 }
 email: nathan.lee@example.com

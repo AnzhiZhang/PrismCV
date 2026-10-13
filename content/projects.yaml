@@ -1,4 +1,4 @@
-# 示例内容（虚构），迁移时替换。
+# Example content (fictional). Replace with your own.
 weather-station:
   name: { en: Solar Weather Station, zh: 太阳能气象站 }
   start_date: 2024-01
