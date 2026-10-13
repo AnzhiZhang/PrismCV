@@ -23,7 +23,7 @@ Keep your whole career in one place and build every version of your CV from it: 
 flowchart LR
     C["content/<br/>every entry, written once,<br/>languages side by side"]
     T["targets/x.yaml<br/>which entries, in what order,<br/>what is reworded"]
-    B["build.py"]
+    B["prismcv"]
     R["RenderCV"]
     P["out/x/*.pdf"]
 
@@ -32,20 +32,20 @@ flowchart LR
     B -->|one YAML per language| R --> P
 ```
 
-[RenderCV](https://github.com/rendercv/rendercv) typesets one YAML file into a PDF. Prism CV assembles that file from your content and a target; all layout is RenderCV's.
+[RenderCV](https://github.com/rendercv/rendercv) typesets one YAML file into a PDF. PrismCV assembles that file from your content and a target; all layout is RenderCV's.
 
 ## Quick start
 
 Requires Python 3.12+. The Chinese example also needs [Noto Sans SC](https://fonts.google.com/noto/specimen/Noto+Sans+SC).
 
 ```sh
-pip install -r requirements.txt
-python build.py --all                 # every target
-python build.py industry --lang en    # one target, one language
-python build.py industry --debug      # keep the generated RenderCV input
+pip install -e .
+prismcv build --all                 # every target
+prismcv build industry --lang en    # one target, one language
+prismcv build industry --debug      # keep the generated RenderCV input
 ```
 
-PDFs go to `out/<target>/`. The repository ships with a fictional example; replace `content/` with your own.
+Run `prismcv` inside any folder with `design.yaml`, `content/` and `targets/`, or point to one with `--root`. PDFs go to `out/<target>/`. This repository is itself such a folder, with a fictional example.
 
 ## Themes
 

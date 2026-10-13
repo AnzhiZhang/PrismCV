@@ -5,6 +5,7 @@ out/
 __pycache__/
 *.pyc
 .venv/
+dist/
 
 # OS and editors
 .DS_Store

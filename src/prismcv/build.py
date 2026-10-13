@@ -1,10 +1,11 @@
-#!/usr/bin/env python3
 """Build CV PDFs from content/ and targets/ with RenderCV.
 
-    python build.py industry          build one target
-    python build.py --all             build every target
-    python build.py industry --lang en
-    python build.py industry --debug  keep the generated RenderCV input next to the PDF
+Run inside a CV folder (one with design.yaml, content/ and targets/):
+
+    prismcv build industry          build one target
+    prismcv build --all             build every target
+    prismcv build industry --lang en
+    prismcv build industry --debug  keep the generated RenderCV input next to the PDF
 """
 
 from __future__ import annotations
@@ -22,11 +23,21 @@ from pathlib import Path
 import yaml
 from pypdf import PdfReader
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path.cwd()
 CONTENT = ROOT / "content"
 TARGETS = ROOT / "targets"
 OUT = ROOT / "out"
 DESIGN = ROOT / "design.yaml"
+
+
+def use_root(root: Path) -> None:
+    """Point every path at the CV folder to build."""
+    global ROOT, CONTENT, TARGETS, OUT, DESIGN
+    ROOT = root.resolve()
+    CONTENT, TARGETS, OUT, DESIGN = ROOT / "content", ROOT / "targets", ROOT / "out", ROOT / "design.yaml"
+    load_design.cache_clear()
+    if not DESIGN.is_file() or not CONTENT.is_dir() or not TARGETS.is_dir():
+        raise BuildError(f"{ROOT} is not a CV folder: it needs design.yaml, content/ and targets/")
 
 SPECIAL_FILES = {"header.yaml", "sections.yaml"}
 SCHEMA = "https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json"
@@ -345,19 +356,22 @@ def build(name: str, pool: dict, only_lang: str | None, debug: bool) -> list[str
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Build CV PDFs from content/ and targets/ with RenderCV.")
-    ap.add_argument("targets", nargs="*", help="target names, e.g. industry or jobs/2026-10-15_acme")
-    ap.add_argument("--all", action="store_true", help="build every target")
-    ap.add_argument("--lang", help="only build this language")
-    ap.add_argument("--debug", action="store_true", help="keep the generated RenderCV input next to the PDF")
+    ap = argparse.ArgumentParser(prog="prismcv", description="One source, every CV.")
+    commands = ap.add_subparsers(dest="command", required=True)
+    bp = commands.add_parser("build", help="build CV PDFs from content/ and targets/ with RenderCV")
+    bp.add_argument("targets", nargs="*", help="target names, e.g. industry or jobs/2026-10-15_acme")
+    bp.add_argument("--all", action="store_true", help="build every target")
+    bp.add_argument("--lang", help="only build this language")
+    bp.add_argument("--debug", action="store_true", help="keep the generated RenderCV input next to the PDF")
+    bp.add_argument("--root", type=Path, default=Path.cwd(), help="CV folder to build (default: current folder)")
     args = ap.parse_args()
 
-    if not args.targets and not args.all:
-        ap.print_help()
-        print("\navailable targets:\n  " + "\n  ".join(all_targets()))
-        return 1
-
     try:
+        use_root(args.root)
+        if not args.targets and not args.all:
+            bp.print_help()
+            print("\navailable targets:\n  " + "\n  ".join(all_targets()))
+            return 1
         if args.lang and args.lang not in languages():
             raise BuildError(f"unknown language '{args.lang}' (configured: {', '.join(languages())})")
         pool = load_pool()

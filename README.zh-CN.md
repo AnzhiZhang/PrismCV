@@ -23,7 +23,7 @@
 flowchart LR
     C["content/<br/>所有经历，只写一次，<br/>各种语言写在一起"]
     T["targets/x.yaml<br/>用哪些条目、什么顺序、<br/>改写哪些地方"]
-    B["build.py"]
+    B["prismcv"]
     R["RenderCV"]
     P["out/x/*.pdf"]
 
@@ -39,13 +39,13 @@ flowchart LR
 需要 Python 3.12 以上。中文示例还需要安装 [Noto Sans SC](https://fonts.google.com/noto/specimen/Noto+Sans+SC)。
 
 ```sh
-pip install -r requirements.txt
-python build.py --all                 # 所有版本
-python build.py industry --lang en    # 一个版本、一种语言
-python build.py industry --debug      # 保留生成的 RenderCV 输入文件
+pip install -e .
+prismcv build --all                 # 所有版本
+prismcv build industry --lang en    # 一个版本、一种语言
+prismcv build industry --debug      # 保留生成的 RenderCV 输入文件
 ```
 
-PDF 输出到 `out/<版本>/`。仓库自带一份虚构示例，把 `content/` 换成你自己的内容即可。
+在任何包含 `design.yaml`、`content/` 和 `targets/` 的文件夹里运行 `prismcv`，或者用 `--root` 指定这样的文件夹。PDF 输出到 `out/<版本>/`。本仓库本身就是这样一个文件夹，里面是一份虚构示例。
 
 ## 主题
 

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "prismcv"
+version = "0.1.0"
+description = "One source, every CV: build multilingual, tailored CVs with RenderCV."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12"
+dependencies = [
+    "rendercv[full]==2.8",
+    "pypdf",
+    "pyyaml",
+]
+
+[project.scripts]
+prismcv = "prismcv.build:main"

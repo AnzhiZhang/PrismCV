@@ -1,3 +1,0 @@
-rendercv[full]==2.8
-pypdf
-pyyaml
