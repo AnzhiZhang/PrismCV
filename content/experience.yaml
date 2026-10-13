@@ -1,0 +1,47 @@
+# 科研经历和工作经历都放这里；放进哪个板块由 target 决定。
+# 示例内容（虚构），迁移时替换。
+
+photonics-lab:
+  company: { en: "Applied Photonics Lab, Lakeside University", zh: 湖畔大学应用光子学实验室 }
+  position: { en: Undergraduate Researcher, zh: 本科生研究员 }
+  location: { en: "Vancouver, Canada", zh: 加拿大温哥华 }
+  start_date: 2023-05
+  end_date: 2024-04
+  highlights:
+    - en: Calibrated a LiDAR array and wrote Python tools to clean its output
+      zh: 校准激光雷达阵列，并编写 Python 工具清洗其输出数据
+    - en: Results contributed to a conference paper on sensor fusion
+      zh: 研究结果用于一篇多传感器融合方向的会议论文
+
+brightwave-intern:
+  company: { en: Brightwave Robotics, zh: 明波机器人 }
+  position: { en: Embedded Software Intern, zh: 嵌入式软件实习生 }
+  location: { en: "Montreal, Canada", zh: 加拿大蒙特利尔 }
+  start_date: 2025-05
+  end_date: 2025-08
+  highlights:
+    - en: Wrote C++ drivers for an IMU on a warehouse robot platform
+      zh: 为仓储机器人平台的惯性测量单元编写 C++ 驱动
+    - en: Cut sensor read latency by 30% by moving polling to DMA
+      zh: 将轮询改为 DMA 传输，传感器读取延迟降低 30%
+    - en: Added hardware-in-the-loop tests to the CI pipeline
+      zh: 在持续集成流程中加入硬件在环测试
+
+# 变体：继承 brightwave-intern 的公司、日期等，只改写 bullet。
+# id 里有 @ 时自动以 @ 前面的部分为 base，也可以显式写 base: xxx
+brightwave-intern@data:
+  highlights:
+    - en: Built a pipeline to collect and visualise sensor logs from test runs
+      zh: 搭建测试运行中传感器日志的采集与可视化流程
+    - en: Analysed failure data to find the root cause of drift in navigation
+      zh: 分析故障数据，定位导航漂移问题的根本原因
+
+greenleaf-analyst:
+  company: { en: Greenleaf Energy, zh: 绿叶能源 }
+  position: { en: Part-time Data Analyst, zh: 兼职数据分析师 }
+  location: { en: "Toronto, Canada", zh: 加拿大多伦多 }
+  start_date: 2025-10
+  end_date: present
+  highlights:
+    - en: Build weekly dashboards on solar panel output for the operations team
+      zh: 为运营团队制作太阳能板发电量的周报看板

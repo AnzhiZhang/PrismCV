@@ -1,0 +1,16 @@
+# 示例内容（虚构），迁移时替换。
+meng:
+  institution: { en: Northfield Institute of Technology, zh: 北原理工学院 }
+  degree: { en: MEng, zh: 硕士 }
+  area: { en: Electrical Engineering, zh: 电气工程 }
+  location: { en: "Toronto, Canada", zh: 加拿大多伦多 }
+  start_date: 2024-09
+  end_date: present
+
+bsc:
+  institution: { en: Lakeside University, zh: 湖畔大学 }
+  degree: { en: BSc, zh: 学士 }
+  area: { en: Physics, zh: 物理学 }
+  location: { en: "Vancouver, Canada", zh: 加拿大温哥华 }
+  start_date: 2020-09
+  end_date: 2024-05

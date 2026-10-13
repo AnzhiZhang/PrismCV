@@ -1,0 +1,7 @@
+# 技能分组：一个 id 可以对应一组条目（列表），target 里引用 id 就放入整组。
+# 示例内容（虚构），迁移时替换。
+skills-general:
+  - label: { en: Languages, zh: 编程语言 }
+    details: C++, Python, MATLAB
+  - label: { en: Tools, zh: 工具 }
+    details: ROS 2, Git, KiCad, Docker

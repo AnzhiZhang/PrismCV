@@ -1,0 +1,11 @@
+# 完整版：所有内容，中英两版，不限页数。
+langs: [en, zh]
+sections:
+  profile: [profile-industry]
+  education: [meng, bsc]
+  publications: [paper-fusion]
+  research: [photonics-lab]
+  work: [brightwave-intern, greenleaf-analyst]
+  projects: [weather-station, line-follower]
+  activities: [robotics-club, hackathon]
+  skills: [skills-general]

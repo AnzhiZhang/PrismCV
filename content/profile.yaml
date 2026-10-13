@@ -1,0 +1,10 @@
+# 个人简介的几个固定版本。target 也可以直接写一段专门的简介。
+# 示例内容（虚构），迁移时替换。
+profile-industry:
+  text:
+    en: Electrical engineer with hands-on experience in embedded software and sensor data pipelines.
+    zh: 电气工程背景，有嵌入式软件与传感器数据处理的实践经验。
+profile-academic:
+  text:
+    en: Electrical engineering graduate researching sensor fusion for low-cost robotics.
+    zh: 电气工程硕士，研究方向为低成本机器人的多传感器融合。

@@ -1,0 +1,9 @@
+# 板块标题。target 里用左边的 key，build.py 按语言换成标题。
+profile:      { en: Profile, zh: 个人简介 }
+education:    { en: Education, zh: 教育背景 }
+research:     { en: Research Experience, zh: 科研经历 }
+work:         { en: Work Experience, zh: 工作经历 }
+projects:     { en: Projects, zh: 项目经历 }
+publications: { en: Publications, zh: 发表论文 }
+activities:   { en: Leadership & Activities, zh: 校园活动 }
+skills:       { en: Skills, zh: 技能 }

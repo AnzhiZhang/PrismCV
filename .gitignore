@@ -1,0 +1,12 @@
+# 生成的 PDF
+out/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# 系统与编辑器
+.DS_Store
+.vscode/
+.idea/

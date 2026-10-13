@@ -1,0 +1,20 @@
+# 岗位定制示例：演示三种定制方式。命名：日期_公司_岗位.yaml
+langs: [en]
+max_pages: 1
+sections:
+  # 直接写一段专门的简介（不需要先在 content 里建条目）
+  profile:
+    - text: Engineer who enjoys turning messy sensor data into reliable pipelines.
+  education: [meng, bsc]
+  work:
+    # 改标题（只对这个版本生效）
+    title: Experience
+    entries:
+      # 引用变体
+      - brightwave-intern@data
+      # 覆盖字段：没写的字段沿用原文
+      - greenleaf-analyst:
+          highlights:
+            - Rewritten bullet for this role only
+  projects: [weather-station]
+  skills: [skills-general]

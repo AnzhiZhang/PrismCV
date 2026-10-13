@@ -1,0 +1,26 @@
+# 排版设置，所有版本共用。同样可以用 {en, zh} 写分语言的值。
+# 可调的选项见 https://docs.rendercv.com （classic 主题）
+design:
+  theme: classic
+  page:
+    size: a4
+    show_footer: false
+    show_top_note: false
+  typography:
+    font_family: { en: Source Sans 3, zh: Noto Sans SC }
+  sections:
+    show_time_spans_in: []      # 不显示“1 month”这类时长
+  templates:
+    single_date: { en: MONTH_ABBREVIATION YEAR, zh: YEAR年MONTH月 }
+    # 中文版用全角逗号
+    experience_entry:
+      main_column:
+        en: "**COMPANY**, POSITION\nSUMMARY\nHIGHLIGHTS"
+        zh: "**COMPANY**，POSITION\nSUMMARY\nHIGHLIGHTS"
+    education_entry:
+      main_column:
+        en: "**INSTITUTION**, AREA\nSUMMARY\nHIGHLIGHTS"
+        zh: "**INSTITUTION**，AREA\nSUMMARY\nHIGHLIGHTS"
+
+locale:
+  language: { en: english, zh: mandarin_chinese }

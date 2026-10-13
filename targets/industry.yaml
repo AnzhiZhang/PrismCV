@@ -1,0 +1,9 @@
+# 工业版：不放论文，工作和项目在前。
+langs: [en, zh]
+max_pages: 1
+sections:
+  profile: [profile-industry]
+  education: [meng, bsc]
+  work: [brightwave-intern, greenleaf-analyst]
+  projects: [weather-station, line-follower]
+  skills: [skills-general]

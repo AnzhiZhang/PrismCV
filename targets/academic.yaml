@@ -1,0 +1,11 @@
+# 学术版：论文和科研经历在前。
+langs: [en, zh]
+max_pages: 2
+sections:
+  profile: [profile-academic]
+  education: [meng, bsc]
+  publications: [paper-fusion]
+  research: [photonics-lab]
+  work: [brightwave-intern]
+  activities: [robotics-club, hackathon]
+  skills: [skills-general]

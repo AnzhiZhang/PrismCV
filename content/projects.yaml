@@ -1,0 +1,16 @@
+# 示例内容（虚构），迁移时替换。
+weather-station:
+  name: { en: Solar Weather Station, zh: 太阳能气象站 }
+  start_date: 2024-01
+  end_date: 2024-04
+  highlights:
+    - en: Off-grid weather station on an ESP32, reporting over LoRa
+      zh: 基于 ESP32 的离网气象站，通过 LoRa 上报数据
+
+line-follower:
+  name: { en: Line-following Robot, zh: 循迹机器人 }
+  start_date: 2023-02
+  end_date: 2023-03
+  highlights:
+    - en: PID-controlled robot that placed 2nd in a regional competition
+      zh: 采用 PID 控制，在地区比赛中获得第二名

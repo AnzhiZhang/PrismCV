@@ -1,0 +1,15 @@
+# 示例内容（虚构），迁移时替换。
+robotics-club:
+  company: { en: Lakeside University Robotics Club, zh: 湖畔大学机器人社 }
+  position: { en: Team Captain, zh: 队长 }
+  start_date: 2022-09
+  end_date: 2024-05
+  highlights:
+    - en: Led a 12-person team through two national competitions
+      zh: 带领 12 人团队参加两届全国比赛
+
+hackathon:
+  company: { en: Northfield Hardware Hackathon, zh: 北原硬件黑客松 }
+  position: { en: Co-organiser, zh: 联合组织者 }
+  start_date: 2025-01
+  end_date: 2025-03

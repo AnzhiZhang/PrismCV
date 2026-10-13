@@ -1,0 +1,9 @@
+# 姓名与联系方式。纯文本 = 中英相同；{en, zh} = 分语言。
+# 示例内容（虚构），迁移时替换。
+name: { en: Nathan Lee, zh: 李南森 }
+location: { en: "Toronto, Canada", zh: 加拿大多伦多 }
+email: nathan.lee@example.com
+phone: { en: "+1 416 555 0123", zh: "+86 138 0013 8000" }
+social_networks:
+  - network: GitHub
+    username: example
