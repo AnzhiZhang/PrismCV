@@ -1,29 +1,26 @@
-# Languages the CV is written in. Their codes are the keys used for translated
-# text everywhere ({en: ..., zh: ...}). The first one names the PDF files.
-languages: [en, zh]
+# Language codes used in content/ and targets/, each mapped to a RenderCV
+# locale. The first one names the PDF files.
+languages:
+  en: english
+  zh: mandarin_chinese
 
-# RenderCV design and locale, shared by every target.
-# Options: https://docs.rendercv.com
+# RenderCV design shared by every language. Options: https://docs.rendercv.com
 design:
   theme: classic
   page:
     size: a4
     show_footer: false
     show_top_note: false
-  typography:
-    font_family: { en: Source Sans 3, zh: Noto Sans SC }
   sections:
     show_time_spans_in: []
-  templates:
-    single_date: { en: MONTH_ABBREVIATION YEAR, zh: YEAR年MONTH月 }
-    experience_entry:
-      main_column:
-        en: "**COMPANY**, POSITION\nSUMMARY\nHIGHLIGHTS"
-        zh: "**COMPANY**，POSITION\nSUMMARY\nHIGHLIGHTS"
-    education_entry:
-      main_column:
-        en: "**INSTITUTION**, AREA\nSUMMARY\nHIGHLIGHTS"
-        zh: "**INSTITUTION**，AREA\nSUMMARY\nHIGHLIGHTS"
 
-locale:
-  language: { en: english, zh: mandarin_chinese }
+# Settings for one language, added on top of the shared design.
+zh:
+  typography:
+    font_family: Noto Sans SC
+  templates:
+    single_date: YEAR年MONTH月
+    experience_entry:
+      main_column: "**COMPANY**，POSITION\nSUMMARY\nHIGHLIGHTS"
+    education_entry:
+      main_column: "**INSTITUTION**，AREA\nSUMMARY\nHIGHLIGHTS"

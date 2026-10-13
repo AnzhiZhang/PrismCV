@@ -58,17 +58,37 @@ def rel(path: Path) -> str:
 
 
 @functools.cache
-def load_design() -> tuple[tuple[str, ...], dict]:
-    """Return the configured languages and the RenderCV design settings."""
+def load_design() -> tuple[dict, dict, dict]:
+    """Read design.yaml: languages, the shared settings, and per-language settings."""
     data = load_yaml(DESIGN) or {}
-    langs = data.pop("languages", None) or ["en"]
-    if not isinstance(langs, list) or not all(isinstance(l, str) for l in langs):
-        raise BuildError("design.yaml: languages must be a list of language codes")
-    return tuple(langs), data
+    langs = data.pop("languages", None) or {"en": "english"}
+    if not isinstance(langs, dict) or not all(isinstance(v, str) for v in langs.values()):
+        raise BuildError("design.yaml: languages must map language codes to RenderCV locales, e.g. en: english")
+    per_lang = {code: data.pop(code) or {} for code in list(langs) if code in data}
+    return langs, data, per_lang
 
 
 def languages() -> tuple[str, ...]:
-    return load_design()[0]
+    return tuple(load_design()[0])
+
+
+def merge(base: dict, extra: dict) -> dict:
+    """Merge extra into base, recursing into nested mappings."""
+    for k, v in extra.items():
+        if isinstance(v, dict) and isinstance(base.get(k), dict):
+            merge(base[k], v)
+        else:
+            base[k] = v
+    return base
+
+
+def design_for(lang: str) -> dict:
+    """RenderCV design, locale and settings for one language."""
+    langs, shared, per_lang = load_design()
+    doc = copy.deepcopy(shared)
+    merge(doc.setdefault("design", {}), copy.deepcopy(per_lang.get(lang, {})))
+    doc.setdefault("locale", {})["language"] = langs[lang]
+    return localize(doc, lang, "design.yaml")
 
 
 def load_pool() -> dict:
@@ -231,7 +251,7 @@ def assemble(target_name: str, target: dict, lang: str, pool: dict) -> dict:
         cv["sections"][title] = entries
 
     doc = {"cv": cv}
-    doc.update(localize(load_design()[1], lang, "design.yaml"))
+    doc.update(design_for(lang))
     return doc
 
 
