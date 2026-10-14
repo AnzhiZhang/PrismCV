@@ -23,13 +23,13 @@ Keep your whole career in one place and build every version of your CV from it: 
 flowchart LR
     C["content/<br/>every entry, written once,<br/>languages side by side"]
     T["targets/x.yaml<br/>which entries, in what order,<br/>what is reworded"]
-    B["prismcv"]
-    R["RenderCV"]
+    B["PrismCV<br/>assembles one YAML per language"]
+    R["RenderCV<br/>typesets it into PDF"]
     P["out/x/*.pdf"]
 
     C --> B
     T --> B
-    B -->|one YAML per language| R --> P
+    B --> R --> P
 ```
 
 [RenderCV](https://github.com/rendercv/rendercv) typesets one YAML file into a PDF. PrismCV assembles that file from your content and a target; all layout is RenderCV's.

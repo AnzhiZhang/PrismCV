@@ -23,13 +23,13 @@
 flowchart LR
     C["content/<br/>所有经历，只写一次，<br/>各种语言写在一起"]
     T["targets/x.yaml<br/>用哪些条目、什么顺序、<br/>改写哪些地方"]
-    B["prismcv"]
-    R["RenderCV"]
+    B["PrismCV<br/>拼出每种语言一份 YAML"]
+    R["RenderCV<br/>排版成 PDF"]
     P["out/x/*.pdf"]
 
     C --> B
     T --> B
-    B -->|每种语言一份 YAML| R --> P
+    B --> R --> P
 ```
 
 [RenderCV](https://github.com/rendercv/rendercv) 把一份 YAML 排版成 PDF。Prism CV 根据内容和版本文件拼出这份 YAML，排版全部由 RenderCV 完成。
