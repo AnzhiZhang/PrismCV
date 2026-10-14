@@ -1,0 +1,6 @@
+example-project:
+  name: Example Project
+  start_date: 2024-01
+  end_date: present
+  highlights:
+    - What it does and how you built it.

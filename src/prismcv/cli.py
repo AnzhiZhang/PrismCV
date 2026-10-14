@@ -1,0 +1,78 @@
+"""The prismcv command."""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+from . import build as b
+from .init import InitError, create
+
+
+def run_build(args: argparse.Namespace, parser: argparse.ArgumentParser) -> int:
+    try:
+        b.use_root(args.root)
+        if not args.targets and not args.all:
+            parser.print_help()
+            print("\navailable targets:\n  " + "\n  ".join(b.all_targets()))
+            return 1
+        if args.lang and args.lang not in b.languages():
+            raise b.BuildError(f"unknown language '{args.lang}' (configured: {', '.join(b.languages())})")
+        pool = b.load_pool()
+        names = b.all_targets() if args.all else [b.normalise(t) for t in args.targets]
+    except b.BuildError as e:
+        print(f"✗ {e}", file=sys.stderr)
+        return 1
+
+    failed, warnings = [], []
+    for name in names:
+        print(name)
+        try:
+            warnings += b.build(name, pool, args.lang, args.debug)
+        except b.BuildError as e:
+            print(f"  ✗ {e}", file=sys.stderr)
+            failed.append(name)
+    for w in warnings:
+        print(f"⚠ {w}")
+    if failed:
+        print(f"✗ failed: {', '.join(failed)}", file=sys.stderr)
+        return 1
+    return 0
+
+
+def run_init(args: argparse.Namespace) -> int:
+    try:
+        created = create(args.path)
+    except InitError as e:
+        print(f"✗ {e}", file=sys.stderr)
+        return 1
+    root = args.path.resolve()
+    for path in created:
+        print(f"  + {path.relative_to(root)}")
+    print(f"Created a CV in {root}. Edit cv.yaml and content/, then run: prismcv build --all")
+    return 0
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(prog="prismcv", description="One source, every CV.")
+    commands = ap.add_subparsers(dest="command", required=True)
+
+    bp = commands.add_parser("build", help="build CV PDFs with RenderCV")
+    bp.add_argument("targets", nargs="*", help="target names, e.g. industry or jobs/2026-10-15_acme")
+    bp.add_argument("--all", action="store_true", help="build every target")
+    bp.add_argument("--lang", help="only build this language")
+    bp.add_argument("--debug", action="store_true", help="keep the generated RenderCV input next to the PDF")
+    bp.add_argument("--root", type=Path, default=Path.cwd(), help="CV folder to build (default: current folder)")
+
+    ip = commands.add_parser("init", help="create a new CV folder")
+    ip.add_argument("path", nargs="?", type=Path, default=Path.cwd(), help="folder to create it in (default: current folder)")
+
+    args = ap.parse_args()
+    if args.command == "init":
+        return run_init(args)
+    return run_build(args, bp)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -40,12 +40,14 @@ flowchart LR
 
 ```sh
 pip install -e .
+prismcv init my-cv                  # 新建一个简历文件夹
+cd my-cv
 prismcv build --all                 # 所有版本
-prismcv build industry --lang en    # 一个版本、一种语言
-prismcv build industry --debug      # 保留生成的 RenderCV 输入文件
+prismcv build main --lang en        # 一个版本、一种语言
+prismcv build main --debug          # 保留生成的 RenderCV 输入文件
 ```
 
-在任何包含 `design.yaml`、`content/` 和 `targets/` 的文件夹里运行 `prismcv`，或者用 `--root` 指定这样的文件夹。PDF 输出到 `out/<版本>/`。本仓库本身就是这样一个文件夹，里面是一份虚构示例。
+简历文件夹包含 `cv.yaml`、`design.yaml`、`content/` 和 `targets/`。在其中运行 `prismcv build`，或者用 `--root` 指定这样的文件夹。PDF 输出到 `out/<版本>/`。本仓库本身就是一个简历文件夹，里面是一份虚构示例。
 
 ## 主题
 
@@ -55,7 +57,7 @@ prismcv build industry --debug      # 保留生成的 RenderCV 输入文件
 
 ## 内容
 
-`content/header.yaml` 是姓名和联系方式，`content/sections.yaml` 是板块标题，其余文件按 id 存放条目。字段名沿用 [RenderCV 的字段](https://docs.rendercv.com)。
+`cv.yaml` 是姓名、联系方式和板块标题。`content/` 里的每个文件按 id 存放条目，怎么分文件由你决定。字段名沿用 [RenderCV 的字段](https://docs.rendercv.com)。
 
 各语言不同的文字写成“语言代码 → 文字”，其余只写一次。下面节选自 [`content/experience.yaml`](content/experience.yaml)：
 

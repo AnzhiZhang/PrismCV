@@ -1,0 +1,7 @@
+# One version of the CV: which entries go in which section, in this order.
+sections:
+  profile: [profile]
+  education: [university]
+  experience: [example-job]
+  projects: [example-project]
+  skills: [skills]

@@ -1,0 +1,16 @@
+# Your name and contact details, and the title of each section.
+# Text can be the same in every language, or one text per language: { en: ..., zh: ... }
+header:
+  name: Your Name
+  location: City, Country
+  email: you@example.com
+  social_networks:
+    - network: GitHub
+      username: your-username
+
+sections:
+  profile: Profile
+  education: Education
+  experience: Experience
+  projects: Projects
+  skills: Skills

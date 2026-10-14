@@ -40,12 +40,14 @@ Requires Python 3.12+. The Chinese example also needs [Noto Sans SC](https://fon
 
 ```sh
 pip install -e .
+prismcv init my-cv                  # create a CV folder
+cd my-cv
 prismcv build --all                 # every target
-prismcv build industry --lang en    # one target, one language
-prismcv build industry --debug      # keep the generated RenderCV input
+prismcv build main --lang en        # one target, one language
+prismcv build main --debug          # keep the generated RenderCV input
 ```
 
-Run `prismcv` inside any folder with `design.yaml`, `content/` and `targets/`, or point to one with `--root`. PDFs go to `out/<target>/`. This repository is itself such a folder, with a fictional example.
+A CV folder holds `cv.yaml`, `design.yaml`, `content/` and `targets/`. Run `prismcv build` inside one, or point to one with `--root`. PDFs go to `out/<target>/`. This repository is itself a CV folder, with a fictional example.
 
 ## Themes
 
@@ -55,7 +57,7 @@ Set `theme` in `design.yaml`.
 
 ## Content
 
-`content/header.yaml` holds your name and contact details, `content/sections.yaml` the section titles, and every other file holds entries keyed by an id. Fields use [RenderCV's names](https://docs.rendercv.com).
+`cv.yaml` holds your name and contact details and the section titles. Every file in `content/` holds entries keyed by an id; how you split them into files is up to you. Fields use [RenderCV's names](https://docs.rendercv.com).
 
 Text that differs between languages maps language codes to text; anything else is written once. An excerpt from [`content/experience.yaml`](content/experience.yaml):
 

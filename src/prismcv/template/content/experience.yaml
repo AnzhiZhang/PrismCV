@@ -1,0 +1,11 @@
+# All experience goes here: work, research, activities. Each target decides
+# which section an entry appears in.
+example-job:
+  company: Example Company
+  position: Software Engineer Intern
+  location: City, Country
+  start_date: 2025-06
+  end_date: 2025-09
+  highlights:
+    - What you did and what came of it.
+    - Another achievement, with a number if you have one.

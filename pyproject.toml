@@ -16,4 +16,4 @@ dependencies = [
 ]
 
 [project.scripts]
-prismcv = "prismcv.build:main"
+prismcv = "prismcv.cli:main"

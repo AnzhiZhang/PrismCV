@@ -1,0 +1,6 @@
+# An id can hold a list of entries; a target that uses the id gets all of them.
+skills:
+  - label: Languages
+    details: Python, Java
+  - label: Tools
+    details: Git, Docker

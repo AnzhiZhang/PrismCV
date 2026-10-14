@@ -1,4 +1,4 @@
-# Research and work experience. Which section an entry appears in is decided by each target.
+# All experience: work, research and activities. Which section an entry appears in is decided by each target.
 # Example content (fictional). Replace with your own.
 
 photonics-lab:
@@ -45,3 +45,18 @@ greenleaf-analyst:
   highlights:
     - en: Build weekly dashboards on solar panel output for the operations team
       zh: 为运营团队制作太阳能板发电量的周报看板
+
+robotics-club:
+  company: { en: Lakeside University Robotics Club, zh: 湖畔大学机器人社 }
+  position: { en: Team Captain, zh: 队长 }
+  start_date: 2022-09
+  end_date: 2024-05
+  highlights:
+    - en: Led a 12-person team through two national competitions
+      zh: 带领 12 人团队参加两届全国比赛
+
+hackathon:
+  company: { en: Northfield Hardware Hackathon, zh: 北原硬件黑客松 }
+  position: { en: Co-organiser, zh: 联合组织者 }
+  start_date: 2025-01
+  end_date: 2025-03

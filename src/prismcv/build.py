@@ -1,16 +1,7 @@
-"""Build CV PDFs from content/ and targets/ with RenderCV.
-
-Run inside a CV folder (one with design.yaml, content/ and targets/):
-
-    prismcv build industry          build one target
-    prismcv build --all             build every target
-    prismcv build industry --lang en
-    prismcv build industry --debug  keep the generated RenderCV input next to the PDF
-"""
+"""Build CV PDFs from a CV folder (cv.yaml, design.yaml, content/, targets/) with RenderCV."""
 
 from __future__ import annotations
 
-import argparse
 import copy
 import functools
 import re
@@ -24,6 +15,7 @@ import yaml
 from pypdf import PdfReader
 
 ROOT = Path.cwd()
+CV_FILE = ROOT / "cv.yaml"
 CONTENT = ROOT / "content"
 TARGETS = ROOT / "targets"
 OUT = ROOT / "out"
@@ -32,14 +24,15 @@ DESIGN = ROOT / "design.yaml"
 
 def use_root(root: Path) -> None:
     """Point every path at the CV folder to build."""
-    global ROOT, CONTENT, TARGETS, OUT, DESIGN
+    global ROOT, CV_FILE, CONTENT, TARGETS, OUT, DESIGN
     ROOT = root.resolve()
-    CONTENT, TARGETS, OUT, DESIGN = ROOT / "content", ROOT / "targets", ROOT / "out", ROOT / "design.yaml"
+    CV_FILE, DESIGN = ROOT / "cv.yaml", ROOT / "design.yaml"
+    CONTENT, TARGETS, OUT = ROOT / "content", ROOT / "targets", ROOT / "out"
     load_design.cache_clear()
-    if not DESIGN.is_file() or not CONTENT.is_dir() or not TARGETS.is_dir():
-        raise BuildError(f"{ROOT} is not a CV folder: it needs design.yaml, content/ and targets/")
+    if not all(p.is_file() for p in (CV_FILE, DESIGN)) or not all(p.is_dir() for p in (CONTENT, TARGETS)):
+        raise BuildError(f"{ROOT} is not a CV folder: it needs cv.yaml, design.yaml, content/ and targets/ "
+                         "(create one with prismcv init)")
 
-SPECIAL_FILES = {"header.yaml", "sections.yaml"}
 SCHEMA = "https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json"
 
 # Fields a RenderCV entry can have. A one-key item in a target whose key is
@@ -103,11 +96,9 @@ def design_for(lang: str) -> dict:
 
 
 def load_pool() -> dict:
-    """Merge every content file (except header and sections) into one id -> entry pool."""
+    """Merge every file in content/ into one id -> entry pool."""
     pool, where = {}, {}
     for path in sorted(CONTENT.rglob("*.yaml")):
-        if path.name in SPECIAL_FILES:
-            continue
         data = load_yaml(path) or {}
         if not isinstance(data, dict):
             raise BuildError(f"{rel(path)}: top level must map ids to entries")
@@ -116,6 +107,14 @@ def load_pool() -> dict:
                 raise BuildError(f"duplicate id '{eid}' in {rel(where[eid])} and {rel(path)}")
             pool[eid], where[eid] = entry, path
     return pool
+
+
+def load_cv() -> tuple[dict, dict]:
+    """Read cv.yaml: the header (name and contact details) and the section titles."""
+    data = load_yaml(CV_FILE) or {}
+    if not isinstance(data, dict):
+        raise BuildError("cv.yaml: top level must be a mapping with header and sections")
+    return dict(data.get("header") or {}), dict(data.get("sections") or {})
 
 
 # Languages
@@ -227,9 +226,8 @@ def entry_kind(entry) -> str:
 
 def assemble(target_name: str, target: dict, lang: str, pool: dict) -> dict:
     """Build the complete RenderCV input for one target in one language."""
-    header = load_yaml(CONTENT / "header.yaml") or {}
+    header, titles = load_cv()
     header.update(target.get("header") or {})
-    titles = load_yaml(CONTENT / "sections.yaml") or {}
 
     cv = localize(header, lang, "header")
     cv["sections"] = {}
@@ -241,7 +239,7 @@ def assemble(target_name: str, target: dict, lang: str, pool: dict) -> dict:
             items, title = spec or [], None
         title = title or titles.get(key)
         if title is None:
-            raise BuildError(f"{where}: no title (add '{key}' to content/sections.yaml)")
+            raise BuildError(f"{where}: no title (add '{key}' to sections in cv.yaml)")
         title = localize(title, lang, f"{where}.title")
 
         entries = []
@@ -309,7 +307,7 @@ def normalise(name: str) -> str:
 
 def file_stem(lang: str) -> str:
     """File name for a PDF, from the name in the first configured language."""
-    name = (load_yaml(CONTENT / "header.yaml") or {}).get("name", "CV")
+    name = load_cv()[0].get("name", "CV")
     name = localize(name, languages()[0], "header.name")
     stem = re.sub(r"\W+", "_", str(name)).strip("_") or "CV"
     return f"{stem}_CV_{lang}"
@@ -353,48 +351,3 @@ def build(name: str, pool: dict, only_lang: str | None, debug: bool) -> list[str
         if limit and pages > limit:
             warnings.append(f"{name} ({lang}): {pages} pages, exceeds max_pages: {limit}")
     return warnings
-
-
-def main() -> int:
-    ap = argparse.ArgumentParser(prog="prismcv", description="One source, every CV.")
-    commands = ap.add_subparsers(dest="command", required=True)
-    bp = commands.add_parser("build", help="build CV PDFs from content/ and targets/ with RenderCV")
-    bp.add_argument("targets", nargs="*", help="target names, e.g. industry or jobs/2026-10-15_acme")
-    bp.add_argument("--all", action="store_true", help="build every target")
-    bp.add_argument("--lang", help="only build this language")
-    bp.add_argument("--debug", action="store_true", help="keep the generated RenderCV input next to the PDF")
-    bp.add_argument("--root", type=Path, default=Path.cwd(), help="CV folder to build (default: current folder)")
-    args = ap.parse_args()
-
-    try:
-        use_root(args.root)
-        if not args.targets and not args.all:
-            bp.print_help()
-            print("\navailable targets:\n  " + "\n  ".join(all_targets()))
-            return 1
-        if args.lang and args.lang not in languages():
-            raise BuildError(f"unknown language '{args.lang}' (configured: {', '.join(languages())})")
-        pool = load_pool()
-        names = all_targets() if args.all else [normalise(t) for t in args.targets]
-    except BuildError as e:
-        print(f"✗ {e}", file=sys.stderr)
-        return 1
-
-    failed, warnings = [], []
-    for name in names:
-        print(name)
-        try:
-            warnings += build(name, pool, args.lang, args.debug)
-        except BuildError as e:
-            print(f"  ✗ {e}", file=sys.stderr)
-            failed.append(name)
-    for w in warnings:
-        print(f"⚠ {w}")
-    if failed:
-        print(f"✗ failed: {', '.join(failed)}", file=sys.stderr)
-        return 1
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
