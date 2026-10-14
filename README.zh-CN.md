@@ -7,10 +7,11 @@
 <p><strong>一份内容，生成所有简历。</strong></p>
 
 <p>
-  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+  <a href="https://github.com/AnzhiZhang/PrismCV/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
   <img alt="Python 3.12+" src="https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white">
+  <a href="https://pypi.org/project/prismcv/"><img alt="PyPI" src="https://img.shields.io/pypi/v/prismcv?color=blue"></a>
   <a href="https://github.com/rendercv/rendercv"><img alt="RenderCV 2.8" src="https://img.shields.io/badge/RenderCV-2.8-blue"></a>
-  <a href="README.md"><img alt="English" src="https://img.shields.io/badge/README-English-blue"></a>
+  <a href="https://github.com/AnzhiZhang/PrismCV/blob/main/README.md"><img alt="English" src="https://img.shields.io/badge/README-English-blue"></a>
 </p>
 
 </div>
@@ -39,7 +40,7 @@ flowchart LR
 需要 Python 3.12 以上。
 
 ```sh
-pip install -e .
+pip install prismcv
 prismcv init my-cv                  # 用最小模板新建一个简历文件夹
 cd my-cv
 prismcv build --all                 # 所有版本
@@ -55,13 +56,13 @@ prismcv build main --debug          # 保留生成的 RenderCV 输入文件
 
 在 `design.yaml` 中修改 `theme`。
 
-![示例简历在九个主题下的效果：classic、engineeringresumes、sb2nov、moderncv、engineeringclassic、harvard、ink、opal 和 ember](docs/themes.zh.jpg)
+![示例简历在九个主题下的效果：classic、engineeringresumes、sb2nov、moderncv、engineeringclassic、harvard、ink、opal 和 ember](https://raw.githubusercontent.com/AnzhiZhang/PrismCV/main/docs/themes.zh.jpg)
 
 ## 内容
 
 `cv.yaml` 是姓名、联系方式和板块标题。`content/` 里的每个文件按 id 存放条目，怎么分文件由你决定。字段名沿用 [RenderCV 的字段](https://docs.rendercv.com)。
 
-各语言不同的文字写成“语言代码 → 文字”，其余只写一次。下面节选自示例的 [`content/experience.yaml`](src/prismcv/example/content/experience.yaml)：
+各语言不同的文字写成“语言代码 → 文字”，其余只写一次。下面节选自示例的 [`content/experience.yaml`](https://github.com/AnzhiZhang/PrismCV/blob/main/src/prismcv/example/content/experience.yaml)：
 
 ```yaml
 brightwave-intern:
@@ -78,7 +79,7 @@ brightwave-intern:
 
 ## 版本
 
-`targets/` 里每个文件是一个版本的简历。`langs` 默认生成所有语言，`max_pages` 在 PDF 超出页数时给出警告。下面节选自示例中[一个针对岗位定制的版本](src/prismcv/example/targets/jobs/2026-10-15_example-data-engineer.yaml)：
+`targets/` 里每个文件是一个版本的简历。`langs` 默认生成所有语言，`max_pages` 在 PDF 超出页数时给出警告。下面节选自示例中[一个针对岗位定制的版本](https://github.com/AnzhiZhang/PrismCV/blob/main/src/prismcv/example/targets/jobs/2026-10-15_example-data-engineer.yaml)：
 
 ```yaml
 langs: [en]

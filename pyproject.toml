@@ -4,10 +4,20 @@ build-backend = "hatchling.build"
 
 [project]
 name = "prismcv"
-version = "0.1.0"
+dynamic = ["version"]
 description = "One source, every CV: build multilingual, tailored CVs with RenderCV."
 readme = "README.md"
 license = "MIT"
+authors = [{ name = "Andy Zhang" }]
+keywords = ["cv", "resume", "rendercv", "multilingual", "typst", "yaml"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Text Processing :: Markup",
+]
 requires-python = ">=3.12"
 dependencies = [
     "rendercv[full]==2.8",
@@ -15,5 +25,16 @@ dependencies = [
     "pyyaml",
 ]
 
+[project.urls]
+Homepage = "https://github.com/AnzhiZhang/PrismCV"
+Repository = "https://github.com/AnzhiZhang/PrismCV"
+Issues = "https://github.com/AnzhiZhang/PrismCV/issues"
+
 [project.scripts]
 prismcv = "prismcv.cli:main"
+
+[tool.hatch.version]
+path = "src/prismcv/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+exclude = ["docs/"]

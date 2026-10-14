@@ -7,10 +7,11 @@
 <p><strong>One source, every CV.</strong></p>
 
 <p>
-  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+  <a href="https://github.com/AnzhiZhang/PrismCV/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
   <img alt="Python 3.12+" src="https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white">
+  <a href="https://pypi.org/project/prismcv/"><img alt="PyPI" src="https://img.shields.io/pypi/v/prismcv?color=blue"></a>
   <a href="https://github.com/rendercv/rendercv"><img alt="RenderCV 2.8" src="https://img.shields.io/badge/RenderCV-2.8-blue"></a>
-  <a href="README.zh-CN.md"><img alt="中文" src="https://img.shields.io/badge/README-%E4%B8%AD%E6%96%87-blue"></a>
+  <a href="https://github.com/AnzhiZhang/PrismCV/blob/main/README.zh-CN.md"><img alt="中文" src="https://img.shields.io/badge/README-%E4%B8%AD%E6%96%87-blue"></a>
 </p>
 
 </div>
@@ -39,7 +40,7 @@ flowchart LR
 Requires Python 3.12+.
 
 ```sh
-pip install -e .
+pip install prismcv
 prismcv init my-cv                  # create a CV folder from a minimal template
 cd my-cv
 prismcv build --all                 # every target
@@ -55,13 +56,13 @@ A CV folder holds `cv.yaml`, `design.yaml`, `content/` and `targets/`. Run `pris
 
 Set `theme` in `design.yaml`.
 
-![The example CV in nine themes: classic, engineeringresumes, sb2nov, moderncv, engineeringclassic, harvard, ink, opal and ember](docs/themes.en.jpg)
+![The example CV in nine themes: classic, engineeringresumes, sb2nov, moderncv, engineeringclassic, harvard, ink, opal and ember](https://raw.githubusercontent.com/AnzhiZhang/PrismCV/main/docs/themes.en.jpg)
 
 ## Content
 
 `cv.yaml` holds your name and contact details and the section titles. Every file in `content/` holds entries keyed by an id; how you split them into files is up to you. Fields use [RenderCV's names](https://docs.rendercv.com).
 
-Text that differs between languages maps language codes to text; anything else is written once. An excerpt from the example's [`content/experience.yaml`](src/prismcv/example/content/experience.yaml):
+Text that differs between languages maps language codes to text; anything else is written once. An excerpt from the example's [`content/experience.yaml`](https://github.com/AnzhiZhang/PrismCV/blob/main/src/prismcv/example/content/experience.yaml):
 
 ```yaml
 brightwave-intern:
@@ -78,7 +79,7 @@ Use `zh: null` to leave a bullet out of one language. An id can also hold a list
 
 ## Targets
 
-Each file in `targets/` is one version of the CV. `langs` defaults to every language, and `max_pages` warns when a PDF is longer. An excerpt from the example's [target tailored to one job](src/prismcv/example/targets/jobs/2026-10-15_example-data-engineer.yaml):
+Each file in `targets/` is one version of the CV. `langs` defaults to every language, and `max_pages` warns when a PDF is longer. An excerpt from the example's [target tailored to one job](https://github.com/AnzhiZhang/PrismCV/blob/main/src/prismcv/example/targets/jobs/2026-10-15_example-data-engineer.yaml):
 
 ```yaml
 langs: [en]
