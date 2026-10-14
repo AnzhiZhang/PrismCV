@@ -102,6 +102,28 @@ sections:
 
 `design.yaml` 中的 `languages` 把每个语言代码对应到一个 [RenderCV 语言](https://docs.rendercv.com)。添加语言时，在这里加上它，把它需要的设置（字体、日期格式）写在它的代码下，再为用到的内容补上译文；缺少的地方构建时会列出来。
 
+## 在 Python 中使用
+
+命令行只是一层外壳，核心功能都是处理普通字典的函数，因此其他程序也可以用不在文件里的数据生成简历：
+
+```python
+from prismcv import CV, validate
+
+cv = CV(cv_yaml, design_yaml, entries)       # 与简历文件夹相同的数据，以字典形式传入
+result = cv.assemble(target, "en")           # 一个版本、一种语言的 RenderCV 输入
+for issue in validate(result):               # RenderCV 自身的校验
+    print(issue.source, issue.message)       # 每个问题都指向它所在的条目和字段
+```
+
+## 开发
+
+```sh
+pip install -e . --group dev
+pytest
+```
+
+`tests/golden/example.json` 保存了示例简历生成的 RenderCV 输入，它一旦变化测试就会失败。有意修改之后，用 `python tests/test_golden.py` 重新生成。
+
 ## 许可证
 
 ```text

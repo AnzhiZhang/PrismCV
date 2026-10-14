@@ -12,15 +12,15 @@ from .init import InitError, create
 
 def run_build(args: argparse.Namespace, parser: argparse.ArgumentParser) -> int:
     try:
-        b.use_root(args.root)
+        folder = b.Folder(args.root)
         if not args.targets and not args.all:
             parser.print_help()
-            print("\navailable targets:\n  " + "\n  ".join(b.all_targets()))
+            print("\navailable targets:\n  " + "\n  ".join(folder.targets()))
             return 1
-        if args.lang and args.lang not in b.languages():
-            raise b.BuildError(f"unknown language '{args.lang}' (configured: {', '.join(b.languages())})")
-        pool = b.load_pool()
-        names = b.all_targets() if args.all else [b.normalise(t) for t in args.targets]
+        cv = folder.load()
+        if args.lang and args.lang not in cv.languages:
+            raise b.BuildError(f"unknown language '{args.lang}' (configured: {', '.join(cv.languages)})")
+        names = folder.targets() if args.all else [folder.normalise(t) for t in args.targets]
     except b.BuildError as e:
         print(f"✗ {e}", file=sys.stderr)
         return 1
@@ -29,7 +29,7 @@ def run_build(args: argparse.Namespace, parser: argparse.ArgumentParser) -> int:
     for name in names:
         print(name)
         try:
-            warnings += b.build(name, pool, args.lang, args.debug)
+            warnings += b.build(folder, cv, name, args.lang, args.debug)
         except b.BuildError as e:
             print(f"  ✗ {e}", file=sys.stderr)
             failed.append(name)

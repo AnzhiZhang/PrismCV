@@ -102,6 +102,28 @@ An item is an id, an id with fields to override, or an entry written inline. A v
 
 `languages` in `design.yaml` maps each code to a [RenderCV locale](https://docs.rendercv.com). To add one, add it there, put any settings it needs under its code (a font, a date format), and add its text to the content you use; the build lists anything missing.
 
+## Use from Python
+
+The command line is a thin layer over functions that work on plain dictionaries, so other programs can build CVs from data that is not in files:
+
+```python
+from prismcv import CV, validate
+
+cv = CV(cv_yaml, design_yaml, entries)       # the same data as a CV folder, as dictionaries
+result = cv.assemble(target, "en")           # RenderCV input for one target and language
+for issue in validate(result):               # RenderCV's own checks
+    print(issue.source, issue.message)       # each problem points at the entry and field it came from
+```
+
+## Development
+
+```sh
+pip install -e . --group dev
+pytest
+```
+
+`tests/golden/example.json` holds the RenderCV input the example CV produces; a test fails if it changes. After an intended change, regenerate it with `python tests/test_golden.py`.
+
 ## License
 
 ```text

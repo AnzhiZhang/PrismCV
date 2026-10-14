@@ -25,6 +25,9 @@ dependencies = [
     "pyyaml",
 ]
 
+[dependency-groups]
+dev = ["pytest"]
+
 [project.urls]
 Homepage = "https://github.com/AnzhiZhang/PrismCV"
 Repository = "https://github.com/AnzhiZhang/PrismCV"
@@ -38,3 +41,6 @@ path = "src/prismcv/__init__.py"
 
 [tool.hatch.build.targets.sdist]
 exclude = ["docs/"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

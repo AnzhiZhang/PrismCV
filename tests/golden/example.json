@@ -1,0 +1,866 @@
+{
+ "academic|en": {
+  "cv": {
+   "name": "Nathan Lee",
+   "location": "Toronto, Canada",
+   "email": "nathan.lee@example.com",
+   "phone": "+1 416 555 0123",
+   "social_networks": [
+    {
+     "network": "GitHub",
+     "username": "example"
+    }
+   ],
+   "sections": {
+    "Profile": [
+     "Electrical engineering graduate researching sensor fusion for low-cost robotics."
+    ],
+    "Education": [
+     {
+      "institution": "Northfield Institute of Technology",
+      "degree": "MEng",
+      "area": "Electrical Engineering",
+      "location": "Toronto, Canada",
+      "start_date": "2024-09",
+      "end_date": "present"
+     },
+     {
+      "institution": "Lakeside University",
+      "degree": "BSc",
+      "area": "Physics",
+      "location": "Vancouver, Canada",
+      "start_date": "2020-09",
+      "end_date": "2024-05"
+     }
+    ],
+    "Research Experience": [
+     {
+      "company": "Applied Photonics Lab, Lakeside University",
+      "position": "Undergraduate Researcher",
+      "location": "Vancouver, Canada",
+      "start_date": "2023-05",
+      "end_date": "2024-04",
+      "highlights": [
+       "Calibrated a LiDAR array and wrote Python tools to clean its output",
+       "Results contributed to a conference paper on sensor fusion"
+      ]
+     }
+    ],
+    "Publications": [
+     {
+      "title": "Low-cost LiDAR and IMU Fusion for Indoor Mapping",
+      "authors": [
+       "Maria Santos",
+       "*Nathan Lee*",
+       "Wei Chen"
+      ],
+      "journal": "Example Robotics Conference 2024",
+      "date": "2024-06"
+     }
+    ],
+    "Work Experience": [
+     {
+      "company": "Brightwave Robotics",
+      "position": "Embedded Software Intern",
+      "location": "Montreal, Canada",
+      "start_date": "2025-05",
+      "end_date": "2025-08",
+      "highlights": [
+       "Wrote C++ drivers for an IMU on a warehouse robot platform",
+       "Cut sensor read latency by 30% by moving polling to DMA",
+       "Added hardware-in-the-loop tests to the CI pipeline"
+      ]
+     }
+    ],
+    "Leadership & Activities": [
+     {
+      "company": "Lakeside University Robotics Club",
+      "position": "Team Captain",
+      "start_date": "2022-09",
+      "end_date": "2024-05",
+      "highlights": [
+       "Led a 12-person team through two national competitions"
+      ]
+     },
+     {
+      "company": "Northfield Hardware Hackathon",
+      "position": "Co-organiser",
+      "start_date": "2025-01",
+      "end_date": "2025-03"
+     }
+    ],
+    "Skills": [
+     {
+      "label": "Languages",
+      "details": "C++, Python, MATLAB"
+     },
+     {
+      "label": "Tools",
+      "details": "ROS 2, Git, KiCad, Docker"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "sections": {
+    "show_time_spans_in": []
+   }
+  },
+  "locale": {
+   "language": "english"
+  }
+ },
+ "academic|zh": {
+  "cv": {
+   "name": "李南森",
+   "location": "加拿大多伦多",
+   "email": "nathan.lee@example.com",
+   "phone": "+86 138 0013 8000",
+   "social_networks": [
+    {
+     "network": "GitHub",
+     "username": "example"
+    }
+   ],
+   "sections": {
+    "个人简介": [
+     "电气工程硕士，研究方向为低成本机器人的多传感器融合。"
+    ],
+    "教育背景": [
+     {
+      "institution": "北原理工学院",
+      "degree": "硕士",
+      "area": "电气工程",
+      "location": "加拿大多伦多",
+      "start_date": "2024-09",
+      "end_date": "present"
+     },
+     {
+      "institution": "湖畔大学",
+      "degree": "学士",
+      "area": "物理学",
+      "location": "加拿大温哥华",
+      "start_date": "2020-09",
+      "end_date": "2024-05"
+     }
+    ],
+    "科研经历": [
+     {
+      "company": "湖畔大学应用光子学实验室",
+      "position": "本科生研究员",
+      "location": "加拿大温哥华",
+      "start_date": "2023-05",
+      "end_date": "2024-04",
+      "highlights": [
+       "校准激光雷达阵列，并编写 Python 工具清洗其输出数据",
+       "研究结果用于一篇多传感器融合方向的会议论文"
+      ]
+     }
+    ],
+    "发表论文": [
+     {
+      "title": "Low-cost LiDAR and IMU Fusion for Indoor Mapping",
+      "authors": [
+       "Maria Santos",
+       "*Nathan Lee*",
+       "Wei Chen"
+      ],
+      "journal": "Example Robotics Conference 2024",
+      "date": "2024-06"
+     }
+    ],
+    "工作经历": [
+     {
+      "company": "明波机器人",
+      "position": "嵌入式软件实习生",
+      "location": "加拿大蒙特利尔",
+      "start_date": "2025-05",
+      "end_date": "2025-08",
+      "highlights": [
+       "为仓储机器人平台的惯性测量单元编写 C++ 驱动",
+       "将轮询改为 DMA 传输，传感器读取延迟降低 30%",
+       "在持续集成流程中加入硬件在环测试"
+      ]
+     }
+    ],
+    "校园活动": [
+     {
+      "company": "湖畔大学机器人社",
+      "position": "队长",
+      "start_date": "2022-09",
+      "end_date": "2024-05",
+      "highlights": [
+       "带领 12 人团队参加两届全国比赛"
+      ]
+     },
+     {
+      "company": "北原硬件黑客松",
+      "position": "联合组织者",
+      "start_date": "2025-01",
+      "end_date": "2025-03"
+     }
+    ],
+    "技能": [
+     {
+      "label": "编程语言",
+      "details": "C++, Python, MATLAB"
+     },
+     {
+      "label": "工具",
+      "details": "ROS 2, Git, KiCad, Docker"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "sections": {
+    "show_time_spans_in": []
+   },
+   "typography": {
+    "font_family": "Noto Sans SC"
+   },
+   "templates": {
+    "single_date": "YEAR年MONTH月",
+    "experience_entry": {
+     "main_column": "**COMPANY**，POSITION\nSUMMARY\nHIGHLIGHTS"
+    },
+    "education_entry": {
+     "main_column": "**INSTITUTION**，AREA\nSUMMARY\nHIGHLIGHTS"
+    }
+   }
+  },
+  "locale": {
+   "language": "mandarin_chinese"
+  }
+ },
+ "full|en": {
+  "cv": {
+   "name": "Nathan Lee",
+   "location": "Toronto, Canada",
+   "email": "nathan.lee@example.com",
+   "phone": "+1 416 555 0123",
+   "social_networks": [
+    {
+     "network": "GitHub",
+     "username": "example"
+    }
+   ],
+   "sections": {
+    "Profile": [
+     "Electrical engineer with hands-on experience in embedded software and sensor data pipelines."
+    ],
+    "Education": [
+     {
+      "institution": "Northfield Institute of Technology",
+      "degree": "MEng",
+      "area": "Electrical Engineering",
+      "location": "Toronto, Canada",
+      "start_date": "2024-09",
+      "end_date": "present"
+     },
+     {
+      "institution": "Lakeside University",
+      "degree": "BSc",
+      "area": "Physics",
+      "location": "Vancouver, Canada",
+      "start_date": "2020-09",
+      "end_date": "2024-05"
+     }
+    ],
+    "Work Experience": [
+     {
+      "company": "Brightwave Robotics",
+      "position": "Embedded Software Intern",
+      "location": "Montreal, Canada",
+      "start_date": "2025-05",
+      "end_date": "2025-08",
+      "highlights": [
+       "Wrote C++ drivers for an IMU on a warehouse robot platform",
+       "Cut sensor read latency by 30% by moving polling to DMA",
+       "Added hardware-in-the-loop tests to the CI pipeline"
+      ]
+     },
+     {
+      "company": "Greenleaf Energy",
+      "position": "Part-time Data Analyst",
+      "location": "Toronto, Canada",
+      "start_date": "2025-10",
+      "end_date": "present",
+      "highlights": [
+       "Build weekly dashboards on solar panel output for the operations team"
+      ]
+     }
+    ],
+    "Research Experience": [
+     {
+      "company": "Applied Photonics Lab, Lakeside University",
+      "position": "Undergraduate Researcher",
+      "location": "Vancouver, Canada",
+      "start_date": "2023-05",
+      "end_date": "2024-04",
+      "highlights": [
+       "Calibrated a LiDAR array and wrote Python tools to clean its output",
+       "Results contributed to a conference paper on sensor fusion"
+      ]
+     }
+    ],
+    "Projects": [
+     {
+      "name": "Solar Weather Station",
+      "start_date": "2024-01",
+      "end_date": "2024-04",
+      "highlights": [
+       "Off-grid weather station on an ESP32, reporting over LoRa"
+      ]
+     },
+     {
+      "name": "Line-following Robot",
+      "start_date": "2023-02",
+      "end_date": "2023-03",
+      "highlights": [
+       "PID-controlled robot that placed 2nd in a regional competition"
+      ]
+     }
+    ],
+    "Publications": [
+     {
+      "title": "Low-cost LiDAR and IMU Fusion for Indoor Mapping",
+      "authors": [
+       "Maria Santos",
+       "*Nathan Lee*",
+       "Wei Chen"
+      ],
+      "journal": "Example Robotics Conference 2024",
+      "date": "2024-06"
+     }
+    ],
+    "Leadership & Activities": [
+     {
+      "company": "Lakeside University Robotics Club",
+      "position": "Team Captain",
+      "start_date": "2022-09",
+      "end_date": "2024-05",
+      "highlights": [
+       "Led a 12-person team through two national competitions"
+      ]
+     },
+     {
+      "company": "Northfield Hardware Hackathon",
+      "position": "Co-organiser",
+      "start_date": "2025-01",
+      "end_date": "2025-03"
+     }
+    ],
+    "Skills": [
+     {
+      "label": "Languages",
+      "details": "C++, Python, MATLAB"
+     },
+     {
+      "label": "Tools",
+      "details": "ROS 2, Git, KiCad, Docker"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "sections": {
+    "show_time_spans_in": []
+   }
+  },
+  "locale": {
+   "language": "english"
+  }
+ },
+ "full|zh": {
+  "cv": {
+   "name": "李南森",
+   "location": "加拿大多伦多",
+   "email": "nathan.lee@example.com",
+   "phone": "+86 138 0013 8000",
+   "social_networks": [
+    {
+     "network": "GitHub",
+     "username": "example"
+    }
+   ],
+   "sections": {
+    "个人简介": [
+     "电气工程背景，有嵌入式软件与传感器数据处理的实践经验。"
+    ],
+    "教育背景": [
+     {
+      "institution": "北原理工学院",
+      "degree": "硕士",
+      "area": "电气工程",
+      "location": "加拿大多伦多",
+      "start_date": "2024-09",
+      "end_date": "present"
+     },
+     {
+      "institution": "湖畔大学",
+      "degree": "学士",
+      "area": "物理学",
+      "location": "加拿大温哥华",
+      "start_date": "2020-09",
+      "end_date": "2024-05"
+     }
+    ],
+    "工作经历": [
+     {
+      "company": "明波机器人",
+      "position": "嵌入式软件实习生",
+      "location": "加拿大蒙特利尔",
+      "start_date": "2025-05",
+      "end_date": "2025-08",
+      "highlights": [
+       "为仓储机器人平台的惯性测量单元编写 C++ 驱动",
+       "将轮询改为 DMA 传输，传感器读取延迟降低 30%",
+       "在持续集成流程中加入硬件在环测试"
+      ]
+     },
+     {
+      "company": "绿叶能源",
+      "position": "兼职数据分析师",
+      "location": "加拿大多伦多",
+      "start_date": "2025-10",
+      "end_date": "present",
+      "highlights": [
+       "为运营团队制作太阳能板发电量的周报看板"
+      ]
+     }
+    ],
+    "科研经历": [
+     {
+      "company": "湖畔大学应用光子学实验室",
+      "position": "本科生研究员",
+      "location": "加拿大温哥华",
+      "start_date": "2023-05",
+      "end_date": "2024-04",
+      "highlights": [
+       "校准激光雷达阵列，并编写 Python 工具清洗其输出数据",
+       "研究结果用于一篇多传感器融合方向的会议论文"
+      ]
+     }
+    ],
+    "项目经历": [
+     {
+      "name": "太阳能气象站",
+      "start_date": "2024-01",
+      "end_date": "2024-04",
+      "highlights": [
+       "基于 ESP32 的离网气象站，通过 LoRa 上报数据"
+      ]
+     },
+     {
+      "name": "循迹机器人",
+      "start_date": "2023-02",
+      "end_date": "2023-03",
+      "highlights": [
+       "采用 PID 控制，在地区比赛中获得第二名"
+      ]
+     }
+    ],
+    "发表论文": [
+     {
+      "title": "Low-cost LiDAR and IMU Fusion for Indoor Mapping",
+      "authors": [
+       "Maria Santos",
+       "*Nathan Lee*",
+       "Wei Chen"
+      ],
+      "journal": "Example Robotics Conference 2024",
+      "date": "2024-06"
+     }
+    ],
+    "校园活动": [
+     {
+      "company": "湖畔大学机器人社",
+      "position": "队长",
+      "start_date": "2022-09",
+      "end_date": "2024-05",
+      "highlights": [
+       "带领 12 人团队参加两届全国比赛"
+      ]
+     },
+     {
+      "company": "北原硬件黑客松",
+      "position": "联合组织者",
+      "start_date": "2025-01",
+      "end_date": "2025-03"
+     }
+    ],
+    "技能": [
+     {
+      "label": "编程语言",
+      "details": "C++, Python, MATLAB"
+     },
+     {
+      "label": "工具",
+      "details": "ROS 2, Git, KiCad, Docker"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "sections": {
+    "show_time_spans_in": []
+   },
+   "typography": {
+    "font_family": "Noto Sans SC"
+   },
+   "templates": {
+    "single_date": "YEAR年MONTH月",
+    "experience_entry": {
+     "main_column": "**COMPANY**，POSITION\nSUMMARY\nHIGHLIGHTS"
+    },
+    "education_entry": {
+     "main_column": "**INSTITUTION**，AREA\nSUMMARY\nHIGHLIGHTS"
+    }
+   }
+  },
+  "locale": {
+   "language": "mandarin_chinese"
+  }
+ },
+ "industry|en": {
+  "cv": {
+   "name": "Nathan Lee",
+   "location": "Toronto, Canada",
+   "email": "nathan.lee@example.com",
+   "phone": "+1 416 555 0123",
+   "social_networks": [
+    {
+     "network": "GitHub",
+     "username": "example"
+    }
+   ],
+   "sections": {
+    "Profile": [
+     "Electrical engineer with hands-on experience in embedded software and sensor data pipelines."
+    ],
+    "Education": [
+     {
+      "institution": "Northfield Institute of Technology",
+      "degree": "MEng",
+      "area": "Electrical Engineering",
+      "location": "Toronto, Canada",
+      "start_date": "2024-09",
+      "end_date": "present"
+     },
+     {
+      "institution": "Lakeside University",
+      "degree": "BSc",
+      "area": "Physics",
+      "location": "Vancouver, Canada",
+      "start_date": "2020-09",
+      "end_date": "2024-05"
+     }
+    ],
+    "Work Experience": [
+     {
+      "company": "Brightwave Robotics",
+      "position": "Embedded Software Intern",
+      "location": "Montreal, Canada",
+      "start_date": "2025-05",
+      "end_date": "2025-08",
+      "highlights": [
+       "Wrote C++ drivers for an IMU on a warehouse robot platform",
+       "Cut sensor read latency by 30% by moving polling to DMA",
+       "Added hardware-in-the-loop tests to the CI pipeline"
+      ]
+     },
+     {
+      "company": "Greenleaf Energy",
+      "position": "Part-time Data Analyst",
+      "location": "Toronto, Canada",
+      "start_date": "2025-10",
+      "end_date": "present",
+      "highlights": [
+       "Build weekly dashboards on solar panel output for the operations team"
+      ]
+     }
+    ],
+    "Projects": [
+     {
+      "name": "Solar Weather Station",
+      "start_date": "2024-01",
+      "end_date": "2024-04",
+      "highlights": [
+       "Off-grid weather station on an ESP32, reporting over LoRa"
+      ]
+     },
+     {
+      "name": "Line-following Robot",
+      "start_date": "2023-02",
+      "end_date": "2023-03",
+      "highlights": [
+       "PID-controlled robot that placed 2nd in a regional competition"
+      ]
+     }
+    ],
+    "Skills": [
+     {
+      "label": "Languages",
+      "details": "C++, Python, MATLAB"
+     },
+     {
+      "label": "Tools",
+      "details": "ROS 2, Git, KiCad, Docker"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "sections": {
+    "show_time_spans_in": []
+   }
+  },
+  "locale": {
+   "language": "english"
+  }
+ },
+ "industry|zh": {
+  "cv": {
+   "name": "李南森",
+   "location": "加拿大多伦多",
+   "email": "nathan.lee@example.com",
+   "phone": "+86 138 0013 8000",
+   "social_networks": [
+    {
+     "network": "GitHub",
+     "username": "example"
+    }
+   ],
+   "sections": {
+    "个人简介": [
+     "电气工程背景，有嵌入式软件与传感器数据处理的实践经验。"
+    ],
+    "教育背景": [
+     {
+      "institution": "北原理工学院",
+      "degree": "硕士",
+      "area": "电气工程",
+      "location": "加拿大多伦多",
+      "start_date": "2024-09",
+      "end_date": "present"
+     },
+     {
+      "institution": "湖畔大学",
+      "degree": "学士",
+      "area": "物理学",
+      "location": "加拿大温哥华",
+      "start_date": "2020-09",
+      "end_date": "2024-05"
+     }
+    ],
+    "工作经历": [
+     {
+      "company": "明波机器人",
+      "position": "嵌入式软件实习生",
+      "location": "加拿大蒙特利尔",
+      "start_date": "2025-05",
+      "end_date": "2025-08",
+      "highlights": [
+       "为仓储机器人平台的惯性测量单元编写 C++ 驱动",
+       "将轮询改为 DMA 传输，传感器读取延迟降低 30%",
+       "在持续集成流程中加入硬件在环测试"
+      ]
+     },
+     {
+      "company": "绿叶能源",
+      "position": "兼职数据分析师",
+      "location": "加拿大多伦多",
+      "start_date": "2025-10",
+      "end_date": "present",
+      "highlights": [
+       "为运营团队制作太阳能板发电量的周报看板"
+      ]
+     }
+    ],
+    "项目经历": [
+     {
+      "name": "太阳能气象站",
+      "start_date": "2024-01",
+      "end_date": "2024-04",
+      "highlights": [
+       "基于 ESP32 的离网气象站，通过 LoRa 上报数据"
+      ]
+     },
+     {
+      "name": "循迹机器人",
+      "start_date": "2023-02",
+      "end_date": "2023-03",
+      "highlights": [
+       "采用 PID 控制，在地区比赛中获得第二名"
+      ]
+     }
+    ],
+    "技能": [
+     {
+      "label": "编程语言",
+      "details": "C++, Python, MATLAB"
+     },
+     {
+      "label": "工具",
+      "details": "ROS 2, Git, KiCad, Docker"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "sections": {
+    "show_time_spans_in": []
+   },
+   "typography": {
+    "font_family": "Noto Sans SC"
+   },
+   "templates": {
+    "single_date": "YEAR年MONTH月",
+    "experience_entry": {
+     "main_column": "**COMPANY**，POSITION\nSUMMARY\nHIGHLIGHTS"
+    },
+    "education_entry": {
+     "main_column": "**INSTITUTION**，AREA\nSUMMARY\nHIGHLIGHTS"
+    }
+   }
+  },
+  "locale": {
+   "language": "mandarin_chinese"
+  }
+ },
+ "jobs/2026-10-15_example-data-engineer|en": {
+  "cv": {
+   "name": "Nathan Lee",
+   "location": "Toronto, Canada",
+   "email": "nathan.lee@example.com",
+   "phone": "+1 416 555 0123",
+   "social_networks": [
+    {
+     "network": "GitHub",
+     "username": "example"
+    }
+   ],
+   "sections": {
+    "Profile": [
+     "Engineer who enjoys turning messy sensor data into reliable pipelines."
+    ],
+    "Education": [
+     {
+      "institution": "Northfield Institute of Technology",
+      "degree": "MEng",
+      "area": "Electrical Engineering",
+      "location": "Toronto, Canada",
+      "start_date": "2024-09",
+      "end_date": "present"
+     },
+     {
+      "institution": "Lakeside University",
+      "degree": "BSc",
+      "area": "Physics",
+      "location": "Vancouver, Canada",
+      "start_date": "2020-09",
+      "end_date": "2024-05"
+     }
+    ],
+    "Experience": [
+     {
+      "company": "Brightwave Robotics",
+      "position": "Embedded Software Intern",
+      "location": "Montreal, Canada",
+      "start_date": "2025-05",
+      "end_date": "2025-08",
+      "highlights": [
+       "Built a pipeline to collect and visualise sensor logs from test runs",
+       "Analysed failure data to find the root cause of drift in navigation"
+      ]
+     },
+     {
+      "company": "Greenleaf Energy",
+      "position": "Part-time Data Analyst",
+      "location": "Toronto, Canada",
+      "start_date": "2025-10",
+      "end_date": "present",
+      "highlights": [
+       "Rewritten bullet for this role only"
+      ]
+     }
+    ],
+    "Projects": [
+     {
+      "name": "Solar Weather Station",
+      "start_date": "2024-01",
+      "end_date": "2024-04",
+      "highlights": [
+       "Off-grid weather station on an ESP32, reporting over LoRa"
+      ]
+     }
+    ],
+    "Skills": [
+     {
+      "label": "Languages",
+      "details": "C++, Python, MATLAB"
+     },
+     {
+      "label": "Tools",
+      "details": "ROS 2, Git, KiCad, Docker"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "sections": {
+    "show_time_spans_in": []
+   }
+  },
+  "locale": {
+   "language": "english"
+  }
+ },
+ "_stem": {
+  "en": "Nathan_Lee_CV_en",
+  "zh": "Nathan_Lee_CV_zh"
+ }
+}
