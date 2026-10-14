@@ -292,7 +292,7 @@ def render(yaml_path: Path) -> None:
         raise BuildError(f"RenderCV failed (run with --debug to keep its input):\n{proc.stdout}{proc.stderr}")
 
 
-# Command line
+# Targets
 
 def all_targets() -> list[str]:
     return sorted(str(p.relative_to(TARGETS).with_suffix("")) for p in TARGETS.rglob("*.yaml"))

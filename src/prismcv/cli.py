@@ -43,7 +43,7 @@ def run_build(args: argparse.Namespace, parser: argparse.ArgumentParser) -> int:
 
 def run_init(args: argparse.Namespace) -> int:
     try:
-        created = create(args.path)
+        created = create(args.path, example=args.example)
     except InitError as e:
         print(f"✗ {e}", file=sys.stderr)
         return 1
@@ -67,6 +67,7 @@ def main() -> int:
 
     ip = commands.add_parser("init", help="create a new CV folder")
     ip.add_argument("path", nargs="?", type=Path, default=Path.cwd(), help="folder to create it in (default: current folder)")
+    ip.add_argument("--example", action="store_true", help="start from the full bilingual example instead of the minimal template")
 
     args = ap.parse_args()
     if args.command == "init":

@@ -36,18 +36,20 @@ flowchart LR
 
 ## 快速开始
 
-需要 Python 3.12 以上。中文示例还需要安装 [Noto Sans SC](https://fonts.google.com/noto/specimen/Noto+Sans+SC)。
+需要 Python 3.12 以上。
 
 ```sh
 pip install -e .
-prismcv init my-cv                  # 新建一个简历文件夹
+prismcv init my-cv                  # 用最小模板新建一个简历文件夹
 cd my-cv
 prismcv build --all                 # 所有版本
 prismcv build main --lang en        # 一个版本、一种语言
 prismcv build main --debug          # 保留生成的 RenderCV 输入文件
 ```
 
-简历文件夹包含 `cv.yaml`、`design.yaml`、`content/` 和 `targets/`。在其中运行 `prismcv build`，或者用 `--root` 指定这样的文件夹。PDF 输出到 `out/<版本>/`。本仓库本身就是一个简历文件夹，里面是一份虚构示例。
+简历文件夹包含 `cv.yaml`、`design.yaml`、`content/` 和 `targets/`。在其中运行 `prismcv build`，或者用 `--root` 指定这样的文件夹。PDF 输出到 `out/<版本>/`。
+
+`prismcv init --example` 会改为生成一份完整的中英双语示例，用到下面介绍的所有功能。其中文版需要安装 [Noto Sans SC](https://fonts.google.com/noto/specimen/Noto+Sans+SC) 字体。
 
 ## 主题
 
@@ -59,7 +61,7 @@ prismcv build main --debug          # 保留生成的 RenderCV 输入文件
 
 `cv.yaml` 是姓名、联系方式和板块标题。`content/` 里的每个文件按 id 存放条目，怎么分文件由你决定。字段名沿用 [RenderCV 的字段](https://docs.rendercv.com)。
 
-各语言不同的文字写成“语言代码 → 文字”，其余只写一次。下面节选自 [`content/experience.yaml`](content/experience.yaml)：
+各语言不同的文字写成“语言代码 → 文字”，其余只写一次。下面节选自示例的 [`content/experience.yaml`](src/prismcv/example/content/experience.yaml)：
 
 ```yaml
 brightwave-intern:
@@ -76,7 +78,7 @@ brightwave-intern:
 
 ## 版本
 
-`targets/` 里每个文件是一个版本的简历。`langs` 默认生成所有语言，`max_pages` 在 PDF 超出页数时给出警告。下面节选自[一个针对岗位定制的版本](targets/jobs/2026-10-15_example-data-engineer.yaml)：
+`targets/` 里每个文件是一个版本的简历。`langs` 默认生成所有语言，`max_pages` 在 PDF 超出页数时给出警告。下面节选自示例中[一个针对岗位定制的版本](src/prismcv/example/targets/jobs/2026-10-15_example-data-engineer.yaml)：
 
 ```yaml
 langs: [en]

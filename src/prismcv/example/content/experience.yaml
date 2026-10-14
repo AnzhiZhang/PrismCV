@@ -1,5 +1,4 @@
-# All experience: work, research and activities. Which section an entry appears in is decided by each target.
-# Example content (fictional). Replace with your own.
+# Work, research and activities. Each target decides which section an entry goes in.
 
 photonics-lab:
   company: { en: "Applied Photonics Lab, Lakeside University", zh: 湖畔大学应用光子学实验室 }
@@ -27,8 +26,7 @@ brightwave-intern:
     - en: Added hardware-in-the-loop tests to the CI pipeline
       zh: 在持续集成流程中加入硬件在环测试
 
-# A variant: inherits every field from brightwave-intern (the part before @)
-# and replaces only the fields written here. Use base: <id> to name another parent.
+# A variant: inherits brightwave-intern and replaces the fields written here.
 brightwave-intern@data:
   highlights:
     - en: Built a pipeline to collect and visualise sensor logs from test runs

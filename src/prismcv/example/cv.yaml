@@ -1,6 +1,4 @@
-# Name and contact details, and the title of each section.
 # Plain text is shared by all languages; {en: ..., zh: ...} gives one text per language.
-# Example content (fictional). Replace with your own.
 header:
   name: { en: Nathan Lee, zh: 李南森 }
   location: { en: "Toronto, Canada", zh: 加拿大多伦多 }

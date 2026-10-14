@@ -1,5 +1,4 @@
-# An id can hold a list of entries; a target that uses the id gets the whole group.
-# Example content (fictional). Replace with your own.
+# An id can hold a list of entries; a target that uses it gets them all.
 skills-general:
   - label: { en: Languages, zh: 编程语言 }
     details: C++, Python, MATLAB

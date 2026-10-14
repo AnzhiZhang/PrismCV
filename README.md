@@ -36,18 +36,20 @@ flowchart LR
 
 ## Quick start
 
-Requires Python 3.12+. The Chinese example also needs [Noto Sans SC](https://fonts.google.com/noto/specimen/Noto+Sans+SC).
+Requires Python 3.12+.
 
 ```sh
 pip install -e .
-prismcv init my-cv                  # create a CV folder
+prismcv init my-cv                  # create a CV folder from a minimal template
 cd my-cv
 prismcv build --all                 # every target
 prismcv build main --lang en        # one target, one language
 prismcv build main --debug          # keep the generated RenderCV input
 ```
 
-A CV folder holds `cv.yaml`, `design.yaml`, `content/` and `targets/`. Run `prismcv build` inside one, or point to one with `--root`. PDFs go to `out/<target>/`. This repository is itself a CV folder, with a fictional example.
+A CV folder holds `cv.yaml`, `design.yaml`, `content/` and `targets/`. Run `prismcv build` inside one, or point to one with `--root`. PDFs go to `out/<target>/`.
+
+`prismcv init --example` creates a full bilingual example instead, using every feature below. Its Chinese version needs the [Noto Sans SC](https://fonts.google.com/noto/specimen/Noto+Sans+SC) font.
 
 ## Themes
 
@@ -59,7 +61,7 @@ Set `theme` in `design.yaml`.
 
 `cv.yaml` holds your name and contact details and the section titles. Every file in `content/` holds entries keyed by an id; how you split them into files is up to you. Fields use [RenderCV's names](https://docs.rendercv.com).
 
-Text that differs between languages maps language codes to text; anything else is written once. An excerpt from [`content/experience.yaml`](content/experience.yaml):
+Text that differs between languages maps language codes to text; anything else is written once. An excerpt from the example's [`content/experience.yaml`](src/prismcv/example/content/experience.yaml):
 
 ```yaml
 brightwave-intern:
@@ -76,7 +78,7 @@ Use `zh: null` to leave a bullet out of one language. An id can also hold a list
 
 ## Targets
 
-Each file in `targets/` is one version of the CV. `langs` defaults to every language, and `max_pages` warns when a PDF is longer. An excerpt from [a target tailored to one job](targets/jobs/2026-10-15_example-data-engineer.yaml):
+Each file in `targets/` is one version of the CV. `langs` defaults to every language, and `max_pages` warns when a PDF is longer. An excerpt from the example's [target tailored to one job](src/prismcv/example/targets/jobs/2026-10-15_example-data-engineer.yaml):
 
 ```yaml
 langs: [en]

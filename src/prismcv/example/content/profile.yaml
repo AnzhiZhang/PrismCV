@@ -1,5 +1,4 @@
-# Reusable profile paragraphs. A target can also write its own paragraph inline.
-# Example content (fictional). Replace with your own.
+# A target can also write its own paragraph instead.
 profile-industry:
   text:
     en: Electrical engineer with hands-on experience in embedded software and sensor data pipelines.

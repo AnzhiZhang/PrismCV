@@ -1,5 +1,4 @@
-# Language codes used in cv.yaml, content/ and targets/, each mapped to a
-# RenderCV locale. The first one names the PDF files.
+# Language codes and their RenderCV locales. The first names the PDF files.
 languages:
   en: english
 

@@ -1,5 +1,4 @@
-# All experience goes here: work, research, activities. Each target decides
-# which section an entry appears in.
+# Work, research and activities. Each target decides which section an entry goes in.
 example-job:
   company: Example Company
   position: Software Engineer Intern

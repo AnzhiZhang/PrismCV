@@ -1,4 +1,4 @@
-# An id can hold a list of entries; a target that uses the id gets all of them.
+# An id can hold a list of entries; a target that uses it gets them all.
 skills:
   - label: Languages
     details: Python, Java
