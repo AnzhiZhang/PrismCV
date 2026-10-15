@@ -135,7 +135,8 @@ class CV:
         return isinstance(value, dict) and bool(value) and set(value) <= set(self.locales)
 
     def localize(self, value, lang: str, src: Source | None = None,
-                 out: Key | None = None, sources: dict | None = None):
+                 out: Key | None = None, sources: dict | None = None,
+                 list_sources: list[Source] | None = None):
         """Replace every {en: ..., zh: ...} mapping inside value with the text for lang.
 
         A language set to null gives OMIT, which is left out of the enclosing
@@ -164,7 +165,8 @@ class CV:
         if isinstance(value, list):
             result = []
             for i, v in enumerate(value):
-                v = self.localize(v, lang, src and src.child(i), out and out + key(len(result)), sources)
+                item_src = list_sources[i] if list_sources is not None else src and src.child(i)
+                v = self.localize(v, lang, item_src, out and out + key(len(result)), sources)
                 if v is not OMIT:
                     result.append(v)
             return result
@@ -233,26 +235,79 @@ class CV:
         at = Source("target", section, (i,))
         try:
             if isinstance(item, str):
-                return [simplify(r) for r in self.resolve_id(item)]
+                return [self.prepare_highlights(r) for r in self.resolve_id(item)]
             if isinstance(item, dict) and len(item) == 1 and next(iter(item)) in self.entries:
                 eid, override = next(iter(item.items()))
                 resolved = self.resolve_id(eid)
+                if override is not None and not isinstance(override, dict):
+                    fail(f"overrides for '{eid}' must be a mapping", at.child(eid))
+                override = copy.deepcopy(override or {})
+                hide = override.pop("hide", [])
+                hide_src = at.child(eid, "hide")
+                if not isinstance(hide, list) or any(not isinstance(b, str) or not b for b in hide):
+                    fail(f"hide for '{eid}' must be a list of non-empty bullet ids", hide_src)
+                if hide and len(resolved) != 1:
+                    fail(f"'{eid}' is a list and cannot hide bullets", hide_src)
                 if override:
                     if len(resolved) != 1 or not isinstance(resolved[0][0], dict):
                         fail(f"'{eid}' is a list and cannot be overridden field by field")
                     entry, sources, here = resolved[0]
-                    entry.update(copy.deepcopy(override))
+                    entry.update(override)
                     sources.update(fields_of(override, at.child(eid)))
-                return [simplify(r) for r in resolved]
+                return [self.prepare_highlights(r, hide, hide_src) for r in resolved]
             if isinstance(item, dict):
                 if len(item) == 1 and next(iter(item)) not in ENTRY_FIELDS:
                     fail(f"unknown id '{next(iter(item))}'")
-                return [simplify((copy.deepcopy(item), fields_of(item, at), at))]
+                return [self.prepare_highlights((copy.deepcopy(item), fields_of(item, at), at))]
             fail(f"cannot understand item {item!r}")
         except PrismError as e:
             for issue in e.issues:
                 issue.source = issue.source or at
             raise
+
+    def prepare_highlights(self, resolved: tuple, hide=(), hide_src: Source | None = None) -> tuple:
+        """Strip bullet metadata after overrides, keeping each bullet's original source.
+
+        Field sources with ("highlights", index) keys describe the normalized list.
+        Identified bullets use their id; legacy bullets keep their original index.
+        """
+        entry, fields, here = resolved
+        if isinstance(entry, dict) and "hide" in entry:
+            fail("hide belongs in a target item's override mapping", fields["hide"])
+        bullets, ids = [], set()
+        if isinstance(entry, dict) and isinstance(entry.get("highlights"), list):
+            origin = fields["highlights"]
+            for i, bullet in enumerate(entry["highlights"]):
+                src, bid = origin.child(i), None
+                if isinstance(bullet, dict):
+                    if "id" in bullet:
+                        bid = bullet["id"]
+                        if not isinstance(bid, str) or not bid:
+                            fail("bullet id must be a non-empty string", src.child("id"))
+                        src = origin.child(bid)
+                        if bid in ids:
+                            fail(f"duplicate bullet id '{bid}' in entry '{here.key}'", src)
+                        ids.add(bid)
+                    value = {k: v for k, v in bullet.items() if k != "id"}
+                    if set(value) == {"text"}:
+                        bullet = value["text"]
+                        src = src.child("text")
+                    else:
+                        bullet = value
+                if not (isinstance(bullet, str) or
+                        (self.is_localized(bullet) and
+                         all(v is None or isinstance(v, str) for v in bullet.values()))):
+                    fail("bullet must be text or a language mapping, optionally with id and text", src)
+                bullets.append((bid, bullet, src))
+            entry["highlights"] = []
+            for bid, bullet, src in bullets:
+                if bid is None or bid not in hide:
+                    fields[("highlights", len(entry["highlights"]))] = src
+                    entry["highlights"].append(bullet)
+        for bid in hide:
+            if bid not in ids:
+                fail(f"unknown hidden bullet id '{bid}' in entry '{here.key}'", hide_src)
+        return simplify((entry, fields, here))
 
     # Assembling
 
@@ -303,7 +358,9 @@ class CV:
                         value = {}
                         for k, v in entry.items():
                             src = fields.get(k, here.child(k))
-                            v = self.localize(v, lang, src, at + key(k), sources)
+                            list_sources = ([fields[(k, j)] for j in range(len(v))]
+                                            if k == "highlights" and isinstance(v, list) else None)
+                            v = self.localize(v, lang, src, at + key(k), sources, list_sources)
                             if v is not OMIT:
                                 value[k] = text(v, k) if literal else v
                     else:

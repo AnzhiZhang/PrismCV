@@ -98,6 +98,34 @@ sections:
 
 An item is an id, an id with fields to override, or an entry written inline. A variant such as `brightwave-intern@data` lives in `content/` and changes only the fields it lists, so it suits rewording you will reuse. `title` renames a section for this target.
 
+### Hide selected bullets
+
+Give a bullet an `id`, then list it in a target item's `hide` override:
+
+```yaml
+# content/experience.yaml
+brightwave-intern:
+  company: Brightwave Robotics
+  position: Intern
+  highlights:
+    - id: drivers
+      en: Wrote C++ drivers for an IMU
+      zh: 编写惯性测量单元的 C++ 驱动
+    - id: shared
+      text: Improved reliability
+    - en: Cut sensor read latency by 30%
+      zh: 传感器读取延迟降低 30%
+
+# targets/industry.yaml
+sections:
+  work:
+    - brightwave-intern: { hide: [drivers], position: Engineer }
+```
+
+Ids are optional; existing syntax still works. `text` can hold shared text or a language mapping. Only bullets listed in `hide` are hidden, so new bullets appear by default; editing or reordering bullets does not change the selection.
+
+Hiding takes effect after variant inheritance and field overrides. Ids must be non-empty strings and unique within an entry; hiding an id missing from the final `highlights` is a build error.
+
 ## Languages
 
 `languages` in `design.yaml` maps each code to a [RenderCV locale](https://docs.rendercv.com). To add one, add it there, put any settings it needs under its code (a font, a date format), and add its text to the content you use; the build lists anything missing.

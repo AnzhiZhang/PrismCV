@@ -98,6 +98,34 @@ sections:
 
 条目可以是一个 id、带覆盖字段的 id，或者直接写出的条目。`brightwave-intern@data` 这样的变体写在 `content/` 中，只改写它列出的字段，适合会重复使用的改写。`title` 为这个版本修改板块标题。
 
+### 隐藏 bullet
+
+为 bullet 加上 `id`，然后在版本条目的 `hide` 中列出要隐藏的 id：
+
+```yaml
+# content/experience.yaml
+brightwave-intern:
+  company: Brightwave Robotics
+  position: Intern
+  highlights:
+    - id: drivers
+      en: Wrote C++ drivers for an IMU
+      zh: 编写惯性测量单元的 C++ 驱动
+    - id: shared
+      text: Improved reliability
+    - en: Cut sensor read latency by 30%
+      zh: 传感器读取延迟降低 30%
+
+# targets/industry.yaml
+sections:
+  work:
+    - brightwave-intern: { hide: [drivers], position: Engineer }
+```
+
+id 是可选的，原有写法继续有效。`text` 可以是各语言共用的文字，也可以是语言映射。只有 `hide` 列出的 bullet 会被隐藏，新 bullet 默认保留；修改文字或调整顺序不影响隐藏选择。
+
+隐藏在变体继承和字段覆盖之后生效。id 必须是非空字符串，在同一条目中不能重复；指定的 id 若不在最终 `highlights` 中，构建会报错。
+
 ## 语言
 
 `design.yaml` 中的 `languages` 把每个语言代码对应到一个 [RenderCV 语言](https://docs.rendercv.com)。添加语言时，在这里加上它，把它需要的设置（字体、日期格式）写在它的代码下，再为用到的内容补上译文；缺少的地方构建时会列出来。
