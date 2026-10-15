@@ -50,7 +50,7 @@ prismcv build main --debug          # 保留生成的 RenderCV 输入文件
 
 简历文件夹包含 `cv.yaml`、`design.yaml`、`content/` 和 `targets/`。在其中运行 `prismcv build`，或者用 `--root` 指定这样的文件夹。PDF 输出到 `out/<版本>/`。
 
-`prismcv init --example` 会改为生成一份完整的中英双语示例，用到下面介绍的所有功能。其中文版需要安装 [Noto Sans SC](https://fonts.google.com/noto/specimen/Noto+Sans+SC) 字体。
+`prismcv init --example` 会改为生成一份完整的中英双语示例，用到下面介绍的所有功能。
 
 ## 主题
 
