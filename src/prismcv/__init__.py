@@ -3,7 +3,7 @@
 from .core import CV, Assembled, Issue, PrismError, Source, literal, max_pages, target_languages
 from .validate import validate
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 __all__ = ["CV", "Assembled", "Issue", "PrismError", "Source", "literal", "max_pages",
            "target_languages", "validate"]
