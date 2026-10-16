@@ -10,6 +10,9 @@ design:
     size: a4
     show_footer: false
     show_top_note: false
+  header:
+    connections:
+      phone_number_format: international
   sections:
     show_time_spans_in: []
 
