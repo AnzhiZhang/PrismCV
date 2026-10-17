@@ -13,7 +13,7 @@ from .core import (
 from .portability import CVData, Entry, FilesError, Target, read_files, write_files
 from .validate import validate
 
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 
 __all__ = [
     "CV",
