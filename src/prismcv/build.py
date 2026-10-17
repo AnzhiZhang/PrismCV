@@ -9,7 +9,7 @@ from pathlib import Path
 import yaml
 from pypdf import PdfReader
 
-from .core import CV, PrismError, Source, max_pages, target_languages
+from .core import CV, PrismError, explain, max_pages, target_languages
 from .portability import CVData, FilesError, read_files
 from .render import RenderError, render
 from .validate import validate
@@ -47,7 +47,7 @@ class Folder:
         paths.extend(sorted(self.targets_dir.rglob("*.yaml")))
         files = {self.rel(path): path.read_text(encoding="utf-8") for path in paths}
         try:
-            self.data = read_files(files)
+            self.data = read_files(files, check=False)
             return CV.from_data(self.data)
         except FilesError as e:
             raise BuildError(str(e)) from None
@@ -73,35 +73,12 @@ class Folder:
             raise BuildError(f"targets/{name}.yaml: top level must be a mapping")
         return data
 
-    # Messages
-
-    def describe(self, source: Source | None, target: str | None = None) -> str:
-        """Where a source is, in the user's files: e.g. content/experience.yaml: acme.highlights[1]."""
-        if source is None:
-            return f"targets/{target}.yaml" if target else ""
-        path = source.path
-        if source.kind == "header":
-            return "cv.yaml: header" + dotted(path)
-        if source.kind == "title":
-            return f"cv.yaml: sections.{source.key}" + dotted(path)
-        if source.kind == "design":
-            return "design.yaml: " + ((source.key or "") + dotted(path)).lstrip(".")
-        if source.kind == "entry":
-            entry = next((item for item in self.data.entries if item.id == source.key), None) if self.data else None
-            file = f"content/{entry.file}.yaml" if entry else "content"
-            return f"{file}: {source.key}" + dotted(path)
-        return f"targets/{target}.yaml: " + ((source.key or "") + dotted(path)).lstrip(".")
-
-    def explain(self, error: PrismError, target: str | None = None) -> str:
-        lines = []
-        for issue in error.issues:
-            where = self.describe(issue.source, target)
-            lines.append(f"{where}: {issue.message}" if where else issue.message)
-        return "\n    ".join(lines)
-
-
-def dotted(path: tuple) -> str:
-    return "".join(f"[{p}]" if isinstance(p, int) else f".{p}" for p in path)
+    @property
+    def entry_files(self) -> dict[str, str]:
+        return {
+            entry.id: f"content/{entry.file}.yaml"
+            for entry in self.data.entries
+        } if self.data else {}
 
 
 def build(folder: Folder, cv: CV, name: str, only_lang: str | None, debug: bool) -> list[str]:
@@ -112,7 +89,7 @@ def build(folder: Folder, cv: CV, name: str, only_lang: str | None, debug: bool)
         limit = max_pages(target)
         stems = cv.file_stems(target, name, langs)
     except PrismError as e:
-        raise BuildError(folder.explain(e, name)) from None
+        raise BuildError(explain(e, folder.entry_files, name)) from None
     if only_lang:
         langs = [l for l in langs if l == only_lang]
         if not langs:
@@ -126,7 +103,7 @@ def build(folder: Folder, cv: CV, name: str, only_lang: str | None, debug: bool)
             if issues:
                 raise PrismError(issues)
         except PrismError as e:
-            raise BuildError(folder.explain(e, name)) from None
+            raise BuildError(explain(e, folder.entry_files, name)) from None
 
         out_folder = folder.out / name
         out_folder.mkdir(parents=True, exist_ok=True)

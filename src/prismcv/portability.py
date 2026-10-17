@@ -10,7 +10,7 @@ from typing import Any
 
 import yaml
 
-from .core import CV, PrismError, Source, target_languages
+from .core import CV, PrismError, explain, target_languages
 
 
 class FilesError(ValueError):
@@ -73,8 +73,8 @@ def _yaml(files: Mapping[str, str], name: str) -> Any:
     return value or {}
 
 
-def read_files(files: Mapping[str, str]) -> CVData:
-    """Parse and fully check an in-memory PrismCV repository."""
+def read_files(files: Mapping[str, str], *, check: bool = True) -> CVData:
+    """Parse a repository, optionally assembling every target and language."""
     clean = _clean_paths(files)
     cv_doc, design_doc = _yaml(clean, "cv.yaml"), _yaml(clean, "design.yaml")
     if not isinstance(cv_doc, dict) or not isinstance(design_doc, dict):
@@ -140,15 +140,17 @@ def read_files(files: Mapping[str, str]) -> CVData:
     try:
         cv = CV.from_data(data)
     except PrismError as exc:
-        raise FilesError(_explain(exc, data)) from None
-    for target in targets:
-        try:
-            langs = target_languages(target.data, cv)
-            cv.file_stems(target.data, target.name, langs)
-            for lang in langs:
-                cv.assemble(target.data, lang)
-        except PrismError as exc:
-            raise FilesError(_explain(exc, data, target.name)) from None
+        raise FilesError(explain(exc, _entry_files(data))) from None
+    if check:
+        entry_files = _entry_files(data)
+        for target in targets:
+            try:
+                langs = target_languages(target.data, cv)
+                cv.file_stems(target.data, target.name, langs)
+                for lang in langs:
+                    cv.assemble(target.data, lang)
+            except PrismError as exc:
+                raise FilesError(explain(exc, entry_files, target.name)) from None
     return data
 
 
@@ -189,35 +191,8 @@ def _relative_name(raw: str) -> str:
     return name
 
 
-def _describe(source: Source | None, data: CVData, target: str | None = None) -> str:
-    if source is None:
-        return f"targets/{target}.yaml" if target else ""
-    path = source.path
-    if source.kind == "header":
-        return "cv.yaml: header" + _dotted(path)
-    if source.kind == "title":
-        return f"cv.yaml: sections.{source.key}" + _dotted(path)
-    if source.kind == "design":
-        return "design.yaml: " + ((source.key or "") + _dotted(path)).lstrip(".")
-    if source.kind == "entry":
-        entry = next((item for item in data.entries if item.id == source.key), None)
-        file = f"content/{entry.file}.yaml" if entry else "content"
-        return f"{file}: {source.key}" + _dotted(path)
-    return f"targets/{target}.yaml: " + ((source.key or "") + _dotted(path)).lstrip(".")
-
-
-def _explain(error: PrismError, data: CVData, target: str | None = None) -> str:
-    lines = []
-    for issue in error.issues:
-        where = _describe(issue.source, data, target)
-        lines.append(f"{where}: {issue.message}" if where else issue.message)
-    return "\n    ".join(lines)
-
-
-def _dotted(path: tuple) -> str:
-    return "".join(
-        f"[{part}]" if isinstance(part, int) else f".{part}" for part in path
-    )
+def _entry_files(data: CVData) -> dict[str, str]:
+    return {entry.id: f"content/{entry.file}.yaml" for entry in data.entries}
 
 
 class _FlowMap(dict):
@@ -231,6 +206,17 @@ class _BlockMap(dict):
 class _Dumper(yaml.SafeDumper):
     def increase_indent(self, flow=False, indentless=False):
         return super().increase_indent(flow, indentless=False)
+
+    def write_indicator(self, indicator, need_whitespace, whitespace=False, indention=False):
+        if indicator == "}":
+            self.stream.write(" ")
+            self.column += 1
+            self.whitespace = True
+        super().write_indicator(indicator, need_whitespace, whitespace, indention)
+        if indicator == "{":
+            self.stream.write(" ")
+            self.column += 1
+            self.whitespace = True
 
 
 def _represent_flow_map(dumper: _Dumper, value: _FlowMap):
@@ -286,14 +272,6 @@ def _dump(value: Any, languages: Mapping[str, str]) -> str:
             sort_keys=False,
             width=100,
         ).rstrip()
-        lines = []
-        for line in chunk.splitlines():
-            for code in languages:
-                line = line.replace(f"{{{code}:", f"{{ {code}:")
-            if "{ " in line and line.endswith("}"):
-                line = line[:-1] + " }"
-            lines.append(line)
-        chunk = "\n".join(lines)
         chunks.append(chunk)
     return "\n\n".join(chunks) + "\n"
 

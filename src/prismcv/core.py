@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import copy
 import re
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
@@ -78,6 +79,36 @@ class PrismError(Exception):
     def __init__(self, issues: list[Issue] | Issue):
         self.issues = issues if isinstance(issues, list) else [issues]
         super().__init__("; ".join(i.message for i in self.issues))
+
+
+def describe(source: Source | None, entry_files: Mapping[str, str], target: str | None = None) -> str:
+    """Name a source in the repository files it came from."""
+    if source is None:
+        return f"targets/{target}.yaml" if target else ""
+    path = source.path
+    if source.kind == "header":
+        return "cv.yaml: header" + dotted(path)
+    if source.kind == "title":
+        return f"cv.yaml: sections.{source.key}" + dotted(path)
+    if source.kind == "design":
+        return "design.yaml: " + ((source.key or "") + dotted(path)).lstrip(".")
+    if source.kind == "entry":
+        file = entry_files.get(source.key or "", "content")
+        return f"{file}: {source.key}" + dotted(path)
+    return f"targets/{target}.yaml: " + ((source.key or "") + dotted(path)).lstrip(".")
+
+
+def explain(error: PrismError, entry_files: Mapping[str, str], target: str | None = None) -> str:
+    """Format every issue with its repository file and field location."""
+    lines = []
+    for issue in error.issues:
+        where = describe(issue.source, entry_files, target)
+        lines.append(f"{where}: {issue.message}" if where else issue.message)
+    return "\n    ".join(lines)
+
+
+def dotted(path: tuple) -> str:
+    return "".join(f"[{part}]" if isinstance(part, int) else f".{part}" for part in path)
 
 
 def fail(message: str, source: Source | None = None):

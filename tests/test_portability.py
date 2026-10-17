@@ -123,6 +123,37 @@ def test_bullet_ids_and_target_hide_round_trip() -> None:
     assert read_files(written) == data
 
 
+def test_user_text_with_yaml_punctuation_round_trips_unchanged() -> None:
+    files = example_files()
+    texts = [
+        "Wrote {en: x} in a template { y }",
+        "Colon: hash # comma, and quotes 'single' \"double\"",
+        "First line with { and }\nSecond line: # still text, exactly",
+    ]
+    files["content/punctuation.yaml"] = yaml.safe_dump(
+        {
+            "punctuation": {
+                "company": "Syntax & Sons",
+                "position": "Parser",
+                "highlights": texts,
+            }
+        },
+        allow_unicode=True,
+        sort_keys=False,
+    )
+    files["targets/punctuation.yaml"] = (
+        "langs: [en]\nsections:\n  work: [punctuation]\n"
+    )
+
+    written = write_files(read_files(files))
+    round_tripped = read_files(written)
+    entry = next(item for item in round_tripped.entries if item.id == "punctuation")
+
+    assert entry.fields["highlights"] == texts
+    assert "Wrote {en: x} in a template { y }" in written["content/punctuation.yaml"]
+    assert "Wrote { en: x}" not in written["content/punctuation.yaml"]
+
+
 def test_duplicate_entries_name_both_files() -> None:
     files = example_files()
     files["content/duplicate.yaml"] = "meng: {institution: Elsewhere}\n"
@@ -139,6 +170,17 @@ def test_unknown_target_references_are_rejected_with_location() -> None:
     with pytest.raises(
         FilesError, match=r"targets/broken.yaml: work\[0\]: unknown id 'missing'"
     ):
+        read_files(files)
+
+
+def test_structural_read_can_leave_target_check_to_the_caller() -> None:
+    files = example_files()
+    files["targets/broken.yaml"] = "sections: {work: [missing]}\n"
+
+    data = read_files(files, check=False)
+
+    assert any(target.name == "broken" for target in data.targets)
+    with pytest.raises(FilesError, match="unknown id 'missing'"):
         read_files(files)
 
 
@@ -253,3 +295,14 @@ def test_cli_errors_keep_file_and_field_locations(
     assert result.returncode == 1
     assert expected in result.stderr
     assert "Traceback" not in result.stderr
+
+
+def test_cli_build_ignores_an_unselected_broken_target(tmp_path: Path) -> None:
+    _cli_folder(tmp_path)
+    _write(tmp_path, "targets/broken.yaml", {"sections": {"work": ["missing"]}})
+
+    result = _run_cli(tmp_path)
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "out/industry/Ada_CV_en.pdf" in result.stdout
+    assert "broken" not in result.stderr
