@@ -10,7 +10,7 @@ from .core import (
     max_pages,
     target_languages,
 )
-from .portability import FilesError, read_files, write_files
+from .portability import CVData, Entry, FilesError, Target, read_files, write_files
 from .validate import validate
 
 __version__ = "0.1.3"
@@ -18,10 +18,13 @@ __version__ = "0.1.3"
 __all__ = [
     "CV",
     "Assembled",
+    "CVData",
+    "Entry",
     "FilesError",
     "Issue",
     "PrismError",
     "Source",
+    "Target",
     "literal",
     "max_pages",
     "read_files",

@@ -10,6 +10,7 @@ import yaml
 from pypdf import PdfReader
 
 from .core import CV, PrismError, Source, max_pages, target_languages
+from .portability import CVData, FilesError, read_files
 from .render import RenderError, render
 from .validate import validate
 
@@ -35,25 +36,21 @@ class Folder:
                 or not all(p.is_dir() for p in (self.content, self.targets_dir)):
             raise BuildError(f"{self.root} is not a CV folder: it needs cv.yaml, design.yaml, content/ "
                              "and targets/ (create one with prismcv init)")
-        self.where: dict[str, Path] = {}
+        self.data: CVData | None = None
 
     def rel(self, path: Path) -> str:
         return str(path.relative_to(self.root))
 
     def load(self) -> CV:
-        entries = {}
-        for path in sorted(self.content.rglob("*.yaml")):
-            data = load_yaml(path) or {}
-            if not isinstance(data, dict):
-                raise BuildError(f"{self.rel(path)}: top level must map ids to entries")
-            for eid, entry in data.items():
-                if eid in entries:
-                    raise BuildError(f"duplicate id '{eid}' in {self.rel(self.where[eid])} and {self.rel(path)}")
-                entries[eid], self.where[eid] = entry, path
+        paths = [self.cv_file, self.design_file]
+        paths.extend(sorted(self.content.rglob("*.yaml")))
+        paths.extend(sorted(self.targets_dir.rglob("*.yaml")))
+        files = {self.rel(path): path.read_text(encoding="utf-8") for path in paths}
         try:
-            return CV(load_yaml(self.cv_file), load_yaml(self.design_file), entries)
-        except PrismError as e:
-            raise BuildError(self.explain(e)) from None
+            self.data = read_files(files)
+            return CV.from_data(self.data)
+        except FilesError as e:
+            raise BuildError(str(e)) from None
 
     # Targets
 
@@ -67,6 +64,10 @@ class Folder:
         return name
 
     def target(self, name: str) -> dict:
+        if self.data is not None:
+            target = next((item for item in self.data.targets if item.name == name), None)
+            if target is not None:
+                return target.data
         data = load_yaml(self.targets_dir / f"{name}.yaml") or {}
         if not isinstance(data, dict):
             raise BuildError(f"targets/{name}.yaml: top level must be a mapping")
@@ -86,7 +87,8 @@ class Folder:
         if source.kind == "design":
             return "design.yaml: " + ((source.key or "") + dotted(path)).lstrip(".")
         if source.kind == "entry":
-            file = self.rel(self.where[source.key]) if source.key in self.where else "content"
+            entry = next((item for item in self.data.entries if item.id == source.key), None) if self.data else None
+            file = f"content/{entry.file}.yaml" if entry else "content"
             return f"{file}: {source.key}" + dotted(path)
         return f"targets/{target}.yaml: " + ((source.key or "") + dotted(path)).lstrip(".")
 

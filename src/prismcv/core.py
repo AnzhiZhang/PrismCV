@@ -14,7 +14,10 @@ from __future__ import annotations
 import copy
 import re
 from dataclasses import dataclass, field
-from typing import Any
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from .portability import CVData
 
 # Fields a RenderCV entry can have. A one-key item in a target whose key is
 # neither an id nor one of these is reported as an unknown id.
@@ -127,6 +130,17 @@ class CV:
         self.lang_design = {c: design.pop(c) or {} for c in list(langs) if c in design}
         self.design = design
         self.entries = entries or {}
+
+    @classmethod
+    def from_data(cls, data: CVData) -> CV:
+        """Build a CV from the typed representation returned by read_files."""
+        design = {"languages": copy.deepcopy(data.languages), **copy.deepcopy(data.design)}
+        entries = {entry.id: copy.deepcopy(entry.fields) for entry in data.entries}
+        return cls(
+            {"header": copy.deepcopy(data.header), "sections": copy.deepcopy(data.section_titles)},
+            design,
+            entries,
+        )
 
     @property
     def languages(self) -> tuple[str, ...]:

@@ -1,8 +1,7 @@
 import pytest
+from test_portability import example_files
 
 from prismcv import CV, PrismError, Source, read_files, write_files
-
-from test_portability import example_files
 
 LANGS = {"en": "english", "zh": "mandarin_chinese"}
 
@@ -67,7 +66,7 @@ def test_file_name_is_not_sent_to_rendercv():
 def test_file_name_round_trips_and_is_written_first():
     files = example_files()
     parsed = read_files(files)
-    assert parsed["design"]["file_name"] == "Nathan_Lee_CV_{lang}"
+    assert parsed.design["file_name"] == "Nathan_Lee_CV_{lang}"
     written = write_files(parsed)
-    assert written["design.yaml"].startswith("file_name: Nathan_Lee_CV_{lang}\nlanguages:")
+    assert written["design.yaml"].splitlines()[0] == "file_name: Nathan_Lee_CV_{lang}"
     assert read_files(written) == parsed
