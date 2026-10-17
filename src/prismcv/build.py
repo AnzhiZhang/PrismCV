@@ -108,6 +108,7 @@ def build(folder: Folder, cv: CV, name: str, only_lang: str | None, debug: bool)
     try:
         langs = target_languages(target, cv)
         limit = max_pages(target)
+        stems = cv.file_stems(target, name, langs)
     except PrismError as e:
         raise BuildError(folder.explain(e, name)) from None
     if only_lang:
@@ -127,7 +128,7 @@ def build(folder: Folder, cv: CV, name: str, only_lang: str | None, debug: bool)
 
         out_folder = folder.out / name
         out_folder.mkdir(parents=True, exist_ok=True)
-        stem = cv.file_stem(lang)
+        stem = stems[lang]
         pdf = out_folder / f"{stem}.pdf"
         with tempfile.TemporaryDirectory(prefix="cv-") as tmp:
             work = Path(tmp)

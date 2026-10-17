@@ -121,6 +121,9 @@ class CV:
             fail("languages must map language codes to RenderCV locales, e.g. en: english",
                  Source("design", None, ("languages",)))
         self.locales: dict[str, str] = dict(langs)
+        self.file_name = design.pop("file_name", None)
+        if self.file_name is not None:
+            check_file_name(self.file_name, Source("design", None, ("file_name",)))
         self.lang_design = {c: design.pop(c) or {} for c in list(langs) if c in design}
         self.design = design
         self.entries = entries or {}
@@ -384,11 +387,51 @@ class CV:
         record.update(design_sources)
         return result
 
-    def file_stem(self, lang: str) -> str:
-        """File name for a PDF, from the name in the first language."""
-        name = self.localize(self.header.get("name", "CV"), self.languages[0], Source("header", None, ("name",)))
-        stem = re.sub(r"\W+", "_", str(name)).strip("_") or "CV"
-        return f"{stem}_CV_{lang}"
+    def file_stem(self, lang: str, target: dict | None = None, target_name: str = "") -> str:
+        """File name for a PDF, without .pdf.
+
+        From file_name in the target, else file_name in design.yaml, with
+        {lang} and {target} filled in; without either, from the name in the
+        first language, e.g. Ann_Lee_CV_en.
+        """
+        template = (target or {}).get("file_name")
+        if template is not None:
+            check_file_name(template, Source("target", None, ("file_name",)))
+        else:
+            template = self.file_name
+        if template is None:
+            name = self.localize(self.header.get("name", "CV"), self.languages[0], Source("header", None, ("name",)))
+            stem = re.sub(r"\W+", "_", str(name)).strip("_") or "CV"
+            return f"{stem}_CV_{lang}"
+        return template.replace("{lang}", lang).replace("{target}", target_name.replace("/", "-"))
+
+    def file_stems(self, target: dict, target_name: str, langs: list[str]) -> dict[str, str]:
+        """File names for each language of a target; two languages may not share one."""
+        stems = {lang: self.file_stem(lang, target, target_name) for lang in langs}
+        if len(set(stems.values())) < len(stems):
+            where = ("target", None, ("file_name",)) if "file_name" in target else ("design", None, ("file_name",))
+            fail("gives every language the same file name; add {lang}", Source(*where))
+        return stems
+
+
+# File names
+
+FILE_NAME_FIELDS = {"lang", "target"}
+UNSAFE_IN_FILE_NAMES = re.compile(r'[\\/:*?"<>|\x00-\x1f]')
+
+
+def check_file_name(template, source: Source) -> None:
+    """A file_name must be text using only {lang} and {target}, giving a valid file name."""
+    if not isinstance(template, str) or not template.strip():
+        fail("must be text, e.g. Ann_Lee_CV_{lang}", source)
+    fields = set(re.findall(r"{([^{}]*)}", template))
+    if fields - FILE_NAME_FIELDS:
+        fail(f"can only use {{lang}} and {{target}}, not {', '.join('{%s}' % f for f in sorted(fields - FILE_NAME_FIELDS))}", source)
+    rest = re.sub(r"{(lang|target)}", "", template)
+    if "{" in rest or "}" in rest or UNSAFE_IN_FILE_NAMES.search(rest):
+        fail('cannot contain braces outside {lang} and {target}, or any of \\ / : * ? " < > |', source)
+    if template.lower().endswith(".pdf"):
+        fail("is written without .pdf", source)
 
 
 # Targets

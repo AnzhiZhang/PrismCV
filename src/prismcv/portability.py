@@ -82,7 +82,9 @@ def read_files(files: Mapping[str, str]) -> dict[str, Any]:
     try:
         cv = CV(cv_doc, design_doc, by_key)
         for target in targets:
-            for lang in target_languages(target["data"], cv):
+            langs = target_languages(target["data"], cv)
+            cv.file_stems(target["data"], target["name"], langs)
+            for lang in langs:
                 cv.assemble(target["data"], lang)
     except PrismError as exc:
         raise FilesError(str(exc)) from None
@@ -106,8 +108,10 @@ def read_files(files: Mapping[str, str]) -> dict[str, Any]:
 def write_files(data: Mapping[str, Any]) -> dict[str, str]:
     """Write parsed/platform data to deterministic, readable YAML files."""
     languages = data.get("languages", [])
-    design = {"languages": {item["code"]: item["locale"] for item in languages}}
-    design.update(copy.deepcopy(data.get("design", {})))
+    rest = copy.deepcopy(data.get("design", {}))
+    design = {"file_name": rest.pop("file_name")} if "file_name" in rest else {}
+    design["languages"] = {item["code"]: item["locale"] for item in languages}
+    design.update(rest)
     result = {
         "cv.yaml": _dump(
             {

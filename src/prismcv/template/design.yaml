@@ -1,4 +1,8 @@
-# Language codes and their RenderCV locales. The first names the PDF files.
+# PDF file names: {lang} becomes the language code and {target} the target's
+# name. Without file_name, PDFs are named after the name in cv.yaml.
+# file_name: Your_Name_CV_{lang}
+
+# Language codes and their RenderCV locales.
 languages:
   en: english
 
