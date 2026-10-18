@@ -55,15 +55,21 @@ class Folder:
 
     # Targets
 
-    def targets(self) -> list[str]:
-        return sorted(str(p.relative_to(self.targets_dir).with_suffix("")) for p in self.targets_dir.rglob("*.yaml"))
+    def targets(self, archived: bool = False) -> list[str]:
+        """Every target name; those in targets/archive/ only when archived is set."""
+        names = sorted(str(p.relative_to(self.targets_dir).with_suffix("")) for p in self.targets_dir.rglob("*.yaml"))
+        return names if archived else [n for n in names if not is_archived(n)]
 
     def select(self, patterns: list[str]) -> list[str]:
-        """Targets named by a target, a folder of targets or a glob, in order and without repeats."""
-        every = self.targets()
+        """Targets named by a target, a folder of targets or a glob, in order and without repeats.
+
+        Folders and globs leave out targets/archive/ unless they point into it.
+        """
+        every = self.targets(archived=True)
         chosen: list[str] = []
         for raw in patterns:
             pattern = raw.removeprefix("targets/").removesuffix(".yaml").rstrip("/")
+            include_archived = is_archived(pattern)
             if pattern in every:
                 found = [pattern]
             elif (self.targets_dir / pattern).is_dir():
@@ -72,6 +78,8 @@ class Folder:
                 found = [n for n in every if glob_match(n, pattern)]
             else:
                 raise BuildError(f"no such target or folder: targets/{pattern}")
+            if not include_archived:
+                found = [n for n in found if not is_archived(n)]
             if not found:
                 raise BuildError(f"no targets match {raw}")
             chosen += [n for n in found if n not in chosen]
@@ -105,6 +113,11 @@ def glob_match(name: str, pattern: str) -> bool:
     """Shell-style matching where * and ? stay within one folder level."""
     parts, wanted = name.split("/"), pattern.split("/")
     return len(parts) == len(wanted) and all(fnmatch.fnmatchcase(p, w) for p, w in zip(parts, wanted))
+
+
+def is_archived(name: str) -> bool:
+    """Targets in targets/archive/, such as applications already sent."""
+    return name == "archive" or name.startswith("archive/")
 
 
 def build(folder: Folder, cv: CV, name: str, only_lang: str | None, debug: bool) -> list[str]:

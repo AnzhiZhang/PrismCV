@@ -79,7 +79,7 @@ brightwave-intern:
 
 ## 版本
 
-`targets/` 里每个文件是一个版本的简历。`langs` 默认生成所有语言，`max_pages` 在 PDF 超出页数时给出警告。下面节选自示例中[一个针对岗位定制的版本](https://github.com/AnzhiZhang/PrismCV/blob/main/src/prismcv/example/targets/jobs/2026-10-15_example-data-engineer.yaml)：
+`targets/` 里每个文件是一个版本的简历。`langs` 默认生成所有语言，`max_pages` 在 PDF 超出页数时给出警告。`targets/archive/` 中的版本（例如已投递的岗位）不参与 `--all`。下面节选自示例中[一个针对岗位定制的版本](https://github.com/AnzhiZhang/PrismCV/blob/main/src/prismcv/example/targets/jobs/2026-10-15_example-data-engineer.yaml)：
 
 ```yaml
 langs: [en]

@@ -79,7 +79,7 @@ Use `zh: null` to leave a bullet out of one language. An id can also hold a list
 
 ## Targets
 
-Each file in `targets/` is one version of the CV. `langs` defaults to every language, and `max_pages` warns when a PDF is longer. An excerpt from the example's [target tailored to one job](https://github.com/AnzhiZhang/PrismCV/blob/main/src/prismcv/example/targets/jobs/2026-10-15_example-data-engineer.yaml):
+Each file in `targets/` is one version of the CV. `langs` defaults to every language, and `max_pages` warns when a PDF is longer. Targets in `targets/archive/`, such as applications already sent, are left out of `--all`. An excerpt from the example's [target tailored to one job](https://github.com/AnzhiZhang/PrismCV/blob/main/src/prismcv/example/targets/jobs/2026-10-15_example-data-engineer.yaml):
 
 ```yaml
 langs: [en]

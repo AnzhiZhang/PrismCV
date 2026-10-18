@@ -15,7 +15,10 @@ def run_build(args: argparse.Namespace, parser: argparse.ArgumentParser) -> int:
         folder = b.Folder(args.root)
         if not args.targets and not args.all:
             parser.print_help()
+            archived = len(folder.targets(archived=True)) - len(folder.targets())
             print("\navailable targets:\n  " + "\n  ".join(folder.targets()))
+            if archived:
+                print(f"  (and {archived} archived)")
             return 1
         cv = folder.load()
         if args.lang and args.lang not in cv.languages:
@@ -60,7 +63,7 @@ def main() -> int:
 
     bp = commands.add_parser("build", help="build CV PDFs with RenderCV")
     bp.add_argument("targets", nargs="*", help="targets, folders of targets or globs, e.g. industry or 'applications/2026-10*'")
-    bp.add_argument("--all", action="store_true", help="build every target")
+    bp.add_argument("--all", action="store_true", help="build every target except those in targets/archive/")
     bp.add_argument("--lang", help="only build this language")
     bp.add_argument("--debug", action="store_true", help="keep the generated RenderCV input next to the PDF")
     bp.add_argument("--root", type=Path, default=Path.cwd(), help="CV folder to build (default: current folder)")
