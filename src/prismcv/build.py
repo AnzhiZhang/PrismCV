@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import fnmatch
 import shutil
 import tempfile
 from pathlib import Path
@@ -57,6 +58,25 @@ class Folder:
     def targets(self) -> list[str]:
         return sorted(str(p.relative_to(self.targets_dir).with_suffix("")) for p in self.targets_dir.rglob("*.yaml"))
 
+    def select(self, patterns: list[str]) -> list[str]:
+        """Targets named by a target, a folder of targets or a glob, in order and without repeats."""
+        every = self.targets()
+        chosen: list[str] = []
+        for raw in patterns:
+            pattern = raw.removeprefix("targets/").removesuffix(".yaml").rstrip("/")
+            if pattern in every:
+                found = [pattern]
+            elif (self.targets_dir / pattern).is_dir():
+                found = [n for n in every if n.startswith(pattern + "/")]
+            elif any(c in pattern for c in "*?["):
+                found = [n for n in every if glob_match(n, pattern)]
+            else:
+                raise BuildError(f"no such target or folder: targets/{pattern}")
+            if not found:
+                raise BuildError(f"no targets match {raw}")
+            chosen += [n for n in found if n not in chosen]
+        return chosen
+
     def normalise(self, name: str) -> str:
         name = name.removeprefix("targets/").removesuffix(".yaml")
         if not (self.targets_dir / f"{name}.yaml").exists():
@@ -79,6 +99,12 @@ class Folder:
             entry.id: f"content/{entry.file}.yaml"
             for entry in self.data.entries
         } if self.data else {}
+
+
+def glob_match(name: str, pattern: str) -> bool:
+    """Shell-style matching where * and ? stay within one folder level."""
+    parts, wanted = name.split("/"), pattern.split("/")
+    return len(parts) == len(wanted) and all(fnmatch.fnmatchcase(p, w) for p, w in zip(parts, wanted))
 
 
 def build(folder: Folder, cv: CV, name: str, only_lang: str | None, debug: bool) -> list[str]:

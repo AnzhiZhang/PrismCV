@@ -20,7 +20,7 @@ def run_build(args: argparse.Namespace, parser: argparse.ArgumentParser) -> int:
         cv = folder.load()
         if args.lang and args.lang not in cv.languages:
             raise b.BuildError(f"unknown language '{args.lang}' (configured: {', '.join(cv.languages)})")
-        names = folder.targets() if args.all else [folder.normalise(t) for t in args.targets]
+        names = folder.targets() if args.all else folder.select(args.targets)
     except b.BuildError as e:
         print(f"✗ {e}", file=sys.stderr)
         return 1
@@ -59,7 +59,7 @@ def main() -> int:
     commands = ap.add_subparsers(dest="command", required=True)
 
     bp = commands.add_parser("build", help="build CV PDFs with RenderCV")
-    bp.add_argument("targets", nargs="*", help="target names, e.g. industry or jobs/2026-10-15_acme")
+    bp.add_argument("targets", nargs="*", help="targets, folders of targets or globs, e.g. industry or 'applications/2026-10*'")
     bp.add_argument("--all", action="store_true", help="build every target")
     bp.add_argument("--lang", help="only build this language")
     bp.add_argument("--debug", action="store_true", help="keep the generated RenderCV input next to the PDF")
