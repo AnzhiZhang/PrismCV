@@ -28,14 +28,18 @@ def run_build(args: argparse.Namespace, parser: argparse.ArgumentParser) -> int:
         print(f"✗ {e}", file=sys.stderr)
         return 1
 
+    cache = folder.read_cache()
     failed, warnings = [], []
-    for name in names:
-        print(name)
-        try:
-            warnings += b.build(folder, cv, name, args.lang, args.debug)
-        except b.BuildError as e:
-            print(f"  ✗ {e}", file=sys.stderr)
-            failed.append(name)
+    try:
+        for name in names:
+            print(name)
+            try:
+                warnings += b.build(folder, cv, name, args.lang, args.debug, args.force, cache)
+            except b.BuildError as e:
+                print(f"  ✗ {e}", file=sys.stderr)
+                failed.append(name)
+    finally:
+        folder.write_cache(cache)
     for w in warnings:
         print(f"⚠ {w}")
     if failed:
@@ -64,6 +68,7 @@ def main() -> int:
     bp = commands.add_parser("build", help="build CV PDFs with RenderCV")
     bp.add_argument("targets", nargs="*", help="targets, folders of targets or globs, e.g. industry or 'applications/2026-10*'")
     bp.add_argument("--all", action="store_true", help="build every target except those in targets/archive/")
+    bp.add_argument("--force", action="store_true", help="rebuild PDFs even if nothing they depend on has changed")
     bp.add_argument("--lang", help="only build this language")
     bp.add_argument("--debug", action="store_true", help="keep the generated RenderCV input next to the PDF")
     bp.add_argument("--root", type=Path, default=Path.cwd(), help="CV folder to build (default: current folder)")

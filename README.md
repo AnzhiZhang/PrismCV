@@ -48,7 +48,7 @@ prismcv build main --lang en        # one target, one language
 prismcv build main --debug          # keep the generated RenderCV input
 ```
 
-A CV folder holds `cv.yaml`, `design.yaml`, `content/` and `targets/`. Run `prismcv build` inside one, or point to one with `--root`. PDFs go to `out/<target>/`.
+A CV folder holds `cv.yaml`, `design.yaml`, `content/` and `targets/`. Run `prismcv build` inside one, or point to one with `--root`. PDFs go to `out/<target>/`; a PDF whose input has not changed is not rendered again (`--force` renders it anyway).
 
 `prismcv init --example` creates a full bilingual example instead, using every feature below.
 

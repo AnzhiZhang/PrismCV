@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 import fnmatch
+import hashlib
+import json
 import shutil
 import tempfile
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 import yaml
@@ -101,6 +104,22 @@ class Folder:
             raise BuildError(f"targets/{name}.yaml: top level must be a mapping")
         return data
 
+    # Skipping unchanged PDFs
+
+    @property
+    def cache_file(self) -> Path:
+        return self.out / ".prismcv-build.json"
+
+    def read_cache(self) -> dict:
+        try:
+            return json.loads(self.cache_file.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return {}
+
+    def write_cache(self, cache: dict) -> None:
+        self.out.mkdir(parents=True, exist_ok=True)
+        self.cache_file.write_text(json.dumps(cache, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+
     @property
     def entry_files(self) -> dict[str, str]:
         return {
@@ -120,8 +139,29 @@ def is_archived(name: str) -> bool:
     return name == "archive" or name.startswith("archive/")
 
 
-def build(folder: Folder, cv: CV, name: str, only_lang: str | None, debug: bool) -> list[str]:
-    """Build one target and return any warnings."""
+def _version(package: str) -> str:
+    try:
+        return version(package)
+    except PackageNotFoundError:
+        return "unknown"
+
+
+def fingerprint(doc: dict, stem: str) -> str:
+    """What decides a PDF: the RenderCV input, its file name, and the tool versions."""
+    text = json.dumps([doc, stem, _version("prismcv"), _version("rendercv"), _version("rendercv-fonts")],
+                      sort_keys=True, default=str, ensure_ascii=False)
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def build(folder: Folder, cv: CV, name: str, only_lang: str | None, debug: bool,
+          force: bool = False, cache: dict | None = None) -> list[str]:
+    """Build one target and return any warnings.
+
+    A PDF whose input has not changed since it was last built is kept, unless
+    force or debug is set. cache maps "target|lang" to the fingerprint of the
+    last build and is updated in place.
+    """
+    cache = {} if cache is None else cache
     target = folder.target(name)
     try:
         langs = target_languages(target, cv)
@@ -148,6 +188,14 @@ def build(folder: Folder, cv: CV, name: str, only_lang: str | None, debug: bool)
         out_folder.mkdir(parents=True, exist_ok=True)
         stem = stems[lang]
         pdf = out_folder / f"{stem}.pdf"
+        key, stamp = f"{name}|{lang}", fingerprint(assembled.doc, stem)
+        if not (force or debug) and cache.get(key) == stamp and pdf.is_file():
+            pages = len(PdfReader(pdf).pages)
+            print(f"  = {folder.rel(pdf)}  ({pages} page{'s' if pages != 1 else ''}, unchanged)")
+            if limit and pages > limit:
+                warnings.append(f"{name} ({lang}): {pages} pages, exceeds max_pages: {limit}")
+            continue
+        cache.pop(key, None)
         with tempfile.TemporaryDirectory(prefix="cv-") as tmp:
             work = Path(tmp)
             try:
@@ -160,6 +208,7 @@ def build(folder: Folder, cv: CV, name: str, only_lang: str | None, debug: bool)
                         if (work / f"{stem}{suffix}").exists():
                             shutil.copy2(work / f"{stem}{suffix}", out_folder / f"{stem}{suffix}")
             shutil.copy2(work / f"{stem}.pdf", pdf)
+        cache[key] = stamp
 
         pages = len(PdfReader(pdf).pages)
         print(f"  ✓ {folder.rel(pdf)}  ({pages} page{'s' if pages != 1 else ''})")

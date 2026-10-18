@@ -1,8 +1,8 @@
-"""Choosing targets to build, and archived targets."""
+"""Choosing targets to build, archived targets, and skipping unchanged PDFs."""
 
 import pytest
 
-from prismcv.build import BuildError, Folder
+from prismcv.build import BuildError, Folder, build
 from prismcv.init import create
 
 
@@ -49,3 +49,31 @@ def test_unknown_selection_is_an_error(folder):
         folder.select(["nope"])
     with pytest.raises(BuildError, match="no targets match"):
         folder.select(["jobs/1999*"])
+
+
+def test_unchanged_pdfs_are_skipped(folder, capsys):
+    cv = folder.load()
+    cache = {}
+    build(folder, cv, "industry", "en", False, cache=cache)
+    assert "✓" in capsys.readouterr().out and cache
+    build(folder, cv, "industry", "en", False, cache=cache)
+    assert "unchanged" in capsys.readouterr().out
+    build(folder, cv, "industry", "en", False, force=True, cache=cache)
+    assert "✓" in capsys.readouterr().out
+
+    # A change to the content renders again.
+    cv.header["name"] = "Someone Else"
+    build(folder, cv, "industry", "en", False, cache=cache)
+    assert "✓" in capsys.readouterr().out
+
+    # A missing PDF renders again even if nothing changed.
+    for pdf in (folder.out / "industry").glob("*.pdf"):
+        pdf.unlink()
+    build(folder, cv, "industry", "en", False, cache=cache)
+    assert "✓" in capsys.readouterr().out
+
+
+def test_cache_is_shared_in_out(folder):
+    folder.write_cache({"industry|en": "x"})
+    assert (folder.out / ".prismcv-build.json").is_file()
+    assert folder.read_cache() == {"industry|en": "x"}
