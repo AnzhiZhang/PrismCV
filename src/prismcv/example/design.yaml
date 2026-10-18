@@ -1,6 +1,4 @@
-# PDF file names: {lang} becomes the language code and {target} the target's
-# name. A target can set its own. Without file_name, PDFs are named after
-# the name in cv.yaml, e.g. Nathan_Lee_CV_en.
+# PDF file name pattern; targets may override it. Variables: {lang}, {target}.
 file_name: Nathan_Lee_CV_{lang}
 
 # Language codes and their RenderCV locales.
