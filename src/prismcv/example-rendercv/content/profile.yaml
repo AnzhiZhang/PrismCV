@@ -1,0 +1,9 @@
+# A target can also write its own paragraph instead.
+profile-industry:
+  text:
+    en: Co-founder and CTO who builds and scales infrastructure for efficient AI, from GPU kernels to production APIs.
+    zh: 联合创始人兼 CTO，专注高效 AI 基础设施的构建与扩展，从 GPU 内核到生产级 API。
+profile-academic:
+  text:
+    en: Machine learning researcher working on efficient inference, model compression and neural architecture search.
+    zh: 机器学习研究者，研究方向为高效推理、模型压缩与神经网络架构搜索。

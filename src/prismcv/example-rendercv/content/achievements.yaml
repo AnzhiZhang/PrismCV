@@ -1,0 +1,43 @@
+# An id can hold a list of entries; a target that uses it gets them all.
+# Any RenderCV entry type works, such as bullet, number and reversed_number.
+honors:
+  - bullet:
+      en: MIT Technology Review 35 Under 35 Innovators (2024)
+      zh: 《麻省理工科技评论》35 岁以下科技创新 35 人（2024）
+  - bullet:
+      en: Forbes 30 Under 30 in Enterprise Technology (2024)
+      zh: 福布斯 30 岁以下精英榜·企业科技（2024）
+  - bullet:
+      en: ACM Doctoral Dissertation Award Honorable Mention (2023)
+      zh: ACM 博士论文奖荣誉提名（2023）
+  - bullet:
+      en: Google PhD Fellowship in Machine Learning (2020 – 2023)
+      zh: 谷歌机器学习博士奖学金（2020 – 2023）
+  - bullet:
+      en: Fulbright Scholarship for Graduate Studies (2018)
+      zh: 富布赖特研究生奖学金（2018）
+
+patents:
+  - number:
+      en: Adaptive Quantization for Neural Network Inference on Edge Devices (US Patent 11,234,567)
+      zh: 面向边缘设备神经网络推理的自适应量化（美国专利 11,234,567）
+  - number:
+      en: Dynamic Sparsity Patterns for Efficient Transformer Attention (US Patent 11,345,678)
+      zh: 面向高效 Transformer 注意力的动态稀疏模式（美国专利 11,345,678）
+  - number:
+      en: Hardware-Aware Neural Architecture Search Method (US Patent 11,456,789)
+      zh: 硬件感知的神经网络架构搜索方法（美国专利 11,456,789）
+
+talks:
+  - reversed_number:
+      en: Scaling Laws for Efficient Inference — Stanford HAI Symposium (2024)
+      zh: 高效推理的缩放定律——斯坦福 HAI 研讨会（2024）
+  - reversed_number:
+      en: Building AI Infrastructure for the Next Decade — TechCrunch Disrupt (2024)
+      zh: 构建下一个十年的 AI 基础设施——TechCrunch Disrupt（2024）
+  - reversed_number:
+      en: "From Research to Production: Lessons in ML Systems — NeurIPS Workshop (2023)"
+      zh: 从研究到生产：机器学习系统的经验——NeurIPS 研讨会（2023）
+  - reversed_number:
+      en: "Efficient Deep Learning: A Practitioner's Perspective — Google Tech Talk (2022)"
+      zh: 高效深度学习：实践者的视角——谷歌技术讲座（2022）

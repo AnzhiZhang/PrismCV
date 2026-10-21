@@ -1,0 +1,12 @@
+# Full: everything, no page limit.
+langs: [en, zh]
+sections:
+  profile: [profile-industry]
+  education: [princeton-phd, bogazici-bs]
+  experience: [nexus-ai, nvidia-intern, deepmind-intern, apple-intern, microsoft-intern]
+  projects: [flashinfer, neuralprune]
+  publications: [paper-moe, paper-nas, paper-marl, paper-quant]
+  honors: [honors]
+  patents: [patents]
+  talks: [talks]
+  skills: [skills]

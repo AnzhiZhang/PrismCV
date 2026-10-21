@@ -7,7 +7,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 TEMPLATE = HERE / "template"
-EXAMPLE = HERE / "example"
+EXAMPLES = {"default": HERE / "example", "rendercv": HERE / "example-rendercv"}
 CV_PARTS = ("cv.yaml", "design.yaml", "content", "targets")
 GITIGNORE = "# Generated PDFs\nout/\n"
 
@@ -16,13 +16,21 @@ class InitError(Exception):
     pass
 
 
-def create(root: Path, example: bool = False) -> list[Path]:
-    """Copy the template (or the example) into root without overwriting a CV. Returns the files created."""
+def create(root: Path, example: bool | str = False) -> list[Path]:
+    """Copy the template (or an example) into root without overwriting a CV. Returns the files created.
+
+    example is False for the template, True or "default" for the bilingual example,
+    or "rendercv" for RenderCV's sample CV.
+    """
     root = root.resolve()
     existing = [name for name in CV_PARTS if (root / name).exists()]
     if existing:
         raise InitError(f"{root} already contains {', '.join(existing)}")
-    source = EXAMPLE if example else TEMPLATE
+    if example is True:
+        example = "default"
+    if example and example not in EXAMPLES:
+        raise InitError(f"unknown example '{example}', choose from {', '.join(EXAMPLES)}")
+    source = EXAMPLES[example] if example else TEMPLATE
     created = []
     for src in sorted(source.rglob("*.yaml")):
         dest = root / src.relative_to(source)

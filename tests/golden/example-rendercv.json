@@ -1,0 +1,1406 @@
+{
+ "academic|en": {
+  "cv": {
+   "name": "John Doe",
+   "location": "San Francisco, CA",
+   "email": "john.doe@email.com",
+   "website": "https://rendercv.com/",
+   "social_networks": [
+    {
+     "network": "LinkedIn",
+     "username": "rendercv"
+    },
+    {
+     "network": "GitHub",
+     "username": "rendercv"
+    }
+   ],
+   "sections": {
+    "Profile": [
+     "Machine learning researcher working on efficient inference, model compression and neural architecture search."
+    ],
+    "Education": [
+     {
+      "institution": "Princeton University",
+      "degree": "PhD",
+      "area": "Computer Science",
+      "location": "Princeton, NJ",
+      "start_date": "2018-09",
+      "end_date": "2023-05",
+      "highlights": [
+       "Thesis: Efficient Neural Architecture Search for Resource-Constrained Deployment",
+       "Advisor: Prof. Sanjeev Arora",
+       "NSF Graduate Research Fellowship, Siebel Scholar (Class of 2022)"
+      ]
+     },
+     {
+      "institution": "Boğaziçi University",
+      "degree": "BS",
+      "area": "Computer Engineering",
+      "location": "Istanbul, Türkiye",
+      "start_date": "2014-09",
+      "end_date": "2018-06",
+      "highlights": [
+       "GPA: 3.97/4.00, Valedictorian",
+       "Fulbright Scholarship recipient for Graduate Studies"
+      ]
+     }
+    ],
+    "Publications": [
+     {
+      "title": "Sparse Mixture-of-Experts at Scale: Efficient Routing for Trillion-Parameter Models",
+      "authors": [
+       "*John Doe*",
+       "Sarah Williams",
+       "David Park"
+      ],
+      "doi": "10.1234/neurips.2023.1234",
+      "journal": "NeurIPS 2023",
+      "date": "2023-07"
+     },
+     {
+      "title": "Neural Architecture Search via Differentiable Pruning",
+      "authors": [
+       "James Liu",
+       "*John Doe*"
+      ],
+      "doi": "10.1234/neurips.2022.5678",
+      "journal": "NeurIPS 2022, Spotlight",
+      "date": "2022-12"
+     },
+     {
+      "title": "Multi-Agent Reinforcement Learning with Emergent Communication",
+      "authors": [
+       "Maria Garcia",
+       "*John Doe*",
+       "Tom Anderson"
+      ],
+      "doi": "10.1234/icml.2022.9012",
+      "journal": "ICML 2022",
+      "date": "2022-07"
+     },
+     {
+      "title": "On-Device Model Compression via Learned Quantization",
+      "authors": [
+       "*John Doe*",
+       "Kevin Wu"
+      ],
+      "doi": "10.1234/iclr.2021.3456",
+      "journal": "ICLR 2021, Best Paper Award",
+      "date": "2021-05"
+     }
+    ],
+    "Experience": [
+     {
+      "company": "Google DeepMind",
+      "position": "Research Intern",
+      "location": "London, UK",
+      "start_date": "2021-05",
+      "end_date": "2021-08",
+      "highlights": [
+       "Developed reinforcement learning algorithms for multi-agent coordination",
+       "Published an ICML 2022 paper cited 340+ times and a NeurIPS 2022 workshop paper",
+       "Invited to extend the work into a JMLR journal article (2023)"
+      ]
+     },
+     {
+      "company": "NVIDIA Research",
+      "position": "Research Intern",
+      "location": "Santa Clara, CA",
+      "start_date": "2022-05",
+      "end_date": "2022-08",
+      "highlights": [
+       "Designed sparse attention mechanism reducing transformer memory footprint by 4.2x",
+       "Co-authored paper accepted at NeurIPS 2022 (spotlight presentation, top 5% of submissions)"
+      ]
+     },
+     {
+      "company": "Apple ML Research",
+      "position": "Research Intern",
+      "location": "Cupertino, CA",
+      "start_date": "2020-05",
+      "end_date": "2020-08",
+      "highlights": [
+       "Created on-device neural network compression pipeline deployed across 50M+ devices",
+       "Filed 2 patents on efficient model quantization techniques for edge inference"
+      ]
+     },
+     {
+      "company": "Microsoft Research",
+      "position": "Research Intern",
+      "location": "Redmond, WA",
+      "start_date": "2019-05",
+      "end_date": "2019-08",
+      "highlights": [
+       "Implemented novel self-supervised learning framework for low-resource language modeling",
+       "Research integrated into Azure Cognitive Services, reducing training data requirements by 60%"
+      ]
+     },
+     {
+      "company": "Nexus AI",
+      "position": "Co-Founder & CTO",
+      "location": "San Francisco, CA",
+      "start_date": "2023-06",
+      "end_date": "present",
+      "highlights": [
+       "Built foundation model infrastructure serving 2M+ monthly API requests with 99.97% uptime",
+       "Raised $18M Series A led by Sequoia Capital, with participation from a16z and Founders Fund",
+       "Scaled engineering team from 3 to 28 across ML research, platform, and applied AI divisions",
+       "Developed proprietary inference optimization reducing latency by 73% compared to baseline"
+      ]
+     }
+    ],
+    "Selected Honors": [
+     {
+      "bullet": "MIT Technology Review 35 Under 35 Innovators (2024)"
+     },
+     {
+      "bullet": "Forbes 30 Under 30 in Enterprise Technology (2024)"
+     },
+     {
+      "bullet": "ACM Doctoral Dissertation Award Honorable Mention (2023)"
+     },
+     {
+      "bullet": "Google PhD Fellowship in Machine Learning (2020 – 2023)"
+     },
+     {
+      "bullet": "Fulbright Scholarship for Graduate Studies (2018)"
+     }
+    ],
+    "Invited Talks": [
+     {
+      "reversed_number": "Scaling Laws for Efficient Inference — Stanford HAI Symposium (2024)"
+     },
+     {
+      "reversed_number": "Building AI Infrastructure for the Next Decade — TechCrunch Disrupt (2024)"
+     },
+     {
+      "reversed_number": "From Research to Production: Lessons in ML Systems — NeurIPS Workshop (2023)"
+     },
+     {
+      "reversed_number": "Efficient Deep Learning: A Practitioner's Perspective — Google Tech Talk (2022)"
+     }
+    ],
+    "Skills": [
+     {
+      "label": "Languages",
+      "details": "Python, C++, CUDA, Rust, Julia"
+     },
+     {
+      "label": "ML Frameworks",
+      "details": "PyTorch, JAX, TensorFlow, Triton, ONNX"
+     },
+     {
+      "label": "Infrastructure",
+      "details": "Kubernetes, Ray, distributed training, AWS, GCP"
+     },
+     {
+      "label": "Research Areas",
+      "details": "Neural architecture search, model compression, efficient inference, multi-agent RL"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "header": {
+    "connections": {
+     "phone_number_format": "international"
+    }
+   },
+   "sections": {
+    "show_time_spans_in": []
+   }
+  },
+  "locale": {
+   "language": "english"
+  }
+ },
+ "academic|zh": {
+  "cv": {
+   "name": "约翰·多伊",
+   "location": "美国旧金山",
+   "email": "john.doe@email.com",
+   "website": "https://rendercv.com/",
+   "social_networks": [
+    {
+     "network": "LinkedIn",
+     "username": "rendercv"
+    },
+    {
+     "network": "GitHub",
+     "username": "rendercv"
+    }
+   ],
+   "sections": {
+    "个人简介": [
+     "机器学习研究者，研究方向为高效推理、模型压缩与神经网络架构搜索。"
+    ],
+    "教育背景": [
+     {
+      "institution": "普林斯顿大学",
+      "degree": "博士",
+      "area": "计算机科学",
+      "location": "美国普林斯顿",
+      "start_date": "2018-09",
+      "end_date": "2023-05",
+      "highlights": [
+       "博士论文：面向资源受限部署的高效神经网络架构搜索",
+       "导师：Sanjeev Arora 教授",
+       "美国国家科学基金会研究生研究奖学金，Siebel 学者（2022 届）"
+      ]
+     },
+     {
+      "institution": "海峡大学",
+      "degree": "学士",
+      "area": "计算机工程",
+      "location": "土耳其伊斯坦布尔",
+      "start_date": "2014-09",
+      "end_date": "2018-06",
+      "highlights": [
+       "GPA：3.97/4.00，毕业生代表",
+       "获富布赖特研究生奖学金"
+      ]
+     }
+    ],
+    "发表论文": [
+     {
+      "title": "Sparse Mixture-of-Experts at Scale: Efficient Routing for Trillion-Parameter Models",
+      "authors": [
+       "*John Doe*",
+       "Sarah Williams",
+       "David Park"
+      ],
+      "doi": "10.1234/neurips.2023.1234",
+      "journal": "NeurIPS 2023",
+      "date": "2023-07"
+     },
+     {
+      "title": "Neural Architecture Search via Differentiable Pruning",
+      "authors": [
+       "James Liu",
+       "*John Doe*"
+      ],
+      "doi": "10.1234/neurips.2022.5678",
+      "journal": "NeurIPS 2022, Spotlight",
+      "date": "2022-12"
+     },
+     {
+      "title": "Multi-Agent Reinforcement Learning with Emergent Communication",
+      "authors": [
+       "Maria Garcia",
+       "*John Doe*",
+       "Tom Anderson"
+      ],
+      "doi": "10.1234/icml.2022.9012",
+      "journal": "ICML 2022",
+      "date": "2022-07"
+     },
+     {
+      "title": "On-Device Model Compression via Learned Quantization",
+      "authors": [
+       "*John Doe*",
+       "Kevin Wu"
+      ],
+      "doi": "10.1234/iclr.2021.3456",
+      "journal": "ICLR 2021，最佳论文奖",
+      "date": "2021-05"
+     }
+    ],
+    "工作经历": [
+     {
+      "company": "Google DeepMind",
+      "position": "研究实习生",
+      "location": "英国伦敦",
+      "start_date": "2021-05",
+      "end_date": "2021-08",
+      "highlights": [
+       "开发面向多智能体协作的强化学习算法",
+       "发表 ICML 2022 论文（被引 340 次以上）及 NeurIPS 2022 研讨会论文一篇"
+      ]
+     },
+     {
+      "company": "NVIDIA Research",
+      "position": "研究实习生",
+      "location": "美国圣克拉拉",
+      "start_date": "2022-05",
+      "end_date": "2022-08",
+      "highlights": [
+       "设计稀疏注意力机制，将 Transformer 内存占用降低 4.2 倍",
+       "合著论文被 NeurIPS 2022 接收（Spotlight 报告，前 5%）"
+      ]
+     },
+     {
+      "company": "Apple ML Research",
+      "position": "研究实习生",
+      "location": "美国库比蒂诺",
+      "start_date": "2020-05",
+      "end_date": "2020-08",
+      "highlights": [
+       "构建端侧神经网络压缩流程，部署于 5000 万台以上设备",
+       "申请 2 项面向边缘推理的高效模型量化专利"
+      ]
+     },
+     {
+      "company": "Microsoft Research",
+      "position": "研究实习生",
+      "location": "美国雷德蒙德",
+      "start_date": "2019-05",
+      "end_date": "2019-08",
+      "highlights": [
+       "实现面向低资源语言建模的新型自监督学习框架",
+       "研究成果集成至 Azure 认知服务，训练数据需求降低 60%"
+      ]
+     },
+     {
+      "company": "Nexus AI",
+      "position": "联合创始人兼首席技术官",
+      "location": "美国旧金山",
+      "start_date": "2023-06",
+      "end_date": "present",
+      "highlights": [
+       "搭建基础模型基础设施，每月处理 200 万次以上 API 请求，可用性达 99.97%",
+       "完成 1800 万美元 A 轮融资，由红杉资本领投，a16z 与 Founders Fund 跟投",
+       "将工程团队从 3 人扩展至 28 人，覆盖机器学习研究、平台与应用 AI 三个部门",
+       "自研推理优化技术，延迟较基线降低 73%"
+      ]
+     }
+    ],
+    "主要荣誉": [
+     {
+      "bullet": "《麻省理工科技评论》35 岁以下科技创新 35 人（2024）"
+     },
+     {
+      "bullet": "福布斯 30 岁以下精英榜·企业科技（2024）"
+     },
+     {
+      "bullet": "ACM 博士论文奖荣誉提名（2023）"
+     },
+     {
+      "bullet": "谷歌机器学习博士奖学金（2020 – 2023）"
+     },
+     {
+      "bullet": "富布赖特研究生奖学金（2018）"
+     }
+    ],
+    "受邀报告": [
+     {
+      "reversed_number": "高效推理的缩放定律——斯坦福 HAI 研讨会（2024）"
+     },
+     {
+      "reversed_number": "构建下一个十年的 AI 基础设施——TechCrunch Disrupt（2024）"
+     },
+     {
+      "reversed_number": "从研究到生产：机器学习系统的经验——NeurIPS 研讨会（2023）"
+     },
+     {
+      "reversed_number": "高效深度学习：实践者的视角——谷歌技术讲座（2022）"
+     }
+    ],
+    "技能": [
+     {
+      "label": "编程语言",
+      "details": "Python, C++, CUDA, Rust, Julia"
+     },
+     {
+      "label": "机器学习框架",
+      "details": "PyTorch, JAX, TensorFlow, Triton, ONNX"
+     },
+     {
+      "label": "基础设施",
+      "details": "Kubernetes、Ray、分布式训练、AWS、GCP"
+     },
+     {
+      "label": "研究方向",
+      "details": "神经网络架构搜索、模型压缩、高效推理、多智能体强化学习"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "header": {
+    "connections": {
+     "phone_number_format": "international"
+    }
+   },
+   "sections": {
+    "show_time_spans_in": []
+   },
+   "typography": {
+    "font_family": "Noto Sans SC"
+   },
+   "templates": {
+    "single_date": "YEAR年MONTH月",
+    "experience_entry": {
+     "main_column": "**COMPANY**，POSITION\nSUMMARY\nHIGHLIGHTS"
+    },
+    "education_entry": {
+     "main_column": "**INSTITUTION**，AREA\nSUMMARY\nHIGHLIGHTS"
+    }
+   }
+  },
+  "locale": {
+   "language": "mandarin_chinese"
+  }
+ },
+ "full|en": {
+  "cv": {
+   "name": "John Doe",
+   "location": "San Francisco, CA",
+   "email": "john.doe@email.com",
+   "website": "https://rendercv.com/",
+   "social_networks": [
+    {
+     "network": "LinkedIn",
+     "username": "rendercv"
+    },
+    {
+     "network": "GitHub",
+     "username": "rendercv"
+    }
+   ],
+   "sections": {
+    "Profile": [
+     "Co-founder and CTO who builds and scales infrastructure for efficient AI, from GPU kernels to production APIs."
+    ],
+    "Education": [
+     {
+      "institution": "Princeton University",
+      "degree": "PhD",
+      "area": "Computer Science",
+      "location": "Princeton, NJ",
+      "start_date": "2018-09",
+      "end_date": "2023-05",
+      "highlights": [
+       "Thesis: Efficient Neural Architecture Search for Resource-Constrained Deployment",
+       "Advisor: Prof. Sanjeev Arora",
+       "NSF Graduate Research Fellowship, Siebel Scholar (Class of 2022)"
+      ]
+     },
+     {
+      "institution": "Boğaziçi University",
+      "degree": "BS",
+      "area": "Computer Engineering",
+      "location": "Istanbul, Türkiye",
+      "start_date": "2014-09",
+      "end_date": "2018-06",
+      "highlights": [
+       "GPA: 3.97/4.00, Valedictorian",
+       "Fulbright Scholarship recipient for Graduate Studies"
+      ]
+     }
+    ],
+    "Experience": [
+     {
+      "company": "Nexus AI",
+      "position": "Co-Founder & CTO",
+      "location": "San Francisco, CA",
+      "start_date": "2023-06",
+      "end_date": "present",
+      "highlights": [
+       "Built foundation model infrastructure serving 2M+ monthly API requests with 99.97% uptime",
+       "Raised $18M Series A led by Sequoia Capital, with participation from a16z and Founders Fund",
+       "Scaled engineering team from 3 to 28 across ML research, platform, and applied AI divisions",
+       "Developed proprietary inference optimization reducing latency by 73% compared to baseline"
+      ]
+     },
+     {
+      "company": "NVIDIA Research",
+      "position": "Research Intern",
+      "location": "Santa Clara, CA",
+      "start_date": "2022-05",
+      "end_date": "2022-08",
+      "highlights": [
+       "Designed sparse attention mechanism reducing transformer memory footprint by 4.2x",
+       "Co-authored paper accepted at NeurIPS 2022 (spotlight presentation, top 5% of submissions)"
+      ]
+     },
+     {
+      "company": "Google DeepMind",
+      "position": "Research Intern",
+      "location": "London, UK",
+      "start_date": "2021-05",
+      "end_date": "2021-08",
+      "highlights": [
+       "Developed reinforcement learning algorithms for multi-agent coordination",
+       "Published an ICML 2022 paper cited 340+ times and a NeurIPS 2022 workshop paper",
+       "Invited to extend the work into a JMLR journal article (2023)"
+      ]
+     },
+     {
+      "company": "Apple ML Research",
+      "position": "Research Intern",
+      "location": "Cupertino, CA",
+      "start_date": "2020-05",
+      "end_date": "2020-08",
+      "highlights": [
+       "Created on-device neural network compression pipeline deployed across 50M+ devices",
+       "Filed 2 patents on efficient model quantization techniques for edge inference"
+      ]
+     },
+     {
+      "company": "Microsoft Research",
+      "position": "Research Intern",
+      "location": "Redmond, WA",
+      "start_date": "2019-05",
+      "end_date": "2019-08",
+      "highlights": [
+       "Implemented novel self-supervised learning framework for low-resource language modeling",
+       "Research integrated into Azure Cognitive Services, reducing training data requirements by 60%"
+      ]
+     }
+    ],
+    "Projects": [
+     {
+      "name": "[FlashInfer](https://github.com/)",
+      "start_date": "2023-01",
+      "end_date": "present",
+      "summary": "Open-source library for high-performance LLM inference kernels",
+      "highlights": [
+       "Achieved 2.8x speedup over baseline attention implementations on A100 GPUs",
+       "Adopted by 3 major AI labs, 8,500+ GitHub stars, 200+ contributors"
+      ]
+     },
+     {
+      "name": "[NeuralPrune](https://github.com/)",
+      "date": "2021",
+      "summary": "Automated neural network pruning toolkit with differentiable masks",
+      "highlights": [
+       "Reduced model size by 90% with less than 1% accuracy degradation on ImageNet",
+       "Featured in PyTorch ecosystem tools, 4,200+ GitHub stars"
+      ]
+     }
+    ],
+    "Publications": [
+     {
+      "title": "Sparse Mixture-of-Experts at Scale: Efficient Routing for Trillion-Parameter Models",
+      "authors": [
+       "*John Doe*",
+       "Sarah Williams",
+       "David Park"
+      ],
+      "doi": "10.1234/neurips.2023.1234",
+      "journal": "NeurIPS 2023",
+      "date": "2023-07"
+     },
+     {
+      "title": "Neural Architecture Search via Differentiable Pruning",
+      "authors": [
+       "James Liu",
+       "*John Doe*"
+      ],
+      "doi": "10.1234/neurips.2022.5678",
+      "journal": "NeurIPS 2022, Spotlight",
+      "date": "2022-12"
+     },
+     {
+      "title": "Multi-Agent Reinforcement Learning with Emergent Communication",
+      "authors": [
+       "Maria Garcia",
+       "*John Doe*",
+       "Tom Anderson"
+      ],
+      "doi": "10.1234/icml.2022.9012",
+      "journal": "ICML 2022",
+      "date": "2022-07"
+     },
+     {
+      "title": "On-Device Model Compression via Learned Quantization",
+      "authors": [
+       "*John Doe*",
+       "Kevin Wu"
+      ],
+      "doi": "10.1234/iclr.2021.3456",
+      "journal": "ICLR 2021, Best Paper Award",
+      "date": "2021-05"
+     }
+    ],
+    "Selected Honors": [
+     {
+      "bullet": "MIT Technology Review 35 Under 35 Innovators (2024)"
+     },
+     {
+      "bullet": "Forbes 30 Under 30 in Enterprise Technology (2024)"
+     },
+     {
+      "bullet": "ACM Doctoral Dissertation Award Honorable Mention (2023)"
+     },
+     {
+      "bullet": "Google PhD Fellowship in Machine Learning (2020 – 2023)"
+     },
+     {
+      "bullet": "Fulbright Scholarship for Graduate Studies (2018)"
+     }
+    ],
+    "Patents": [
+     {
+      "number": "Adaptive Quantization for Neural Network Inference on Edge Devices (US Patent 11,234,567)"
+     },
+     {
+      "number": "Dynamic Sparsity Patterns for Efficient Transformer Attention (US Patent 11,345,678)"
+     },
+     {
+      "number": "Hardware-Aware Neural Architecture Search Method (US Patent 11,456,789)"
+     }
+    ],
+    "Invited Talks": [
+     {
+      "reversed_number": "Scaling Laws for Efficient Inference — Stanford HAI Symposium (2024)"
+     },
+     {
+      "reversed_number": "Building AI Infrastructure for the Next Decade — TechCrunch Disrupt (2024)"
+     },
+     {
+      "reversed_number": "From Research to Production: Lessons in ML Systems — NeurIPS Workshop (2023)"
+     },
+     {
+      "reversed_number": "Efficient Deep Learning: A Practitioner's Perspective — Google Tech Talk (2022)"
+     }
+    ],
+    "Skills": [
+     {
+      "label": "Languages",
+      "details": "Python, C++, CUDA, Rust, Julia"
+     },
+     {
+      "label": "ML Frameworks",
+      "details": "PyTorch, JAX, TensorFlow, Triton, ONNX"
+     },
+     {
+      "label": "Infrastructure",
+      "details": "Kubernetes, Ray, distributed training, AWS, GCP"
+     },
+     {
+      "label": "Research Areas",
+      "details": "Neural architecture search, model compression, efficient inference, multi-agent RL"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "header": {
+    "connections": {
+     "phone_number_format": "international"
+    }
+   },
+   "sections": {
+    "show_time_spans_in": []
+   }
+  },
+  "locale": {
+   "language": "english"
+  }
+ },
+ "full|zh": {
+  "cv": {
+   "name": "约翰·多伊",
+   "location": "美国旧金山",
+   "email": "john.doe@email.com",
+   "website": "https://rendercv.com/",
+   "social_networks": [
+    {
+     "network": "LinkedIn",
+     "username": "rendercv"
+    },
+    {
+     "network": "GitHub",
+     "username": "rendercv"
+    }
+   ],
+   "sections": {
+    "个人简介": [
+     "联合创始人兼 CTO，专注高效 AI 基础设施的构建与扩展，从 GPU 内核到生产级 API。"
+    ],
+    "教育背景": [
+     {
+      "institution": "普林斯顿大学",
+      "degree": "博士",
+      "area": "计算机科学",
+      "location": "美国普林斯顿",
+      "start_date": "2018-09",
+      "end_date": "2023-05",
+      "highlights": [
+       "博士论文：面向资源受限部署的高效神经网络架构搜索",
+       "导师：Sanjeev Arora 教授",
+       "美国国家科学基金会研究生研究奖学金，Siebel 学者（2022 届）"
+      ]
+     },
+     {
+      "institution": "海峡大学",
+      "degree": "学士",
+      "area": "计算机工程",
+      "location": "土耳其伊斯坦布尔",
+      "start_date": "2014-09",
+      "end_date": "2018-06",
+      "highlights": [
+       "GPA：3.97/4.00，毕业生代表",
+       "获富布赖特研究生奖学金"
+      ]
+     }
+    ],
+    "工作经历": [
+     {
+      "company": "Nexus AI",
+      "position": "联合创始人兼首席技术官",
+      "location": "美国旧金山",
+      "start_date": "2023-06",
+      "end_date": "present",
+      "highlights": [
+       "搭建基础模型基础设施，每月处理 200 万次以上 API 请求，可用性达 99.97%",
+       "完成 1800 万美元 A 轮融资，由红杉资本领投，a16z 与 Founders Fund 跟投",
+       "将工程团队从 3 人扩展至 28 人，覆盖机器学习研究、平台与应用 AI 三个部门",
+       "自研推理优化技术，延迟较基线降低 73%"
+      ]
+     },
+     {
+      "company": "NVIDIA Research",
+      "position": "研究实习生",
+      "location": "美国圣克拉拉",
+      "start_date": "2022-05",
+      "end_date": "2022-08",
+      "highlights": [
+       "设计稀疏注意力机制，将 Transformer 内存占用降低 4.2 倍",
+       "合著论文被 NeurIPS 2022 接收（Spotlight 报告，前 5%）"
+      ]
+     },
+     {
+      "company": "Google DeepMind",
+      "position": "研究实习生",
+      "location": "英国伦敦",
+      "start_date": "2021-05",
+      "end_date": "2021-08",
+      "highlights": [
+       "开发面向多智能体协作的强化学习算法",
+       "发表 ICML 2022 论文（被引 340 次以上）及 NeurIPS 2022 研讨会论文一篇"
+      ]
+     },
+     {
+      "company": "Apple ML Research",
+      "position": "研究实习生",
+      "location": "美国库比蒂诺",
+      "start_date": "2020-05",
+      "end_date": "2020-08",
+      "highlights": [
+       "构建端侧神经网络压缩流程，部署于 5000 万台以上设备",
+       "申请 2 项面向边缘推理的高效模型量化专利"
+      ]
+     },
+     {
+      "company": "Microsoft Research",
+      "position": "研究实习生",
+      "location": "美国雷德蒙德",
+      "start_date": "2019-05",
+      "end_date": "2019-08",
+      "highlights": [
+       "实现面向低资源语言建模的新型自监督学习框架",
+       "研究成果集成至 Azure 认知服务，训练数据需求降低 60%"
+      ]
+     }
+    ],
+    "项目经历": [
+     {
+      "name": "[FlashInfer](https://github.com/)",
+      "start_date": "2023-01",
+      "end_date": "present",
+      "summary": "高性能大语言模型推理内核开源库",
+      "highlights": [
+       "在 A100 GPU 上较基线注意力实现提速 2.8 倍",
+       "被 3 家主要 AI 实验室采用，GitHub 星标 8500 以上，贡献者 200 余人"
+      ]
+     },
+     {
+      "name": "[NeuralPrune](https://github.com/)",
+      "date": "2021",
+      "summary": "基于可微掩码的神经网络自动剪枝工具包",
+      "highlights": [
+       "在 ImageNet 上模型体积缩减 90%，精度损失不到 1%",
+       "入选 PyTorch 生态工具，GitHub 星标 4200 以上"
+      ]
+     }
+    ],
+    "发表论文": [
+     {
+      "title": "Sparse Mixture-of-Experts at Scale: Efficient Routing for Trillion-Parameter Models",
+      "authors": [
+       "*John Doe*",
+       "Sarah Williams",
+       "David Park"
+      ],
+      "doi": "10.1234/neurips.2023.1234",
+      "journal": "NeurIPS 2023",
+      "date": "2023-07"
+     },
+     {
+      "title": "Neural Architecture Search via Differentiable Pruning",
+      "authors": [
+       "James Liu",
+       "*John Doe*"
+      ],
+      "doi": "10.1234/neurips.2022.5678",
+      "journal": "NeurIPS 2022, Spotlight",
+      "date": "2022-12"
+     },
+     {
+      "title": "Multi-Agent Reinforcement Learning with Emergent Communication",
+      "authors": [
+       "Maria Garcia",
+       "*John Doe*",
+       "Tom Anderson"
+      ],
+      "doi": "10.1234/icml.2022.9012",
+      "journal": "ICML 2022",
+      "date": "2022-07"
+     },
+     {
+      "title": "On-Device Model Compression via Learned Quantization",
+      "authors": [
+       "*John Doe*",
+       "Kevin Wu"
+      ],
+      "doi": "10.1234/iclr.2021.3456",
+      "journal": "ICLR 2021，最佳论文奖",
+      "date": "2021-05"
+     }
+    ],
+    "主要荣誉": [
+     {
+      "bullet": "《麻省理工科技评论》35 岁以下科技创新 35 人（2024）"
+     },
+     {
+      "bullet": "福布斯 30 岁以下精英榜·企业科技（2024）"
+     },
+     {
+      "bullet": "ACM 博士论文奖荣誉提名（2023）"
+     },
+     {
+      "bullet": "谷歌机器学习博士奖学金（2020 – 2023）"
+     },
+     {
+      "bullet": "富布赖特研究生奖学金（2018）"
+     }
+    ],
+    "专利": [
+     {
+      "number": "面向边缘设备神经网络推理的自适应量化（美国专利 11,234,567）"
+     },
+     {
+      "number": "面向高效 Transformer 注意力的动态稀疏模式（美国专利 11,345,678）"
+     },
+     {
+      "number": "硬件感知的神经网络架构搜索方法（美国专利 11,456,789）"
+     }
+    ],
+    "受邀报告": [
+     {
+      "reversed_number": "高效推理的缩放定律——斯坦福 HAI 研讨会（2024）"
+     },
+     {
+      "reversed_number": "构建下一个十年的 AI 基础设施——TechCrunch Disrupt（2024）"
+     },
+     {
+      "reversed_number": "从研究到生产：机器学习系统的经验——NeurIPS 研讨会（2023）"
+     },
+     {
+      "reversed_number": "高效深度学习：实践者的视角——谷歌技术讲座（2022）"
+     }
+    ],
+    "技能": [
+     {
+      "label": "编程语言",
+      "details": "Python, C++, CUDA, Rust, Julia"
+     },
+     {
+      "label": "机器学习框架",
+      "details": "PyTorch, JAX, TensorFlow, Triton, ONNX"
+     },
+     {
+      "label": "基础设施",
+      "details": "Kubernetes、Ray、分布式训练、AWS、GCP"
+     },
+     {
+      "label": "研究方向",
+      "details": "神经网络架构搜索、模型压缩、高效推理、多智能体强化学习"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "header": {
+    "connections": {
+     "phone_number_format": "international"
+    }
+   },
+   "sections": {
+    "show_time_spans_in": []
+   },
+   "typography": {
+    "font_family": "Noto Sans SC"
+   },
+   "templates": {
+    "single_date": "YEAR年MONTH月",
+    "experience_entry": {
+     "main_column": "**COMPANY**，POSITION\nSUMMARY\nHIGHLIGHTS"
+    },
+    "education_entry": {
+     "main_column": "**INSTITUTION**，AREA\nSUMMARY\nHIGHLIGHTS"
+    }
+   }
+  },
+  "locale": {
+   "language": "mandarin_chinese"
+  }
+ },
+ "industry|en": {
+  "cv": {
+   "name": "John Doe",
+   "location": "San Francisco, CA",
+   "email": "john.doe@email.com",
+   "website": "https://rendercv.com/",
+   "social_networks": [
+    {
+     "network": "LinkedIn",
+     "username": "rendercv"
+    },
+    {
+     "network": "GitHub",
+     "username": "rendercv"
+    }
+   ],
+   "sections": {
+    "Profile": [
+     "Co-founder and CTO who builds and scales infrastructure for efficient AI, from GPU kernels to production APIs."
+    ],
+    "Education": [
+     {
+      "institution": "Princeton University",
+      "degree": "PhD",
+      "area": "Computer Science",
+      "location": "Princeton, NJ",
+      "start_date": "2018-09",
+      "end_date": "2023-05",
+      "highlights": [
+       "Thesis: Efficient Neural Architecture Search for Resource-Constrained Deployment",
+       "Advisor: Prof. Sanjeev Arora",
+       "NSF Graduate Research Fellowship, Siebel Scholar (Class of 2022)"
+      ]
+     },
+     {
+      "institution": "Boğaziçi University",
+      "degree": "BS",
+      "area": "Computer Engineering",
+      "location": "Istanbul, Türkiye",
+      "start_date": "2014-09",
+      "end_date": "2018-06",
+      "highlights": [
+       "GPA: 3.97/4.00, Valedictorian",
+       "Fulbright Scholarship recipient for Graduate Studies"
+      ]
+     }
+    ],
+    "Experience": [
+     {
+      "company": "Nexus AI",
+      "position": "Co-Founder & CTO",
+      "location": "San Francisco, CA",
+      "start_date": "2023-06",
+      "end_date": "present",
+      "highlights": [
+       "Built foundation model infrastructure serving 2M+ monthly API requests with 99.97% uptime",
+       "Raised $18M Series A led by Sequoia Capital, with participation from a16z and Founders Fund",
+       "Scaled engineering team from 3 to 28 across ML research, platform, and applied AI divisions",
+       "Developed proprietary inference optimization reducing latency by 73% compared to baseline"
+      ]
+     },
+     {
+      "company": "NVIDIA Research",
+      "position": "Research Intern",
+      "location": "Santa Clara, CA",
+      "start_date": "2022-05",
+      "end_date": "2022-08",
+      "highlights": [
+       "Designed sparse attention mechanism reducing transformer memory footprint by 4.2x"
+      ]
+     },
+     {
+      "company": "Apple ML Research",
+      "position": "Research Intern",
+      "location": "Cupertino, CA",
+      "start_date": "2020-05",
+      "end_date": "2020-08",
+      "highlights": [
+       "Created on-device neural network compression pipeline deployed across 50M+ devices",
+       "Filed 2 patents on efficient model quantization techniques for edge inference"
+      ]
+     }
+    ],
+    "Projects": [
+     {
+      "name": "[FlashInfer](https://github.com/)",
+      "start_date": "2023-01",
+      "end_date": "present",
+      "summary": "Open-source library for high-performance LLM inference kernels",
+      "highlights": [
+       "Achieved 2.8x speedup over baseline attention implementations on A100 GPUs",
+       "Adopted by 3 major AI labs, 8,500+ GitHub stars, 200+ contributors"
+      ]
+     }
+    ],
+    "Patents": [
+     {
+      "number": "Adaptive Quantization for Neural Network Inference on Edge Devices (US Patent 11,234,567)"
+     },
+     {
+      "number": "Dynamic Sparsity Patterns for Efficient Transformer Attention (US Patent 11,345,678)"
+     },
+     {
+      "number": "Hardware-Aware Neural Architecture Search Method (US Patent 11,456,789)"
+     }
+    ],
+    "Skills": [
+     {
+      "label": "Languages",
+      "details": "Python, C++, CUDA, Rust, Julia"
+     },
+     {
+      "label": "ML Frameworks",
+      "details": "PyTorch, JAX, TensorFlow, Triton, ONNX"
+     },
+     {
+      "label": "Infrastructure",
+      "details": "Kubernetes, Ray, distributed training, AWS, GCP"
+     },
+     {
+      "label": "Research Areas",
+      "details": "Neural architecture search, model compression, efficient inference, multi-agent RL"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "header": {
+    "connections": {
+     "phone_number_format": "international"
+    }
+   },
+   "sections": {
+    "show_time_spans_in": []
+   }
+  },
+  "locale": {
+   "language": "english"
+  }
+ },
+ "industry|zh": {
+  "cv": {
+   "name": "约翰·多伊",
+   "location": "美国旧金山",
+   "email": "john.doe@email.com",
+   "website": "https://rendercv.com/",
+   "social_networks": [
+    {
+     "network": "LinkedIn",
+     "username": "rendercv"
+    },
+    {
+     "network": "GitHub",
+     "username": "rendercv"
+    }
+   ],
+   "sections": {
+    "个人简介": [
+     "联合创始人兼 CTO，专注高效 AI 基础设施的构建与扩展，从 GPU 内核到生产级 API。"
+    ],
+    "教育背景": [
+     {
+      "institution": "普林斯顿大学",
+      "degree": "博士",
+      "area": "计算机科学",
+      "location": "美国普林斯顿",
+      "start_date": "2018-09",
+      "end_date": "2023-05",
+      "highlights": [
+       "博士论文：面向资源受限部署的高效神经网络架构搜索",
+       "导师：Sanjeev Arora 教授",
+       "美国国家科学基金会研究生研究奖学金，Siebel 学者（2022 届）"
+      ]
+     },
+     {
+      "institution": "海峡大学",
+      "degree": "学士",
+      "area": "计算机工程",
+      "location": "土耳其伊斯坦布尔",
+      "start_date": "2014-09",
+      "end_date": "2018-06",
+      "highlights": [
+       "GPA：3.97/4.00，毕业生代表",
+       "获富布赖特研究生奖学金"
+      ]
+     }
+    ],
+    "工作经历": [
+     {
+      "company": "Nexus AI",
+      "position": "联合创始人兼首席技术官",
+      "location": "美国旧金山",
+      "start_date": "2023-06",
+      "end_date": "present",
+      "highlights": [
+       "搭建基础模型基础设施，每月处理 200 万次以上 API 请求，可用性达 99.97%",
+       "完成 1800 万美元 A 轮融资，由红杉资本领投，a16z 与 Founders Fund 跟投",
+       "将工程团队从 3 人扩展至 28 人，覆盖机器学习研究、平台与应用 AI 三个部门",
+       "自研推理优化技术，延迟较基线降低 73%"
+      ]
+     },
+     {
+      "company": "NVIDIA Research",
+      "position": "研究实习生",
+      "location": "美国圣克拉拉",
+      "start_date": "2022-05",
+      "end_date": "2022-08",
+      "highlights": [
+       "设计稀疏注意力机制，将 Transformer 内存占用降低 4.2 倍"
+      ]
+     },
+     {
+      "company": "Apple ML Research",
+      "position": "研究实习生",
+      "location": "美国库比蒂诺",
+      "start_date": "2020-05",
+      "end_date": "2020-08",
+      "highlights": [
+       "构建端侧神经网络压缩流程，部署于 5000 万台以上设备",
+       "申请 2 项面向边缘推理的高效模型量化专利"
+      ]
+     }
+    ],
+    "项目经历": [
+     {
+      "name": "[FlashInfer](https://github.com/)",
+      "start_date": "2023-01",
+      "end_date": "present",
+      "summary": "高性能大语言模型推理内核开源库",
+      "highlights": [
+       "在 A100 GPU 上较基线注意力实现提速 2.8 倍",
+       "被 3 家主要 AI 实验室采用，GitHub 星标 8500 以上，贡献者 200 余人"
+      ]
+     }
+    ],
+    "专利": [
+     {
+      "number": "面向边缘设备神经网络推理的自适应量化（美国专利 11,234,567）"
+     },
+     {
+      "number": "面向高效 Transformer 注意力的动态稀疏模式（美国专利 11,345,678）"
+     },
+     {
+      "number": "硬件感知的神经网络架构搜索方法（美国专利 11,456,789）"
+     }
+    ],
+    "技能": [
+     {
+      "label": "编程语言",
+      "details": "Python, C++, CUDA, Rust, Julia"
+     },
+     {
+      "label": "机器学习框架",
+      "details": "PyTorch, JAX, TensorFlow, Triton, ONNX"
+     },
+     {
+      "label": "基础设施",
+      "details": "Kubernetes、Ray、分布式训练、AWS、GCP"
+     },
+     {
+      "label": "研究方向",
+      "details": "神经网络架构搜索、模型压缩、高效推理、多智能体强化学习"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "header": {
+    "connections": {
+     "phone_number_format": "international"
+    }
+   },
+   "sections": {
+    "show_time_spans_in": []
+   },
+   "typography": {
+    "font_family": "Noto Sans SC"
+   },
+   "templates": {
+    "single_date": "YEAR年MONTH月",
+    "experience_entry": {
+     "main_column": "**COMPANY**，POSITION\nSUMMARY\nHIGHLIGHTS"
+    },
+    "education_entry": {
+     "main_column": "**INSTITUTION**，AREA\nSUMMARY\nHIGHLIGHTS"
+    }
+   }
+  },
+  "locale": {
+   "language": "mandarin_chinese"
+  }
+ },
+ "jobs/2026-10-15_example-inference-engineer|en": {
+  "cv": {
+   "name": "John Doe",
+   "location": "San Francisco, CA",
+   "email": "john.doe@email.com",
+   "website": "https://rendercv.com/",
+   "social_networks": [
+    {
+     "network": "LinkedIn",
+     "username": "rendercv"
+    },
+    {
+     "network": "GitHub",
+     "username": "rendercv"
+    }
+   ],
+   "sections": {
+    "Profile": [
+     "Systems researcher who turns LLM inference research into fast, reliable production services."
+    ],
+    "Education": [
+     {
+      "institution": "Princeton University",
+      "degree": "PhD",
+      "area": "Computer Science",
+      "location": "Princeton, NJ",
+      "start_date": "2018-09",
+      "end_date": "2023-05",
+      "highlights": [
+       "Thesis: Efficient Neural Architecture Search for Resource-Constrained Deployment",
+       "Advisor: Prof. Sanjeev Arora",
+       "NSF Graduate Research Fellowship, Siebel Scholar (Class of 2022)"
+      ]
+     },
+     {
+      "institution": "Boğaziçi University",
+      "degree": "BS",
+      "area": "Computer Engineering",
+      "location": "Istanbul, Türkiye",
+      "start_date": "2014-09",
+      "end_date": "2018-06",
+      "highlights": [
+       "GPA: 3.97/4.00, Valedictorian",
+       "Fulbright Scholarship recipient for Graduate Studies"
+      ]
+     }
+    ],
+    "Selected Experience": [
+     {
+      "company": "Nexus AI",
+      "position": "Co-Founder & CTO",
+      "location": "San Francisco, CA",
+      "start_date": "2023-06",
+      "end_date": "present",
+      "highlights": [
+       "Led the inference team, cutting latency by 73% with custom attention kernels",
+       "Served 2M+ monthly API requests with 99.97% uptime on a multi-cloud GPU fleet"
+      ]
+     },
+     {
+      "company": "NVIDIA Research",
+      "position": "Research Intern",
+      "location": "Santa Clara, CA",
+      "start_date": "2022-05",
+      "end_date": "2022-08",
+      "highlights": [
+       "Rewritten bullet for this role only"
+      ]
+     }
+    ],
+    "Projects": [
+     {
+      "name": "[FlashInfer](https://github.com/)",
+      "start_date": "2023-01",
+      "end_date": "present",
+      "summary": "Open-source library for high-performance LLM inference kernels",
+      "highlights": [
+       "Achieved 2.8x speedup over baseline attention implementations on A100 GPUs",
+       "Adopted by 3 major AI labs, 8,500+ GitHub stars, 200+ contributors"
+      ]
+     }
+    ],
+    "Skills": [
+     {
+      "label": "Languages",
+      "details": "Python, C++, CUDA, Rust, Julia"
+     },
+     {
+      "label": "ML Frameworks",
+      "details": "PyTorch, JAX, TensorFlow, Triton, ONNX"
+     },
+     {
+      "label": "Infrastructure",
+      "details": "Kubernetes, Ray, distributed training, AWS, GCP"
+     },
+     {
+      "label": "Research Areas",
+      "details": "Neural architecture search, model compression, efficient inference, multi-agent RL"
+     }
+    ]
+   }
+  },
+  "design": {
+   "theme": "classic",
+   "page": {
+    "size": "a4",
+    "show_footer": false,
+    "show_top_note": false
+   },
+   "header": {
+    "connections": {
+     "phone_number_format": "international"
+    }
+   },
+   "sections": {
+    "show_time_spans_in": []
+   }
+  },
+  "locale": {
+   "language": "english"
+  }
+ },
+ "_stem": {
+  "en": "John_Doe_CV_en",
+  "zh": "John_Doe_CV_zh"
+ }
+}

@@ -75,7 +75,11 @@ def main() -> int:
 
     ip = commands.add_parser("init", help="create a new CV folder")
     ip.add_argument("path", nargs="?", type=Path, default=Path.cwd(), help="folder to create it in (default: current folder)")
-    ip.add_argument("--example", action="store_true", help="start from the full bilingual example instead of the minimal template")
+    source = ip.add_mutually_exclusive_group()
+    source.add_argument("--example", action="store_const", const="default", dest="example",
+                        help="start from the full bilingual example instead of the minimal template")
+    source.add_argument("--example-rendercv", action="store_const", const="rendercv", dest="example",
+                        help="start from RenderCV's sample CV, written the same way")
 
     args = ap.parse_args()
     if args.command == "init":

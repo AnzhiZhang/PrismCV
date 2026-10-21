@@ -1,0 +1,28 @@
+# Mark yourself in the author list with *italics*.
+paper-moe:
+  title: "Sparse Mixture-of-Experts at Scale: Efficient Routing for Trillion-Parameter Models"
+  authors: ["*John Doe*", Sarah Williams, David Park]
+  doi: 10.1234/neurips.2023.1234
+  journal: NeurIPS 2023
+  date: 2023-07
+
+paper-nas:
+  title: Neural Architecture Search via Differentiable Pruning
+  authors: [James Liu, "*John Doe*"]
+  doi: 10.1234/neurips.2022.5678
+  journal: NeurIPS 2022, Spotlight
+  date: 2022-12
+
+paper-marl:
+  title: Multi-Agent Reinforcement Learning with Emergent Communication
+  authors: [Maria Garcia, "*John Doe*", Tom Anderson]
+  doi: 10.1234/icml.2022.9012
+  journal: ICML 2022
+  date: 2022-07
+
+paper-quant:
+  title: On-Device Model Compression via Learned Quantization
+  authors: ["*John Doe*", Kevin Wu]
+  doi: 10.1234/iclr.2021.3456
+  journal: { en: "ICLR 2021, Best Paper Award", zh: ICLR 2021，最佳论文奖 }
+  date: 2021-05

@@ -1,0 +1,11 @@
+skills:
+  - label: { en: Languages, zh: 编程语言 }
+    details: Python, C++, CUDA, Rust, Julia
+  - label: { en: ML Frameworks, zh: 机器学习框架 }
+    details: PyTorch, JAX, TensorFlow, Triton, ONNX
+  - label: { en: Infrastructure, zh: 基础设施 }
+    details: { en: "Kubernetes, Ray, distributed training, AWS, GCP", zh: Kubernetes、Ray、分布式训练、AWS、GCP }
+  - label: { en: Research Areas, zh: 研究方向 }
+    details:
+      en: Neural architecture search, model compression, efficient inference, multi-agent RL
+      zh: 神经网络架构搜索、模型压缩、高效推理、多智能体强化学习

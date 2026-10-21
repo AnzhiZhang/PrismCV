@@ -1,0 +1,24 @@
+flashinfer:
+  name: "[FlashInfer](https://github.com/)"
+  start_date: 2023-01
+  end_date: present
+  summary:
+    en: Open-source library for high-performance LLM inference kernels
+    zh: 高性能大语言模型推理内核开源库
+  highlights:
+    - en: Achieved 2.8x speedup over baseline attention implementations on A100 GPUs
+      zh: 在 A100 GPU 上较基线注意力实现提速 2.8 倍
+    - en: Adopted by 3 major AI labs, 8,500+ GitHub stars, 200+ contributors
+      zh: 被 3 家主要 AI 实验室采用，GitHub 星标 8500 以上，贡献者 200 余人
+
+neuralprune:
+  name: "[NeuralPrune](https://github.com/)"
+  date: "2021"
+  summary:
+    en: Automated neural network pruning toolkit with differentiable masks
+    zh: 基于可微掩码的神经网络自动剪枝工具包
+  highlights:
+    - en: Reduced model size by 90% with less than 1% accuracy degradation on ImageNet
+      zh: 在 ImageNet 上模型体积缩减 90%，精度损失不到 1%
+    - en: Featured in PyTorch ecosystem tools, 4,200+ GitHub stars
+      zh: 入选 PyTorch 生态工具，GitHub 星标 4200 以上

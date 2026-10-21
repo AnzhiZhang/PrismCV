@@ -1,0 +1,20 @@
+# A target tailored to one job application, named date_company_role.yaml.
+langs: [en]
+max_pages: 1
+sections:
+  # A paragraph written just for this job
+  profile:
+    - text: Systems researcher who turns LLM inference research into fast, reliable production services.
+  education: [princeton-phd, bogazici-bs]
+  experience:
+    # A different title for this target only
+    title: Selected Experience
+    entries:
+      # A variant defined in content/
+      - nexus-ai@inference
+      # Override some fields; the rest come from content/
+      - nvidia-intern:
+          highlights:
+            - Rewritten bullet for this role only
+  projects: [flashinfer]
+  skills: [skills]

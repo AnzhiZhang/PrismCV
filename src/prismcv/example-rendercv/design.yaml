@@ -1,0 +1,31 @@
+# PDF file name pattern; targets may override it. Variables: {lang}, {target}.
+file_name: John_Doe_CV_{lang}
+
+# Language codes and their RenderCV locales.
+languages:
+  en: english
+  zh: mandarin_chinese
+
+# RenderCV design shared by every language. Options: https://docs.rendercv.com
+design:
+  theme: classic
+  page:
+    size: a4
+    show_footer: false
+    show_top_note: false
+  header:
+    connections:
+      phone_number_format: international
+  sections:
+    show_time_spans_in: []
+
+# Settings for one language, added on top of the shared design.
+zh:
+  typography:
+    font_family: Noto Sans SC
+  templates:
+    single_date: YEAR年MONTH月
+    experience_entry:
+      main_column: "**COMPANY**，POSITION\nSUMMARY\nHIGHLIGHTS"
+    education_entry:
+      main_column: "**INSTITUTION**，AREA\nSUMMARY\nHIGHLIGHTS"

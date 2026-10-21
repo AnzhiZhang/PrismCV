@@ -1,0 +1,23 @@
+# Based on RenderCV's sample CV: https://github.com/rendercv/rendercv
+# Plain text is shared by all languages; {en: ..., zh: ...} gives one text per language.
+header:
+  name: { en: John Doe, zh: 约翰·多伊 }
+  location: { en: "San Francisco, CA", zh: 美国旧金山 }
+  email: john.doe@email.com
+  website: https://rendercv.com/
+  social_networks:
+    - network: LinkedIn
+      username: rendercv
+    - network: GitHub
+      username: rendercv
+
+sections:
+  profile:      { en: Profile, zh: 个人简介 }
+  education:    { en: Education, zh: 教育背景 }
+  experience:   { en: Experience, zh: 工作经历 }
+  projects:     { en: Projects, zh: 项目经历 }
+  publications: { en: Publications, zh: 发表论文 }
+  honors:       { en: Selected Honors, zh: 主要荣誉 }
+  patents:      { en: Patents, zh: 专利 }
+  talks:        { en: Invited Talks, zh: 受邀报告 }
+  skills:       { en: Skills, zh: 技能 }

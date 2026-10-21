@@ -1,0 +1,11 @@
+# Academic: research, publications and talks first.
+langs: [en, zh]
+max_pages: 2
+sections:
+  profile: [profile-academic]
+  education: [princeton-phd, bogazici-bs]
+  publications: [paper-moe, paper-nas, paper-marl, paper-quant]
+  experience: [deepmind-intern, nvidia-intern, apple-intern, microsoft-intern, nexus-ai]
+  honors: [honors]
+  talks: [talks]
+  skills: [skills]

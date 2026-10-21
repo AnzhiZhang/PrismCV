@@ -1,0 +1,27 @@
+princeton-phd:
+  institution: { en: Princeton University, zh: 普林斯顿大学 }
+  degree: { en: PhD, zh: 博士 }
+  area: { en: Computer Science, zh: 计算机科学 }
+  location: { en: "Princeton, NJ", zh: 美国普林斯顿 }
+  start_date: 2018-09
+  end_date: 2023-05
+  highlights:
+    - en: "Thesis: Efficient Neural Architecture Search for Resource-Constrained Deployment"
+      zh: 博士论文：面向资源受限部署的高效神经网络架构搜索
+    - en: "Advisor: Prof. Sanjeev Arora"
+      zh: 导师：Sanjeev Arora 教授
+    - en: NSF Graduate Research Fellowship, Siebel Scholar (Class of 2022)
+      zh: 美国国家科学基金会研究生研究奖学金，Siebel 学者（2022 届）
+
+bogazici-bs:
+  institution: { en: Boğaziçi University, zh: 海峡大学 }
+  degree: { en: BS, zh: 学士 }
+  area: { en: Computer Engineering, zh: 计算机工程 }
+  location: { en: "Istanbul, Türkiye", zh: 土耳其伊斯坦布尔 }
+  start_date: 2014-09
+  end_date: 2018-06
+  highlights:
+    - en: "GPA: 3.97/4.00, Valedictorian"
+      zh: GPA：3.97/4.00，毕业生代表
+    - en: Fulbright Scholarship recipient for Graduate Studies
+      zh: 获富布赖特研究生奖学金

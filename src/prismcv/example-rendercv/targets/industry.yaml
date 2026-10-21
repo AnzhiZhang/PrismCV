@@ -1,0 +1,14 @@
+# Industry: work and projects first, no publications.
+langs: [en, zh]
+max_pages: 1
+sections:
+  profile: [profile-industry]
+  education: [princeton-phd, bogazici-bs]
+  experience:
+    - nexus-ai
+    # Hide the bullet with id paper
+    - nvidia-intern: { hide: [paper] }
+    - apple-intern
+  projects: [flashinfer]
+  patents: [patents]
+  skills: [skills]

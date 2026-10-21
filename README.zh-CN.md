@@ -50,7 +50,7 @@ prismcv build main --debug          # 保留生成的 RenderCV 输入文件
 
 简历文件夹包含 `cv.yaml`、`design.yaml`、`content/` 和 `targets/`。在其中运行 `prismcv build`，或者用 `--root` 指定这样的文件夹。PDF 输出到 `out/<版本>/`，输入没有变化的 PDF 不会重新渲染（`--force` 强制渲染）。
 
-`prismcv init --example` 会改为生成一份完整的中英双语示例，用到下面介绍的所有功能。
+`prismcv init --example` 会改为生成一份完整的中英双语示例，用到下面介绍的所有功能。`--example-rendercv` 则生成用同样方式写成的 [RenderCV 官方样例](https://github.com/rendercv/rendercv)。
 
 ## 主题
 

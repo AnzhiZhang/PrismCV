@@ -1,0 +1,78 @@
+# Work and research. Each target decides which entries it shows.
+
+nexus-ai:
+  company: Nexus AI
+  position: { en: Co-Founder & CTO, zh: 联合创始人兼首席技术官 }
+  location: { en: "San Francisco, CA", zh: 美国旧金山 }
+  start_date: 2023-06
+  end_date: present
+  highlights:
+    - en: Built foundation model infrastructure serving 2M+ monthly API requests with 99.97% uptime
+      zh: 搭建基础模型基础设施，每月处理 200 万次以上 API 请求，可用性达 99.97%
+    - en: Raised $18M Series A led by Sequoia Capital, with participation from a16z and Founders Fund
+      zh: 完成 1800 万美元 A 轮融资，由红杉资本领投，a16z 与 Founders Fund 跟投
+    - en: Scaled engineering team from 3 to 28 across ML research, platform, and applied AI divisions
+      zh: 将工程团队从 3 人扩展至 28 人，覆盖机器学习研究、平台与应用 AI 三个部门
+    - en: Developed proprietary inference optimization reducing latency by 73% compared to baseline
+      zh: 自研推理优化技术，延迟较基线降低 73%
+
+# A variant: inherits nexus-ai and replaces the fields written here.
+nexus-ai@inference:
+  highlights:
+    - en: Led the inference team, cutting latency by 73% with custom attention kernels
+      zh: 带领推理团队，通过自研注意力内核将延迟降低 73%
+    - en: Served 2M+ monthly API requests with 99.97% uptime on a multi-cloud GPU fleet
+      zh: 基于多云 GPU 集群，每月处理 200 万次以上 API 请求，可用性达 99.97%
+
+nvidia-intern:
+  company: NVIDIA Research
+  position: { en: Research Intern, zh: 研究实习生 }
+  location: { en: "Santa Clara, CA", zh: 美国圣克拉拉 }
+  start_date: 2022-05
+  end_date: 2022-08
+  highlights:
+    - en: Designed sparse attention mechanism reducing transformer memory footprint by 4.2x
+      zh: 设计稀疏注意力机制，将 Transformer 内存占用降低 4.2 倍
+    # An id lets a target hide this bullet.
+    - id: paper
+      en: Co-authored paper accepted at NeurIPS 2022 (spotlight presentation, top 5% of submissions)
+      zh: 合著论文被 NeurIPS 2022 接收（Spotlight 报告，前 5%）
+
+deepmind-intern:
+  company: Google DeepMind
+  position: { en: Research Intern, zh: 研究实习生 }
+  location: { en: "London, UK", zh: 英国伦敦 }
+  start_date: 2021-05
+  end_date: 2021-08
+  highlights:
+    - en: Developed reinforcement learning algorithms for multi-agent coordination
+      zh: 开发面向多智能体协作的强化学习算法
+    - en: Published an ICML 2022 paper cited 340+ times and a NeurIPS 2022 workshop paper
+      zh: 发表 ICML 2022 论文（被引 340 次以上）及 NeurIPS 2022 研讨会论文一篇
+    # null leaves a bullet out of one language.
+    - en: Invited to extend the work into a JMLR journal article (2023)
+      zh: null
+
+apple-intern:
+  company: Apple ML Research
+  position: { en: Research Intern, zh: 研究实习生 }
+  location: { en: "Cupertino, CA", zh: 美国库比蒂诺 }
+  start_date: 2020-05
+  end_date: 2020-08
+  highlights:
+    - en: Created on-device neural network compression pipeline deployed across 50M+ devices
+      zh: 构建端侧神经网络压缩流程，部署于 5000 万台以上设备
+    - en: Filed 2 patents on efficient model quantization techniques for edge inference
+      zh: 申请 2 项面向边缘推理的高效模型量化专利
+
+microsoft-intern:
+  company: Microsoft Research
+  position: { en: Research Intern, zh: 研究实习生 }
+  location: { en: "Redmond, WA", zh: 美国雷德蒙德 }
+  start_date: 2019-05
+  end_date: 2019-08
+  highlights:
+    - en: Implemented novel self-supervised learning framework for low-resource language modeling
+      zh: 实现面向低资源语言建模的新型自监督学习框架
+    - en: Research integrated into Azure Cognitive Services, reducing training data requirements by 60%
+      zh: 研究成果集成至 Azure 认知服务，训练数据需求降低 60%
