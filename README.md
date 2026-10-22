@@ -18,22 +18,12 @@
 
 Keep your whole career in one place and build every version of your CV from it: each language, academic and industry, and one tailored to each job. Edit an entry once and every version picks it up.
 
-## How it works
+## One content library, many versions
 
-```mermaid
-flowchart LR
-    C["content/<br/>every entry, written once,<br/>languages side by side"]
-    T["targets/x.yaml<br/>which entries, in what order,<br/>what is reworded"]
-    B["PrismCV<br/>assembles one YAML per language"]
-    R["RenderCV<br/>typesets it into PDF"]
-    P["out/x/*.pdf"]
+Write an entry once in `content/`. A target decides which sections and entries appear, in what
+order, what is hidden, and what is reworded for that version only.
 
-    C --> B
-    T --> B
-    B --> R --> P
-```
-
-[RenderCV](https://github.com/rendercv/rendercv) typesets one YAML file into a PDF. PrismCV assembles that file from your content and a target; all layout is RenderCV's.
+![The same CV content shaped into an academic version and an industry version](https://raw.githubusercontent.com/AnzhiZhang/PrismCV/main/docs/versions.en.png)
 
 ## Quick start
 
@@ -125,6 +115,23 @@ sections:
 Ids are optional; existing syntax still works. `text` can hold shared text or a language mapping. Only bullets listed in `hide` are hidden, so new bullets appear by default; editing or reordering bullets does not change the selection.
 
 Hiding takes effect after variant inheritance and field overrides. Ids must be non-empty strings and unique within an entry; hiding an id missing from the final `highlights` is a build error.
+
+## How it works
+
+```mermaid
+flowchart LR
+    C["content/<br/>every entry, written once,<br/>languages side by side"]
+    T["targets/x.yaml<br/>which entries, in what order,<br/>what is reworded"]
+    B["PrismCV<br/>assembles one YAML per language"]
+    R["RenderCV<br/>typesets it into PDF"]
+    P["out/x/*.pdf"]
+
+    C --> B
+    T --> B
+    B --> R --> P
+```
+
+[RenderCV](https://github.com/rendercv/rendercv) typesets one YAML file into a PDF. PrismCV assembles that file from your content and a target; all layout is RenderCV's.
 
 ## Languages
 

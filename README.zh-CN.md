@@ -18,22 +18,11 @@
 
 把所有经历集中放在一处，由它生成每个版本的简历：各种语言、学术版和工业版，以及为每个岗位定制的版本。一段经历只改一次，所有版本都会更新。
 
-## 原理
+## 一份内容，多个版本
 
-```mermaid
-flowchart LR
-    C["content/<br/>所有经历，只写一次，<br/>各种语言写在一起"]
-    T["targets/x.yaml<br/>用哪些条目、什么顺序、<br/>改写哪些地方"]
-    B["PrismCV<br/>拼出每种语言一份 YAML"]
-    R["RenderCV<br/>排版成 PDF"]
-    P["out/x/*.pdf"]
+经历在 `content/` 里只写一次。版本决定显示哪些分区和条目、按什么顺序、隐藏什么，以及哪些措辞只在这个版本里改写。
 
-    C --> B
-    T --> B
-    B --> R --> P
-```
-
-[RenderCV](https://github.com/rendercv/rendercv) 把一份 YAML 排版成 PDF。Prism CV 根据内容和版本文件拼出这份 YAML，排版全部由 RenderCV 完成。
+![同一份简历内容生成学术版和工业版两个版本](https://raw.githubusercontent.com/AnzhiZhang/PrismCV/main/docs/versions.zh.png)
 
 ## 快速开始
 
@@ -125,6 +114,23 @@ sections:
 id 是可选的，原有写法继续有效。`text` 可以是各语言共用的文字，也可以是语言映射。只有 `hide` 列出的 bullet 会被隐藏，新 bullet 默认保留；修改文字或调整顺序不影响隐藏选择。
 
 隐藏在变体继承和字段覆盖之后生效。id 必须是非空字符串，在同一条目中不能重复；指定的 id 若不在最终 `highlights` 中，构建会报错。
+
+## 原理
+
+```mermaid
+flowchart LR
+    C["content/<br/>所有经历，只写一次，<br/>各种语言写在一起"]
+    T["targets/x.yaml<br/>用哪些条目、什么顺序、<br/>改写哪些地方"]
+    B["PrismCV<br/>拼出每种语言一份 YAML"]
+    R["RenderCV<br/>排版成 PDF"]
+    P["out/x/*.pdf"]
+
+    C --> B
+    T --> B
+    B --> R --> P
+```
+
+[RenderCV](https://github.com/rendercv/rendercv) 把一份 YAML 排版成 PDF。Prism CV 根据内容和版本文件拼出这份 YAML，排版全部由 RenderCV 完成。
 
 ## 语言
 
