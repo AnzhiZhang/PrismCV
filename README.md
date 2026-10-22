@@ -20,9 +20,6 @@ Keep your whole career in one place and build every version of your CV from it: 
 
 ## One content library, many versions
 
-Write an entry once in `content/`. A target decides which sections and entries appear, in what
-order, what is hidden, and what is reworded for that version only.
-
 ![The same CV content shaped into an academic version and an industry version](https://raw.githubusercontent.com/AnzhiZhang/PrismCV/main/docs/versions.en.png)
 
 ## Quick start

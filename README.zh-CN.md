@@ -20,8 +20,6 @@
 
 ## 一份内容，多个版本
 
-经历在 `content/` 里只写一次。版本决定显示哪些分区和条目、按什么顺序、隐藏什么，以及哪些措辞只在这个版本里改写。
-
 ![同一份简历内容生成学术版和工业版两个版本](https://raw.githubusercontent.com/AnzhiZhang/PrismCV/main/docs/versions.zh.png)
 
 ## 快速开始
