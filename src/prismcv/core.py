@@ -17,6 +17,8 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
+import yaml
+
 if TYPE_CHECKING:
     from .portability import CVData
 
@@ -127,6 +129,39 @@ class Assembled:
 
     doc: dict
     sources: dict[Key, Source] = field(default_factory=dict)
+
+    def to_dict(self) -> dict:
+        """Return an independent copy of the RenderCV document, in its original order."""
+        return copy.deepcopy(self.doc)
+
+    def to_yaml(self) -> str:
+        """Serialize the document without adding build settings or writing files."""
+        return yaml.safe_dump(
+            self.to_dict(),
+            allow_unicode=True,
+            sort_keys=False,
+            default_flow_style=False,
+            width=1000,
+        )
+
+    def validate(self) -> list[Issue]:
+        """Run RenderCV's checks, retaining the original source of each problem."""
+        # Defer the reverse dependency on this module.
+        from .validate import validate
+
+        return validate(self)
+
+    def to_typst(self) -> str:
+        """Validate and return Typst source, without running the CLI or compiler.
+
+        Raises PrismError with source-mapped issues for invalid input. RenderCV's
+        resource behavior applies: remote photos may be downloaded and local
+        custom themes/templates may be loaded. Each call uses an isolated copy.
+        """
+        # Keep assembly independent of rendering and avoid a circular import.
+        from .render import to_typst
+
+        return to_typst(self)
 
     def source_of(self, location) -> Source | None:
         """The source of a location in doc, or of the nearest enclosing value that has one."""

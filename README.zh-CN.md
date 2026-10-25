@@ -136,16 +136,22 @@ flowchart LR
 
 ## 在 Python 中使用
 
-命令行只是一层外壳，核心功能都是处理普通字典的函数，因此其他程序也可以用不在文件里的数据生成简历：
+从字典创建简历，再按目标和语言拼装文档：
 
 ```python
-from prismcv import CV, validate
+from prismcv import CV
 
-cv = CV(cv_yaml, design_yaml, entries)       # 与简历文件夹相同的数据，以字典形式传入
-result = cv.assemble(target, "en")           # 一个版本、一种语言的 RenderCV 输入
-for issue in validate(result):               # RenderCV 自身的校验
-    print(issue.source, issue.message)       # 每个问题都指向它所在的条目和字段
+cv = CV(cv_yaml, design_yaml, entries)
+document = cv.assemble(target, "en", literal=True)
+
+issues = document.validate()
+rendercv_data = document.to_dict()
+yaml_text = document.to_yaml()
+typst_source = document.to_typst()
 ```
+
+校验问题包含原始来源；`to_typst()` 会自行校验，失败时抛出 `PrismError`。
+输入格式、错误处理和资源行为见 [Python API 文档（英文）](docs/python-api.md)。
 
 ## 开发
 

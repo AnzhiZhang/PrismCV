@@ -136,16 +136,23 @@ flowchart LR
 
 ## Use from Python
 
-The command line is a thin layer over functions that work on plain dictionaries, so other programs can build CVs from data that is not in files:
+Create a CV from dictionaries and assemble a target in one language:
 
 ```python
-from prismcv import CV, validate
+from prismcv import CV
 
-cv = CV(cv_yaml, design_yaml, entries)       # the same data as a CV folder, as dictionaries
-result = cv.assemble(target, "en")           # RenderCV input for one target and language
-for issue in validate(result):               # RenderCV's own checks
-    print(issue.source, issue.message)       # each problem points at the entry and field it came from
+cv = CV(cv_yaml, design_yaml, entries)
+document = cv.assemble(target, "en", literal=True)
+
+issues = document.validate()
+rendercv_data = document.to_dict()
+yaml_text = document.to_yaml()
+typst_source = document.to_typst()
 ```
+
+Validation issues include their original sources. `to_typst()` validates the
+input and raises `PrismError` on failure. See the [Python API guide](docs/python-api.md)
+for input formats, error handling and resource behavior.
 
 ## Development
 

@@ -1,4 +1,4 @@
-"""Render RenderCV input to PDF by running RenderCV."""
+"""Generate Typst source in Python or build PDF files through the RenderCV CLI."""
 
 from __future__ import annotations
 
@@ -8,19 +8,39 @@ import sys
 from pathlib import Path
 
 import yaml
+from rendercv.renderer.templater import templater
 
-SCHEMA = "https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json"
+from .core import Assembled, PrismError
+from .validate import _build_model, _issues_from_error
+
+SCHEMA = (
+    "https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json"
+)
 
 
 class RenderError(Exception):
     pass
 
 
+def to_typst(assembled: Assembled) -> str:
+    """Generate source using RenderCV's templates and an isolated, validated model.
+
+    No CLI, compiler or output writer is invoked. RenderCV may still download
+    remote photos or load local custom themes/templates, as in its own renderer.
+    """
+    model = _build_model(assembled)
+    try:
+        return templater.render_full_template(model, "typst")
+    except Exception as e:
+        raise PrismError(_issues_from_error(assembled, e, "generate Typst")) from e
+
+
 def write_input(doc: dict, folder: Path, stem: str) -> Path:
     """Write the RenderCV input file, set to produce only <stem>.pdf and <stem>.typ in folder."""
     doc = dict(doc)
     settings = dict(doc.get("settings") or {})
-    settings["render_command"] = {**(settings.get("render_command") or {}),
+    settings["render_command"] = {
+        **(settings.get("render_command") or {}),
         "output_folder": ".",
         "pdf_path": f"{stem}.pdf",
         "typst_path": f"{stem}.typ",
@@ -40,10 +60,17 @@ def write_input(doc: dict, folder: Path, stem: str) -> Path:
 def render(doc: dict, folder: Path, stem: str) -> Path:
     """Render doc to folder/<stem>.pdf and return its path."""
     path = write_input(doc, folder, stem)
-    exe = shutil.which("rendercv", path=str(Path(sys.executable).parent)) or shutil.which("rendercv")
+    exe = shutil.which(
+        "rendercv", path=str(Path(sys.executable).parent)
+    ) or shutil.which("rendercv")
     if not exe:
         raise RenderError("rendercv not found - reinstall prismcv: pip install prismcv")
-    proc = subprocess.run([exe, "render", path.name], cwd=folder, capture_output=True, text=True)
+    proc = subprocess.run(
+        [exe, "render", path.name], cwd=folder, capture_output=True, text=True
+    )
     if proc.returncode != 0:
-        raise RenderError(f"RenderCV failed (run with --debug to keep its input):\n{proc.stdout}{proc.stderr}")
+        raise RenderError(
+            "RenderCV failed (run with --debug to keep its input):\n"
+            f"{proc.stdout}{proc.stderr}"
+        )
     return folder / f"{stem}.pdf"
